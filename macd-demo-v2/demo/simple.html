@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.33">
+    <!-- 时间轴引入 -->
+    <script src="../timeline/bundle.umd.min.js"></script>
+    <!-- D3Charts引入 -->
+    <script src="https://s.thsi.cn/cd/iwc-datav-d3-charts/d3_charts_0.4.38.js"></script>
+    <!-- 配置项处理引入 -->
+    <script src="../core/options.js"></script>
+    <!-- 时间轴Helper引入 -->
+    <script src="../core/timeLineHelper.js"></script>
+    <style>
+        html, body{
+            margin: 0;
+            padding: 0;
+        }
+        .chart {
+            width: 800px;
+            height: 600px;
+        }
+        .timeline{
+            font-size: 300px;
+        }
+    </style>
+    <title>跑通流程</title>
+</head>
+<body>
+    <div class="chart" id="chart"></div>、
+    <div class="timeline" id="timeline"></div>
+    <script>
+        const chart = D3Charts.init('chart');
+        const DP = D3Charts.getDataPool();
+        const klinedata = {
+            type: 'klineLast',
+            code: 'qh_au9999',
+            sliceDays: ['20220628', '20220927'],
+            ma: [5, 10, 30]
+        }
+        const dataProvider = DP.register(klinedata);
+        DP.onAction(dataProvider, 'PROVIDER_UPDATE.myproject', function(res) {
+            if (res.fetchStatus.code !== '000') return;
+            const kData = res.data.dataArray;
+            const option = getOption(kData); 
+            chart.setOption(option);
+            const timelineDom = document.getElementById('timeline');
+            const timeline = new ThsDataVTimeline.Timeline(timelineDom, {
+                theme: 'mobile-withValueOuter',
+                data: kData.map(item => item.t),
+                config: {
+                    animation: {
+                        intervalTime: 250
+                    }
+                }
+            });
+            chart.on('VIEW_DID_RENDER', () => {
+                const timelineHelper = new TimeLineHelper(chart, 0);
+                timeline.on('change', params => {
+                    console.log('params', params.index, params);
+                })
+            })
+        })
+    </script>
+</body>
+</html>
