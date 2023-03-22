@@ -18,8 +18,9 @@
             padding: 0;
         }
         .chart {
-            width: 800px;
-            height: 600px;
+            width: calc(375px * 3);
+            height: calc(274px * 3);
+            margin: auto;
         }
         .timeline{
             font-size: 300px;
@@ -36,30 +37,31 @@
         const klinedata = {
             type: 'klineLast',
             code: 'qh_au9999',
-            sliceDays: ['20220628', '20220927'],
-            ma: [5, 10, 30]
+            sliceDays: ['20220918', '20221118'],
+            // ma: [5, 10, 30]
         }
         const dataProvider = DP.register(klinedata);
         DP.onAction(dataProvider, 'PROVIDER_UPDATE.myproject', function(res) {
             if (res.fetchStatus.code !== '000') return;
             const kData = res.data.dataArray;
-            const option = getOption(kData); 
+            const optionManager = new OptionManager(3, 'bulin', kData);
+            const option = optionManager.getOption(); 
             chart.setOption(option);
             const timelineDom = document.getElementById('timeline');
-            const timeline = new ThsDataVTimeline.Timeline(timelineDom, {
-                theme: 'mobile-withValueOuter',
-                data: kData.map(item => item.t),
-                config: {
-                    animation: {
-                        intervalTime: 250
-                    }
-                }
-            });
+            // const timeline = new ThsDataVTimeline.Timeline(timelineDom, {
+            //     theme: 'mobile-withValueOuter',
+            //     data: kData.map(item => item.t),
+            //     config: {
+            //         animation: {
+            //             intervalTime: 250
+            //         }
+            //     }
+            // });
             chart.on('VIEW_DID_RENDER', () => {
                 const timelineHelper = new TimeLineHelper(chart, 0);
-                timeline.on('change', params => {
-                    console.log('params', params.index, params);
-                })
+                // timeline.on('change', params => {
+                //     console.log('params', params.index, params);
+                // })
             })
         })
     </script>
