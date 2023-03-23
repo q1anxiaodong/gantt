@@ -304,7 +304,7 @@ const getData = (data) => {
 const getTextStyle = (scale) => {
   return {
     fontSize: 12 * scale,
-    fontFamily: "sans-serif",
+    fontFamily: "THSJinRongTi-Medium",
     fontStyle: "normal",
     fontWeight: "normal",
   };
@@ -313,10 +313,10 @@ const getTextStyle = (scale) => {
 const getGrid = (index, scale) => {
   const isMainGrid = index === 0;
   const originHeight = isMainGrid ? 160 : 64;
-  const originWidth = 323;
+  // const originWidth = 323;
   const originLeft = 10;
   const OriginRight = 10;
-  const top = isMainGrid ? 0 : "67%";
+  // const top = isMainGrid ? 0 : "67%";
   const bottom = isMainGrid ? "38%" : '5%';
   return {
     left: originLeft * scale,
@@ -324,7 +324,7 @@ const getGrid = (index, scale) => {
     right: OriginRight * scale,
     bottom,
     height: originHeight * scale,
-    background: { show: true, borderEnable: 1, style: {fill: index === 0 ? 'rgba(255, 0, 0, 0.3)' : 'rgba(0, 255, 0, 0.3)'}}
+    background: { show: false, borderEnable: 1, style: {fill: index === 0 ? 'rgba(255, 0, 0, 0.3)' : 'rgba(0, 255, 0, 0.3)'}}
   };
 };
 
@@ -334,27 +334,43 @@ const getXAxis = (gridIndex, scale) => {
     Array.isArray(gridIndex) &&
     gridIndex.length > 1
   );
+  const axisLabelFormatter = (label, index, len) => {
+    return `${label.slice(4, 6)}-${label.slice(6, 8)}`;
+  }
+  const axisTickValues = (labelArr) => {
+    const lastIndex = labelArr.length - 1;
+    const percent = [0, 0.25, 0.5, 0.75, 1];
+    return percent.map(per => {
+        return labelArr[Math.floor(lastIndex * per)];
+    })
+  }
   return {
     xOrY: "x",
+    position: 'bottom',
+    type: 'band',
     $dataIndex: 0,
     $gridIndex: gridIndex,
     dataKey: "t",
-    paddingOuter: "0.12",
+    // paddingInner: 0.1 * scale,
+    // paddingOuter: 0.1 * scale,
     splitLine: { show: false },
+    tickValues: axisTickValues,
     label: {
       show: true,
-      style: { fill: "rgba(255,255,255,0.6)" },
+      inRange: true,
+      formatter: axisLabelFormatter,
+      style: { fill: "rgba(0,0,0,0.6)" },
     },
     line: { show: false },
     tick: { show: false },
-    interval: isMultGrid ? 38 : 8,
+    interval: isMultGrid ? 100 : 8,
   };
 };
 
 const getYAxis = (gridIndex, scale) => {
   const isMainYAxis = !!(gridIndex === 0);
   const tickValues = (domain) => {
-    const intervals = [0, 0.25, 0.5, 0.75, 1];
+    const intervals = isMainYAxis ? [0, 0.25, 0.5, 0.75, 1] : [0, 0.5, 1];
     const extent = Math.abs(domain[0] - domain[1]);
     const start = Math.min(domain[0], domain[1]);
     console.log('domain', domain);
@@ -363,6 +379,7 @@ const getYAxis = (gridIndex, scale) => {
   const labelFormatter = (originVal, index, len) => {
     const value = originVal.toFixed(2);
     if (index !== 0 && index !== len - 1) return `{middle|${value}}`;
+    if (!isMainYAxis) return '';
     return value;
   }
   return {
@@ -373,14 +390,14 @@ const getYAxis = (gridIndex, scale) => {
     tickValues,
     splitLine: {
       show: true,
-      style: { color: "rgba(255,255,255,0.6)", lineWidth: 1 * scale },
+      style: { color: "rgba(0,0,0,0.06)", lineWidth: 1 * scale },
     },
     label: {
       inside: true,
       inRange: true,
       formatter: labelFormatter,
       style: { 
-        fill: "rgba(255,255,255,0.6)",
+        fill: "rgba(0,0,0,0.6)",
         rich: {
             middle: { textPadding: [12 * scale, 0, 0, 0] }
         }
@@ -400,27 +417,93 @@ const getKLineSeries = (scale) => {
         $dataIndex: 0,
         $axisIndex: [0, 1],
         hq: {
-            up: {fill: 'transparent', lineWidth: 1 * scale},
+            up: {fill: 'transparent',  lineWidth: 1 * scale},
             down: {lineWidth: 1 * scale},
-            up: {lineWidth: 1 * scale},
+            eq: {lineWidth: 1 * scale},
         }
     }
 };
-// const 
+const getLineSeries = (name, dataKey, axisIndex, color, scale) => {
+    return {
+        name: name,
+        type: 'line',
+        aliasType: 'hqline',
+        dataKey: dataKey,
+        $dataIndex: 0,
+        $axisIndex: axisIndex,
+        line: {show: true, style: { normal: { stroke:  color, lineWidth: 1 * scale} } }
+    }
+}
+const getBarSeries = (name, dataKey, axisIndex, upBarColor, downBarColor) => {
+    const itemStyleFun = (data) => {
+        // TODO: 后续删除条件中的常量
+        if (data[1] - 867651125 > 0) {return { fill: upBarColor }}
+        else {return { fill: downBarColor }}
+    };
+    return {
+        name: name,
+        type: 'bar',
+        $dataIndex: 0,
+        $axisIndex: axisIndex,
+        dataKey: dataKey,
+        itemStyle: {
+            normal: itemStyleFun
+        }
+    };
+};
+const getLegend = (data, scale) => {
+    const legendFormatter = (label, params) => {
+        console.log('args', label, params);
+        return `{label|${label}}`;
+    }
+    return {
+        show: true,
+        top: '65%',
+        padding: 0,
+        addLine: false,
+        align: 'left',
+        horizontalGap: 0,
+        innerGap: 5,
+        // symbol: { type: 'none', size: 10 * scale },
+        formatter: legendFormatter,
+        textStyle: {
+            fontSize: 12 * scale,
+            rich: {
+                // label: { textVerticalAlign: 'middle' }
+            }
+        },
+        data: data
+    }
+}
+const getAxisPointer = (orient, axisIndex, gap, scale) => {
+    const isVertical = orient === 'vertical';
+    const axisPointerFormatter = (value) => {
+       return isVertical ? `${value.slice(4, 6)}-${value.slice(6, 8)}` : value.toFixed(2);
+    }
+    return {
+        $axisIndex: axisIndex,
+        line: {
+            style: {
+                stroke: '#858585',
+                lineWidth: 1 * scale,
+            }
+        },
+        label: {
+            gap: gap,
+            inside: true,
+            inRange: true,
+            formatter: axisPointerFormatter,
+            style: {
+                fill: '#fff',
+                textPadding: [3, 4],
+                textLineHeight: 12 * scale,
+                textBorderRadius: 4,
+                textBackgroundColor: '#3366ff'
+            }
+        }
+    }
+}
 //---------------------------------
-
-// 布林线策略
-// const bulinOption = () => {
-//     return {
-//         textStyle: getTextStyle(),
-//         grid: [getGrid(0), getGird(1)],
-//         axis: [getXAxis(), getYAxis(0), getYAxis(1)],
-//         series: [getKLine(0, 1)]
-//     }
-// }
-// const chartMap = {
-//     bulin: bulinOption,
-// }
 
 class OptionManager {
   constructor(scale, chartName, data) {
@@ -452,10 +535,19 @@ class OptionManager {
       data: getData(data),
       textStyle: getTextStyle(scale),
       grid: [getGrid(0, scale), getGrid(1, scale)],
-      axis: [getXAxis([0, 1], scale), getYAxis(0, scale), getYAxis(1, scale)],
+      axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
+      axisPointer: [ getAxisPointer('vertical', 0, -48, scale), getAxisPointer('horizontal', [1, 2], -4, scale) ],
+      legend: getLegend(['up', 'mid', 'low', 'boll'], scale),
       series: [
         getKLineSeries(scale),
-
+        // up线
+        getLineSeries('up', 'a', [0, 2], '#ff2436', scale),
+        // mid线
+        getLineSeries('mid', 'o', [0, 2], '#3366ff', scale),
+        // low线
+        getLineSeries('low', 'i', [0, 2], '#07ab4b', scale),
+        // 下方的柱子
+        getBarSeries('boll', 'o', [0, 2], '#ff2436', '#07ab4b', )
       ],
     };
   }

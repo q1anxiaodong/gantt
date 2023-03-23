@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,21 +14,37 @@
     <!-- 时间轴Helper引入 -->
     <script src="../core/timeLineHelper.js"></script>
     <style>
-        html, body{
+        html,
+        body {
             margin: 0;
             padding: 0;
         }
+
         .chart {
             width: calc(375px * 3);
             height: calc(274px * 3);
+            /* width: 800px; */
+            /* height: 600px; */
             margin: auto;
         }
-        .timeline{
+
+        .timeline {
             font-size: 300px;
+        }
+
+        @font-face {
+            font-family: THSJinRongTi-Regular;
+            src: url(https://s.thsi.cn/cd/ths-frontend-common-lib-container/v1.3.6/common/font/THSJinRongTi-Regular.otf);
+        }
+
+        @font-face {
+            font-family: THSJinRongTi-Medium;
+            src: url(https://s.thsi.cn/cd/ths-frontend-common-lib-container/v1.3.6/common/font/THSJinRongTi-Medium.otf);
         }
     </style>
     <title>跑通流程</title>
 </head>
+
 <body>
     <div class="chart" id="chart"></div>、
     <div class="timeline" id="timeline"></div>
@@ -36,16 +53,16 @@
         const DP = D3Charts.getDataPool();
         const klinedata = {
             type: 'klineLast',
-            code: 'qh_au9999',
-            sliceDays: ['20220918', '20221118'],
+            code: 'hs_300033',
+            sliceDays: ['20210918', '20211118'],
             // ma: [5, 10, 30]
         }
         const dataProvider = DP.register(klinedata);
-        DP.onAction(dataProvider, 'PROVIDER_UPDATE.myproject', function(res) {
+        DP.onAction(dataProvider, 'PROVIDER_UPDATE.myproject', function (res) {
             if (res.fetchStatus.code !== '000') return;
             const kData = res.data.dataArray;
             const optionManager = new OptionManager(3, 'bulin', kData);
-            const option = optionManager.getOption(); 
+            const option = optionManager.getOption();
             chart.setOption(option);
             const timelineDom = document.getElementById('timeline');
             // const timeline = new ThsDataVTimeline.Timeline(timelineDom, {
@@ -66,4 +83,5 @@
         })
     </script>
 </body>
+
 </html>
