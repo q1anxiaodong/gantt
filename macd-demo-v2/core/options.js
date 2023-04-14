@@ -599,6 +599,13 @@ const getFlagSeries = (name, axisIndex, xIndex, content, scale) => {
 };
 //******************************** */
 class OptionManager {
+  /**
+   * 
+   * @param {*} scale 页面缩放比例
+   * @param {*} chartName 图表名称 九个图名字之一
+   * @param {*} data 原始数据
+   * @param {*} flagContent 旗子的内容
+   */
   constructor(scale, chartName, data, flagContent) {
     this.option = null;
     this.scale = scale;
@@ -659,34 +666,36 @@ class OptionManager {
 
   getKDJChartOption() {
     // 这里是KDJ图表的option逻辑
-    const { scale, data } = this;
+    const { scale, data, flagContent } = this;
+    if (!data) {
+      console.trace('what');
+    }
+    const dataLen = this.data.length;
     return {
-      title: {
-        text: "KDJ图表",
-      },
-      tooltip: {},
-      xAxis: {},
-      yAxis: {},
-      series: [
-        {
-          name: "K值",
-          data: [10, 20, 30, 40, 50],
-          type: "line",
-        },
-        {
-          name: "D值",
-          data: [20, 30, 40, 50, 60],
-          type: "line",
-        },
-        {
-          name: "J值",
-          data: [30, 40, 50, 60, 70],
-          type: "line",
-        },
+      scale: scale,
+      data: getData(data),
+      textStyle: getTextStyle(scale),
+      grid: [getGrid(0, scale), getGrid(1, scale)],
+      axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
+      axisPointer: [
+        getAxisPointer("vertical", 0, -48, scale),
+        getAxisPointer("horizontal", [1, 2], -4, scale),
       ],
+      legend: getLegend(legendLabelMap["bulin"].data, scale),
+      series: [
+        getKLineSeries(scale),
+        // up线
+        getLineSeries("UP", "line1", [0, 2], "#ff2436", scale),
+        // mid线
+        getLineSeries("MID", "line2", [0, 2], "#3366ff", scale),
+        // low线
+        getLineSeries("LOW", "line3", [0, 2], "#07ab4b", scale),
+        // 下方的柱子
+        getBarSeries("BOLL", "o", [0, 2], "#ff2436", "#07ab4b"),
+        getFlagSeries("klineFlag", [0, 1], dataLen - 1, flagContent[0].label, scale),
+        getFlagSeries("barFlag", [0, 2], dataLen - 1, flagContent[1].label, scale),
+      ],
+      markArea: [getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale), getMarkArea([0, 2], 1, [dataLen - 1, dataLen - 1], true, scale)],
     };
   }
 }
-
-// test
-// const optionManager = new OptionManager(1.2, "bulin");
