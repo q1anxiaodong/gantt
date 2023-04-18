@@ -16,20 +16,23 @@ class TimeLineHelper {
   getSeriesInfo() {
     const D3Ins = this._D3Ins;
     const getInfo = (model) => {
-        const view = D3Ins.getViewOfComponentModel(model);
-        const grid = model.getAxisModel("y").dependentModels.grid;
-        const type = model.type;
-  
-        this.seriesInfo.push({ model, view, grid, type });
-      };
+      if (model.get('id') === "waterMark" && model.type === "custom") {
+        return;
+      }
+      const view = D3Ins.getViewOfComponentModel(model);
+      const grid = model.getAxisModel("y").dependentModels.grid;
+      const type = model.type;
+
+      this.seriesInfo.push({ model, view, grid, type });
+    };
     D3Ins.getModel().eachComponent("series", getInfo);
-    D3Ins.getModel().eachComponent('markArea',getInfo);
+    D3Ins.getModel().eachComponent("markArea", getInfo);
   }
   init() {
     this.seriesInfo.forEach((series) => {
       if (["bar", "hqbar"].indexOf(series.type) !== -1) {
         const { model, view, grid } = series;
-        const scale = this._D3Ins.getModel().get('scale');
+        const scale = this._D3Ins.getModel().get("scale");
         const bandWidth = model.bandwidth;
         let states = model.points.map((item, index) => {
           return {
@@ -46,21 +49,20 @@ class TimeLineHelper {
         const position = grid.position;
         this.seriesInfo.forEach((itm) => {
           if (itm.grid.id === grid.id) {
-            if (['custom', 'markArea'].indexOf(itm.type) !== -1) {
+            if (["custom", "markArea"].indexOf(itm.type) !== -1) {
               const elZeroState = {
                 ignore: true,
               };
               itm.view.group.childAt(0).eachChild((el, idx) => {
                 const elStates = states.map((item, index) => {
                   return {
-                    ignore: index < itm.model.get('xIndex'),
+                    ignore: index < itm.model.get("xIndex"),
                   };
                 });
                 el.states = elStates;
                 el.zeroState = elZeroState;
               });
-            } 
-            else {
+            } else {
               const clipPath = new D3Charts.graphic.Rect({
                 shape: {
                   x: position.left,
@@ -75,7 +77,7 @@ class TimeLineHelper {
               //     return {shape: state.lineShape, style: state.style};
               //   })
               // } else {
-                clipStates = states;
+              clipStates = states;
               // }
               clipPath.states = clipStates;
               clipPath.zeroState = zeroState;
@@ -89,7 +91,7 @@ class TimeLineHelper {
   initState(index) {
     this.seriesInfo.forEach((item) => {
       const { type, view } = item;
-      if (['custom', 'markArea'].indexOf(type) !== -1) {
+      if (["custom", "markArea"].indexOf(type) !== -1) {
         view.group.childAt(0).eachChild((el) => {
           this.useState(el, index);
         });
@@ -109,16 +111,16 @@ class TimeLineHelper {
     animation ? el.animateTo(state) : el.attr(state);
   }
   change(index, animation) {
+    const lineAnimation = animation === undefined ? true : animation;
     this.seriesInfo.forEach((series) => {
       const { type, view } = series;
-      if (['custom', 'markArea'].indexOf(type) !== -1) {
+      if (["custom", "markArea"].indexOf(type) !== -1) {
         view.group.childAt(0).eachChild((el) => {
           this.useState(el, index, animation);
         });
-      } else if (type === 'line') {
-        this.useState(view.group.clipPath, index, true);
-      }
-       else {
+      } else if (type === "line") {
+        this.useState(view.group.clipPath, index, lineAnimation);
+      } else {
         this.useState(view.group.clipPath, index, animation);
       }
     });
@@ -128,23 +130,53 @@ class TimeLineHelper {
 const changeChartLegend = (chart, lastIndex, changeMap) => {
   if (!changeMap || !changeMap.length) return;
   const globalModel = chart.getModel();
-  const legendModel = globalModel.getComponentByIndex('legend', 0);
+  const legendModel = globalModel.getComponentByIndex("legend", 0);
   const legendView = chart.getViewOfComponentModel(legendModel);
-  changeMap.forEach(({source, target}) => {
+  changeMap.forEach(({ source, target }) => {
     const seriesModel = globalModel.getSeriesByName(source)[0];
     const seriesData = seriesModel.getData();
     const last = Math.max(0, Math.min(lastIndex, seriesData.length - 1));
-    const name = `{${source}|${target.replace('$', seriesData[last][1].toFixed(2))}}`;
-    legendView.group.eachChild(child => {
+    let name = `{${source}|${target.replace(
+      "$",
+      (seriesModel.type === 'hqbar' ? seriesData[last][1][0] : seriesData[last][1]).toFixed(2)
+    )}}`;
+    legendView.group.eachChild((child) => {
       if (child._name === source) {
-        child.traverse(el => {
-          if (el.style.text){
+        child.traverse((el) => {
+          if (el.style.text) {
+            let iconStyle = '';
+            ['icon_Line', 'icon_Bar'].forEach(str => {
+              if (el.style.text.indexOf(str) !== -1) {
+                iconStyle += `{${str}|}`;
+              }
+            });
+            name = iconStyle + name;
             el.attr({
-              style: {text: name}
-            })
+              style: { text: name },
+            });
           }
-        })
+        });
       }
-    })
+    });
+  });
+};
+
+const changeChartWaterMark = (chart, lastIndex) => {
+  if (!chart || lastIndex === undefined) {
+    return;
+  }
+  const globalModel = chart.getModel();
+  const waterMarkModel = globalModel.getComponentById("series", 'waterMark');
+  const waterMarkView = chart.getViewOfComponentModel(waterMarkModel);
+  const targetLabel = waterMarkModel.domain[lastIndex];
+  const markLabel = `${targetLabel.slice(4 , 6)}-${targetLabel.slice(6 , 8)}`;
+  waterMarkView.group.traverse(el => {
+    if (el.style && el.style.text !== undefined) {
+      el.attr({
+        style: {
+          text: markLabel
+        }
+      })
+    }
   })
 }

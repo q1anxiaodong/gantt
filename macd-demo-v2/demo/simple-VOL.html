@@ -67,6 +67,7 @@
                     line1: item.o - 30,
                     line2: item.o - 50,
                     line3: item.o + 30,
+                    line4: item.o + 60,
                 }
             })
             // 配置管理 
@@ -77,8 +78,8 @@
              * @param {*} data 原始数据
              * @param {*} flagContent 旗子的内容
              */
-            const optionManager = new OptionManager(3, 'KDJ', kData, [
-                { label: '出现一阳包三阴，结合KDJ\n金叉，次日上涨概率30%' },
+            const optionManager = new OptionManager(3, 'VOL', kData, [
+                { label: '24、72、200日均线多头排列，\n形成VOL指标，次日上涨概率30%' },
                 { label: '金叉，买入信号' }
             ]);
             // 获取对应图表配置项
@@ -114,17 +115,18 @@
                 }
             });
             chart.on('VIEW_DID_RENDER', () => {
-                const initTimeLineIndex = 0;
+                const initTimeLineIndex = 37;
                 const legendLabelMap = [
-                    { source: 'KDJ', target: 'KDJ($):' },
-                    { source: 'K', target: 'K:$' },
-                    { source: 'D', target: 'D:$' },
-                    { source: 'J', target: 'J:$' },
+                    { source: 'VOL', target: '成交量:$' },
+                    { source: 'MA5', target: 'MA5:$' },
+                    { source: 'MA60', target: '60:$' },
                 ];
-                changeChartWaterMark(chart, initTimeLineIndex);
                 const timelineHelper = new TimeLineHelper(chart, initTimeLineIndex);
+                console.log('33');
+                changeChartWaterMark(chart, initTimeLineIndex);
                 changeChartLegend(chart, initTimeLineIndex, legendLabelMap)
                 timeline.on('change', params => {
+                    console.log('22');
                     changeChartWaterMark(chart, params.index);
                     changeChartLegend(chart, params.index, legendLabelMap)
                     const animation = ['play'].indexOf(params.causeBy) !== -1;

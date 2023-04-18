@@ -42,7 +42,7 @@
             src: url(https://s.thsi.cn/cd/ths-frontend-common-lib-container/v1.3.6/common/font/THSJinRongTi-Medium.otf);
         }
     </style>
-    <title>KDJ示例</title>
+    <title>OBV示例</title>
 </head>
 
 <body>
@@ -77,9 +77,9 @@
              * @param {*} data 原始数据
              * @param {*} flagContent 旗子的内容
              */
-            const optionManager = new OptionManager(3, 'KDJ', kData, [
-                { label: '出现一阳包三阴，结合KDJ\n金叉，次日上涨概率30%' },
-                { label: '金叉，买入信号' }
+            const optionManager = new OptionManager(3, 'OBV', kData, [
+                { label: '毛利率优秀且OBV创新\n高，次日上涨概率30%' },
+                { label: '创新高，买入信号' }
             ]);
             // 获取对应图表配置项
             const option = optionManager.getOption();
@@ -116,13 +116,10 @@
             chart.on('VIEW_DID_RENDER', () => {
                 const initTimeLineIndex = 0;
                 const legendLabelMap = [
-                    { source: 'KDJ', target: 'KDJ($):' },
-                    { source: 'K', target: 'K:$' },
-                    { source: 'D', target: 'D:$' },
-                    { source: 'J', target: 'J:$' },
+                    { source: 'OBV', target: 'OBV: $' },
                 ];
-                changeChartWaterMark(chart, initTimeLineIndex);
                 const timelineHelper = new TimeLineHelper(chart, initTimeLineIndex);
+                changeChartWaterMark(chart, initTimeLineIndex);
                 changeChartLegend(chart, initTimeLineIndex, legendLabelMap)
                 timeline.on('change', params => {
                     changeChartWaterMark(chart, params.index);

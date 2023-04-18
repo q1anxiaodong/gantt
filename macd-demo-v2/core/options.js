@@ -298,15 +298,74 @@ const getOption = (kData) => {
 };
 
 const legendLabelMap = {
-  bulin: {
+  BOLL: {
     data: [{ name: "BOLL" }, { name: "MID" }, { name: "UP" }, { name: "LOW" }],
   },
+  KDJ: {
+    data: [{ name: "KDJ" }, { name: "K" }, { name: "D" }, { name: "J" }],
+  },
+  TRIX: {
+    data: [{ name: "_trix" }, { name: "TRIX" }, { name: "TRMA" }],
+  },
+  OBV: {
+    data: [{ name: "OBV", iconType: 'icon_Line' }],
+  },
+  Shrinkage: {
+    data: [{ name: "Shrinkage", iconType: "icon_Bar" }, { name: "turnover" }],
+  },
+  VOL: {
+    data: [
+      { name: "VOL", iconType: "icon_Bar" },
+      { name: "MA5" },
+      { name: "MA60" },
+    ],
+  },
+  ContinuousRising: {
+    data: [{ name: "ContinuousRising", iconType: "icon_Bar" }],
+  },
+  BearishHarami: {
+    data: [{ name: 'MA5' }],
+  },
+  YiYang: {
+    data: [{ name: 'MA5' }, { name: 'MA10' }, { name: 'MA20' }, { name: 'MA30' }]
+  }
 };
 const legendLabelRichMap = {
+  icon_Bar: {
+    textWidth: 30,
+    textHeight: 30,
+    textBackgroundColor: {
+      image: "../assets/legend-bar.png",
+    },
+  },
+  icon_Line: {
+    textWidth: 30,
+    textHeight: 30,
+    textBackgroundColor: {
+      image: "../assets/yellow-icon_line.png",
+    },
+  },
   BOLL: { fill: "rgba(0, 0, 0, 0.6)" },
   MID: { fill: "#36f" },
   UP: { fill: "#ff2436" },
   LOW: { fill: "#07ab4b" },
+  KDJ: { fill: "rgba(0, 0, 0, 0.6)" },
+  K: { fill: "#ff9500" },
+  D: { fill: "#ff2436" },
+  J: { fill: "#0f0f0f" },
+  _trix: { fill: "rgba(0, 0, 0, 0.6)" },
+  TRIX: { fill: "#ff9500" },
+  TRMA: { fill: "#FF2436" },
+  OBV: { fill: "#ff9500" },
+  turnover: { fill: "rgba(0, 0, 0, 0.6)" },
+  Shrinkage: { fill: "rgba(0, 0, 0, 0.6)" },
+  VOL: { fill: "rgba(0, 0, 0, 0.6)" },
+  MA5: { fill: "rgba(0, 0, 0, 0.6)" },
+  MA10: { fill: '#36f' },
+  MA20: { fill: '#ff9500' },
+  MA30: { fill: '#ff2436' },
+  MA60: { fill: "#ff9500" },
+  ContinuousRising: { fill: "rgba(0, 0, 0, 0.6)" },
 };
 //---------------------------------
 const getData = (data) => {
@@ -321,17 +380,17 @@ const getTextStyle = (scale) => {
   };
 };
 
-const getGrid = (index, scale) => {
+const getGrid = (index, scale, isSingleGrid) => {
   const isMainGrid = index === 0;
   const originHeight = isMainGrid ? 160 : 64;
   // const originWidth = 323;
   const originLeft = 10;
   const OriginRight = 10;
-  // const top = isMainGrid ? 0 : "67%";
-  const bottom = isMainGrid ? "38%" : "5%";
+  const top = isSingleGrid ? 24 * scale : undefined;
+  const bottom = isSingleGrid ? undefined : isMainGrid ? "38%" : "5%";
   return {
     left: originLeft * scale,
-    // top,
+    top,
     right: OriginRight * scale,
     bottom,
     height: originHeight * scale,
@@ -425,13 +484,14 @@ const getYAxis = (gridIndex, scale) => {
   };
 };
 
-const getKLineSeries = (scale) => {
+const getKLineSeries = (scale, axisIndex, name) => {
   return {
     type: "hqbar",
+    name: name,
     hqbarType: "kline",
     compressThreshold: 60,
     $dataIndex: 0,
-    $axisIndex: [0, 1],
+    $axisIndex: axisIndex || [0, 1],
     hq: {
       up: { fill: "transparent", lineWidth: 1 * scale },
       down: { lineWidth: 1 * scale },
@@ -453,8 +513,18 @@ const getLineSeries = (name, dataKey, axisIndex, color, scale) => {
     },
   };
 };
-const getBarSeries = (name, dataKey, axisIndex, upBarColor, downBarColor) => {
+const getBarSeries = (
+  name,
+  dataKey,
+  axisIndex,
+  upBarColor,
+  downBarColor,
+  invisibleBar
+) => {
   const itemStyleFun = (data) => {
+    if (invisibleBar) {
+      return { fill: "transparent" };
+    }
     // TODO: 后续删除条件中的常量
     if (data[1] - 867651125 > 0) {
       return { fill: upBarColor };
@@ -473,21 +543,31 @@ const getBarSeries = (name, dataKey, axisIndex, upBarColor, downBarColor) => {
     },
   };
 };
-const getLegend = (data, scale) => {
+const getLegend = (data, scale, isSingleGrid, itemMargin) => {
+  const richStyle = JSON.parse(JSON.stringify(legendLabelRichMap));
+  // const hasIcon = data.forEach()
   const legendFormatter = (label, params) => {
-    return `{${label}|${label}}`;
+    let res;
+    if (params.iconType) {
+      res = `{${params.iconType}|}{${label}|${label}}`;
+    } else {
+      res = `{${label}|${label}}`;
+    }
+    return res;
   };
   return {
     show: true,
-    top: "65%",
-    left: 10 * scale,
+    top: isSingleGrid ? 8 * scale : "65%",
+    padding: [0, 15, 0, 15],
+    left: 5 * scale,
     addLine: false,
-    horizontalGap: 40 * scale,
+    horizontalGap: (itemMargin || 45) * scale,
     // innerGap: 10 * scale,
-    symbol: { type: 'none', size: 10 * scale },
+    // symbol: { type: "none", size: [10 * scale, 10 * scale] },
     formatter: legendFormatter,
     textStyle: {
       fontSize: 12 * scale,
+      fontFamily: "THSJinRongTi-Medium",
       rich: legendLabelRichMap,
     },
     data: data,
@@ -523,7 +603,13 @@ const getAxisPointer = (orient, axisIndex, gap, scale) => {
     },
   };
 };
-const getMarkArea = (axisIndex, seriesIndex, [start, end], isContainShape, scale) => {
+const getMarkArea = (
+  axisIndex,
+  seriesIndex,
+  [start, end],
+  isContainShape,
+  scale
+) => {
   const startXFormatter = (x, bandWidth) => {
     const lineWidth = 1 * scale;
     return x - bandWidth - lineWidth;
@@ -531,8 +617,7 @@ const getMarkArea = (axisIndex, seriesIndex, [start, end], isContainShape, scale
   const endXFormatter = (x, bandWidth) => {
     const lineWidth = 1 * scale;
     return x + bandWidth + lineWidth;
-    ;
-  }
+  };
   return {
     $axisIndex: axisIndex,
     $seriesIndex: seriesIndex,
@@ -548,43 +633,109 @@ const getMarkArea = (axisIndex, seriesIndex, [start, end], isContainShape, scale
     data: [
       {
         points: [
-          { xIndex: start, y: "top", xFormatter: isContainShape ? startXFormatter : undefined },
-          { xIndex: end, y: "bottom", xFormatter: isContainShape ? endXFormatter : undefined },
+          {
+            xIndex: start,
+            y: "top",
+            xFormatter: isContainShape ? startXFormatter : undefined,
+          },
+          {
+            xIndex: end,
+            y: "bottom",
+            xFormatter: isContainShape ? endXFormatter : undefined,
+          },
         ],
       },
     ],
   };
 };
+const getWaterMarkSeries = (axisIndex, scale) => {
+  const renderWaterMark = function(model, globalModel, global) {
+    const yAxisIndex = axisIndex[1];
+    const xAxisIndex = axisIndex[0];
+    const axisModel = globalModel.getComponent("axis");
+    const yAxisModel = axisModel[yAxisIndex];
+    const xAxisModel = axisModel[xAxisIndex];
+    const gridModel = yAxisModel.dependentModels.grid;
+    const gridPosition = gridModel.position;
+    model.domain = xAxisModel.domain;
+    const waterMarkAttr = {
+      shape: {
+        x: gridPosition.left,
+        y: gridPosition.top,
+        width: gridPosition.width,
+        height: gridPosition.height
+      },
+      style: {
+        fill: 'transparent',
+        fontFamily: 'THSJinRongTi-Medium',
+        textFill: 'rgba(0,0,0,0.08)',
+        text: '',
+        fontSize: 68 * scale,
+        lineHeight: 80 * scale
+      },
+      z: 0
+    };
+    this.setShapeGroup('waterMark', D3Charts.graphic.Rect, [waterMarkAttr]);
+  } 
+  return {
+    type: 'custom',
+    name: 'waterMark',
+    id: 'waterMark',
+    $axisIndex: axisIndex,
+    domain: [],
+    view: {
+      render: renderWaterMark
+    }
+  }
+}
 //---------------------------------
 
 // 自定义系列
 //******************************** */
 const getFlagSeries = (name, axisIndex, xIndex, content, scale) => {
+  const calcTextWidth = (textAttr) => {
+    return new D3Charts.graphic.Text(textAttr);
+  };
+  const makeLineHeight = (content) => {
+    const res = content.replace('\n', '\n{margin|}\n');
+    console.log('res', res);
+    return res
+  };
   const renderFlag = function (model, globalModel, global) {
     const xIndex = model.get("xIndex");
     const yAxisIndex = axisIndex[1];
-    const axisModel = globalModel.getComponent('axis');
+    const axisModel = globalModel.getComponent("axis");
     const xScale = axisModel[0].scale;
     const YScale = axisModel[yAxisIndex].scale;
-    const extent = axisModel[yAxisIndex].domain
+    const extent = axisModel[yAxisIndex].domain;
+    const offsetY = yAxisIndex === 1 ? 18 : 12;
     let flagAttr = [];
-    flagAttr.push({
+    const attr = {
       shape: {
         x: xScale(axisModel[0].domain[xIndex]),
-        y: YScale(extent[1]) + 12 * scale,
+        y: YScale(extent[1]) + offsetY * scale,
       },
       style: {
         fontSize: 12 * scale,
         textPadding: 5 * scale,
         textBorderRadius: 2 * scale,
-        textOffset: [-20, 0],
-        textAlign: 'right',
-        textBackgroundColor: '#36f',
-        textFill: '#fff',
-        text: content
-      }
-    });
-    this.setShapeGroup('flag', D3Charts.graphic.Rect, flagAttr);
+        // lineHeight: 25 * scale,
+        textAlign: "left",
+        fontFamily: 'THSJinRongTi-Medium',
+        textBackgroundColor: "rgba(51, 102, 255, 0.84)",
+        textFill: "#fff",
+        text: makeLineHeight(content),
+        rich: {
+          margin: {
+            textHeight: 4 * scale
+          }
+        }
+      },
+    };
+    const text = calcTextWidth(attr);
+    attr.style.textOffset = [-text.getBoundingRect().width - 20, 0];
+    flagAttr.push(attr);
+    this.setShapeGroup("flag", D3Charts.graphic.Rect, flagAttr);
   };
   return {
     type: "custom",
@@ -600,7 +751,7 @@ const getFlagSeries = (name, axisIndex, xIndex, content, scale) => {
 //******************************** */
 class OptionManager {
   /**
-   * 
+   *
    * @param {*} scale 页面缩放比例
    * @param {*} chartName 图表名称 九个图名字之一
    * @param {*} data 原始数据
@@ -616,11 +767,32 @@ class OptionManager {
 
   getOption() {
     switch (this.chartName) {
-      case "bulin":
-        this.option = this.getBulinChartOption();
+      case "BOLL":
+        this.option = this.getBOLLChartOption();
         break;
       case "KDJ":
         this.option = this.getKDJChartOption();
+        break;
+      case "TRIX":
+        this.option = this.getTRIXChartOption();
+        break;
+      case "OBV":
+        this.option = this.getOBVChartOption();
+        break;
+      case "Shrinkage":
+        this.option = this.getShrinkageIncreaseChartOption();
+        break;
+      case "VOL":
+        this.option = this.getVOLChartOption();
+        break;
+      case "ContinuousRising":
+        this.option = this.getContinuousRisingChartOption();
+        break;
+      case "BearishHarami":
+        this.option = this.getBearishHaramiChartOption();
+        break;
+      case "YiYang":
+        this.option = this.getYiYangChartOption();
         break;
       default:
         console.log("invalid chart name");
@@ -629,15 +801,16 @@ class OptionManager {
     return this.option;
   }
 
-  getBulinChartOption() {
-    // 这里是bulin图表的option逻辑
+  getBOLLChartOption() {
+    // 这里是BOLL图表的option逻辑
     const { scale, data, flagContent } = this;
     if (!data) {
-      console.trace('what');
+      console.trace("what");
     }
     const dataLen = this.data.length;
     return {
       scale: scale,
+      animation: false,
       data: getData(data),
       textStyle: getTextStyle(scale),
       grid: [getGrid(0, scale), getGrid(1, scale)],
@@ -646,7 +819,7 @@ class OptionManager {
         getAxisPointer("vertical", 0, -48, scale),
         getAxisPointer("horizontal", [1, 2], -4, scale),
       ],
-      legend: getLegend(legendLabelMap["bulin"].data, scale),
+      legend: getLegend(legendLabelMap["BOLL"].data, scale),
       series: [
         getKLineSeries(scale),
         // up线
@@ -656,11 +829,28 @@ class OptionManager {
         // low线
         getLineSeries("LOW", "line3", [0, 2], "#07ab4b", scale),
         // 下方的柱子
-        getBarSeries("BOLL", "o", [0, 2], "#ff2436", "#07ab4b"),
-        getFlagSeries("klineFlag", [0, 1], dataLen - 1, flagContent[0].label, scale),
-        getFlagSeries("barFlag", [0, 2], dataLen - 1, flagContent[1].label, scale),
+        // getBarSeries("BOLL", "o", [0, 2], "#ff2436", "#07ab4b"),
+        getKLineSeries(scale, [0, 2], 'BOLL'),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 1,
+          flagContent[0].label,
+          scale
+        ),
+        getFlagSeries(
+          "barFlag",
+          [0, 2],
+          dataLen - 1,
+          flagContent[1].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
       ],
-      markArea: [getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale), getMarkArea([0, 2], 1, [dataLen - 1, dataLen - 1], true, scale)],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
+        getMarkArea([0, 2], 1, [dataLen - 1, dataLen - 1], true, scale),
+      ],
     };
   }
 
@@ -668,11 +858,13 @@ class OptionManager {
     // 这里是KDJ图表的option逻辑
     const { scale, data, flagContent } = this;
     if (!data) {
-      console.trace('what');
+      console.trace("what");
     }
     const dataLen = this.data.length;
+    const invisibleBar = true;
     return {
       scale: scale,
+      animation: false,
       data: getData(data),
       textStyle: getTextStyle(scale),
       grid: [getGrid(0, scale), getGrid(1, scale)],
@@ -681,21 +873,403 @@ class OptionManager {
         getAxisPointer("vertical", 0, -48, scale),
         getAxisPointer("horizontal", [1, 2], -4, scale),
       ],
-      legend: getLegend(legendLabelMap["bulin"].data, scale),
+      legend: getLegend(legendLabelMap["KDJ"].data, scale),
       series: [
         getKLineSeries(scale),
         // up线
-        getLineSeries("UP", "line1", [0, 2], "#ff2436", scale),
+        getLineSeries("K", "line1", [0, 2], "#ff9500", scale),
         // mid线
-        getLineSeries("MID", "line2", [0, 2], "#3366ff", scale),
+        getLineSeries("D", "line2", [0, 2], "#ff2436", scale),
         // low线
-        getLineSeries("LOW", "line3", [0, 2], "#07ab4b", scale),
+        getLineSeries("J", "line3", [0, 2], "#0f0f0f", scale),
         // 下方的柱子
-        getBarSeries("BOLL", "o", [0, 2], "#ff2436", "#07ab4b"),
-        getFlagSeries("klineFlag", [0, 1], dataLen - 1, flagContent[0].label, scale),
-        getFlagSeries("barFlag", [0, 2], dataLen - 1, flagContent[1].label, scale),
+        getBarSeries("KDJ", "o", [0, 2], "#ff2436", "#07ab4b", invisibleBar),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 3,
+          flagContent[0].label,
+          scale
+        ),
+        getFlagSeries(
+          "barFlag",
+          [0, 2],
+          dataLen - 1,
+          flagContent[1].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
       ],
-      markArea: [getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale), getMarkArea([0, 2], 1, [dataLen - 1, dataLen - 1], true, scale)],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 3, dataLen - 1], true, scale),
+        getMarkArea([0, 2], 1, [dataLen - 1, dataLen - 1], true, scale),
+      ],
+    };
+  }
+
+  getTRIXChartOption() {
+    // 这里是TRIX图表的option逻辑
+    const { scale, data, flagContent } = this;
+    if (!data) {
+      console.trace("what");
+    }
+    const dataLen = this.data.length;
+    const invisibleBar = true;
+    return {
+      scale: scale,
+      animation: false,
+      data: getData(data),
+      textStyle: getTextStyle(scale),
+      grid: [getGrid(0, scale), getGrid(1, scale)],
+      axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
+      axisPointer: [
+        getAxisPointer("vertical", 0, -48, scale),
+        getAxisPointer("horizontal", [1, 2], -4, scale),
+      ],
+      legend: getLegend(legendLabelMap["TRIX"].data, scale),
+      series: [
+        getKLineSeries(scale),
+        // up线
+        getLineSeries("TRIX", "line1", [0, 2], "#ff9500", scale),
+        // mid线
+        getLineSeries("TRMA", "line2", [0, 2], "#ff2436", scale),
+        // low线
+        // getLineSeries("J", "line3", [0, 2], "#0f0f0f", scale),
+        // 下方的柱子
+        getBarSeries("_trix", "o", [0, 2], "#ff2436", "#07ab4b", invisibleBar),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 1,
+          flagContent[0].label,
+          scale
+        ),
+        getFlagSeries(
+          "barFlag",
+          [0, 2],
+          dataLen - 1,
+          flagContent[1].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
+      ],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
+        getMarkArea([0, 2], 1, [dataLen - 1, dataLen - 1], true, scale),
+      ],
+    };
+  }
+
+  getOBVChartOption() {
+    // 这里是OBV图表的option逻辑
+    const { scale, data, flagContent } = this;
+    if (!data) {
+      console.trace("what");
+    }
+    const dataLen = this.data.length;
+    const invisibleBar = true;
+    return {
+      scale: scale,
+      animation: false,
+      data: getData(data),
+      textStyle: getTextStyle(scale),
+      grid: [getGrid(0, scale), getGrid(1, scale)],
+      axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
+      axisPointer: [
+        getAxisPointer("vertical", 0, -48, scale),
+        getAxisPointer("horizontal", [1, 2], -4, scale),
+      ],
+      legend: getLegend(legendLabelMap["OBV"].data, scale),
+      series: [
+        getKLineSeries(scale),
+        // up线
+        getLineSeries("OBV", "line1", [0, 2], "#ff9500", scale),
+        // mid线
+        // getLineSeries("TRMA", "line2", [0, 2], "#ff2436", scale),
+        // low线
+        // getLineSeries("J", "line3", [0, 2], "#0f0f0f", scale),
+        // 下方的柱子
+        getBarSeries(
+          "unknownName",
+          "o",
+          [0, 2],
+          "#ff2436",
+          "#07ab4b",
+          invisibleBar
+        ),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 1,
+          flagContent[0].label,
+          scale
+        ),
+        getFlagSeries(
+          "barFlag",
+          [0, 2],
+          dataLen - 1,
+          flagContent[1].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
+      ],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
+        getMarkArea([0, 2], 1, [dataLen - 1, dataLen - 1], true, scale),
+      ],
+    };
+  }
+
+  getShrinkageIncreaseChartOption() {
+    // 这里是缩量上涨图表的option逻辑
+    const { scale, data, flagContent } = this;
+    if (!data) {
+      console.trace("what");
+    }
+    const dataLen = this.data.length;
+    const invisibleBar = false;
+    return {
+      scale: scale,
+      animation: false,
+      data: getData(data),
+      textStyle: getTextStyle(scale),
+      grid: [getGrid(0, scale), getGrid(1, scale)],
+      axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
+      axisPointer: [
+        getAxisPointer("vertical", 0, -48, scale),
+        getAxisPointer("horizontal", [1, 2], -4, scale),
+      ],
+      legend: getLegend(legendLabelMap["Shrinkage"].data, scale),
+      series: [
+        getKLineSeries(scale),
+        // up线
+        getLineSeries("turnover", "line1", [0, 1], "#ff2436", scale),
+        // mid线
+        getLineSeries("TRMA", "line2", [0, 1], "#000", scale),
+        // low线
+        // getLineSeries("J", "line3", [0, 2], "#0f0f0f", scale),
+        // 下方的柱子
+        getBarSeries(
+          "Shrinkage",
+          "o",
+          [0, 2],
+          "#ff2436",
+          "#07ab4b",
+          invisibleBar
+        ),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 1,
+          flagContent[0].label,
+          scale
+        ),
+        getFlagSeries(
+          "barFlag",
+          [0, 2],
+          dataLen - 1,
+          flagContent[1].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
+      ],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
+        getMarkArea([0, 2], 3, [dataLen - 1, dataLen - 1], true, scale),
+      ],
+    };
+  }
+
+  getVOLChartOption() {
+    // 这里是VOL图表的option逻辑
+    const { scale, data, flagContent } = this;
+    if (!data) {
+      console.trace("what");
+    }
+    const dataLen = this.data.length;
+    const invisibleBar = false;
+    return {
+      scale: scale,
+      animation: false,
+      data: getData(data),
+      textStyle: getTextStyle(scale),
+      grid: [getGrid(0, scale), getGrid(1, scale)],
+      axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
+      axisPointer: [
+        getAxisPointer("vertical", 0, -48, scale),
+        getAxisPointer("horizontal", [1, 2], -4, scale),
+      ],
+      legend: getLegend(legendLabelMap["VOL"].data, scale),
+      series: [
+        getKLineSeries(scale),
+        // MA24
+        getLineSeries("MA24", "line1", [0, 1], "rgba(0, 0, 0, 0.6)", scale),
+        // MA72线
+        getLineSeries("MA72", "line2", [0, 1], "#ff2436", scale),
+        // MA200线
+        getLineSeries("MA200", "line3", [0, 1], "#36f", scale),
+        // MA5线
+        getLineSeries("MA5", "line3", [0, 2], "#000", scale),
+        // MA60线
+        getLineSeries("MA60", "line4", [0, 2], "#ff9500", scale),
+        // 下方的柱子
+        getBarSeries("VOL", "o", [0, 2], "#ff2436", "#07ab4b", invisibleBar),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 1,
+          flagContent[0].label,
+          scale
+        ),
+        getFlagSeries(
+          "barFlag",
+          [0, 2],
+          dataLen - 1,
+          flagContent[1].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
+      ],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
+        getMarkArea([0, 2], 6, [dataLen - 1, dataLen - 1], true, scale),
+      ],
+    };
+  }
+
+  getContinuousRisingChartOption() {
+    // 这里是ContinuousRising图表的option逻辑
+    const { scale, data, flagContent } = this;
+    if (!data) {
+      console.trace("what");
+    }
+    const dataLen = this.data.length;
+    const invisibleBar = false;
+    return {
+      scale: scale,
+      animation: false,
+      data: getData(data),
+      textStyle: getTextStyle(scale),
+      grid: [getGrid(0, scale), getGrid(1, scale)],
+      axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
+      axisPointer: [
+        getAxisPointer("vertical", 0, -48, scale),
+        getAxisPointer("horizontal", [1, 2], -4, scale),
+      ],
+      legend: getLegend(legendLabelMap["ContinuousRising"].data, scale),
+      series: [
+        getKLineSeries(scale),
+        // 下方的柱子
+        getBarSeries(
+          "ContinuousRising",
+          "o",
+          [0, 2],
+          "#ff2436",
+          "#07ab4b",
+          invisibleBar
+        ),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 1,
+          flagContent[0].label,
+          scale
+        ),
+        getFlagSeries(
+          "barFlag",
+          [0, 2],
+          dataLen - 1,
+          flagContent[1].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
+      ],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
+        getMarkArea([0, 2], 1, [dataLen - 1, dataLen - 1], true, scale),
+      ],
+    };
+  }
+
+  getBearishHaramiChartOption() {
+    // 这里是BearishHarami图表的option逻辑
+    const { scale, data, flagContent } = this;
+    if (!data) {
+      console.trace("what");
+    }
+    const dataLen = this.data.length;
+    const isSingleGrid = true;
+    return {
+      scale: scale,
+      animation: false,
+      data: getData(data),
+      textStyle: getTextStyle(scale),
+      grid: [getGrid(0, scale, isSingleGrid)],
+      axis: [getXAxis([0], scale), getYAxis(0, scale)],
+      axisPointer: [
+        getAxisPointer("vertical", 0, -48, scale),
+        getAxisPointer("horizontal", [1], -4, scale),
+      ],
+      legend: getLegend(legendLabelMap["BearishHarami"].data, scale, isSingleGrid),
+      series: [
+        getKLineSeries(scale),
+        // MA5线
+        getLineSeries("MA5", "line3", [0, 1], "#000", scale),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 1,
+          flagContent[0].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
+      ],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 2, dataLen - 1], true, scale),
+      ],
+    };
+  }
+
+  getYiYangChartOption() {
+    // 这里是BearishHarami图表的option逻辑
+    const { scale, data, flagContent } = this;
+    if (!data) {
+      console.trace("what");
+    }
+    const dataLen = this.data.length;
+    const isSingleGrid = true;
+    const itemMargin = 60;
+    return {
+      scale: scale,
+      animation: false,
+      data: getData(data),
+      textStyle: getTextStyle(scale),
+      grid: [getGrid(0, scale, isSingleGrid)],
+      axis: [getXAxis([0], scale), getYAxis(0, scale)],
+      axisPointer: [
+        getAxisPointer("vertical", 0, -48, scale),
+        getAxisPointer("horizontal", [1], -4, scale),
+      ],
+      legend: getLegend(legendLabelMap["YiYang"].data, scale, isSingleGrid, itemMargin),
+      series: [
+        getKLineSeries(scale),
+        // MA5线
+        getLineSeries("MA5", "line3", [0, 1], "rgba(0, 0, 0, 0.6)", scale),
+        getLineSeries("MA10", "line1", [0, 1], "#36f", scale),
+        getLineSeries("MA20", "line2", [0, 1], "#ff9500", scale),
+        getLineSeries("MA30", "line4", [0, 1], "#ff2436", scale),
+        getFlagSeries(
+          "klineFlag",
+          [0, 1],
+          dataLen - 1,
+          flagContent[0].label,
+          scale
+        ),
+        getWaterMarkSeries([0, 1], scale)
+      ],
+      markArea: [
+        getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
+      ],
     };
   }
 }

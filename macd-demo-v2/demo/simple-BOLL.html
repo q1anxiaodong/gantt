@@ -42,7 +42,7 @@
             src: url(https://s.thsi.cn/cd/ths-frontend-common-lib-container/v1.3.6/common/font/THSJinRongTi-Medium.otf);
         }
     </style>
-    <title>KDJ示例</title>
+    <title>跑通流程</title>
 </head>
 
 <body>
@@ -77,9 +77,9 @@
              * @param {*} data 原始数据
              * @param {*} flagContent 旗子的内容
              */
-            const optionManager = new OptionManager(3, 'KDJ', kData, [
-                { label: '出现一阳包三阴，结合KDJ\n金叉，次日上涨概率30%' },
-                { label: '金叉，买入信号' }
+            const optionManager = new OptionManager(3, 'BOLL', kData, [
+                { label: '短期见底，次日上涨率30%' },
+                { label: 'BOLL创新低，开口收窄' }
             ]);
             // 获取对应图表配置项
             const option = optionManager.getOption();
@@ -115,18 +115,22 @@
             });
             chart.on('VIEW_DID_RENDER', () => {
                 const initTimeLineIndex = 0;
-                const legendLabelMap = [
-                    { source: 'KDJ', target: 'KDJ($):' },
-                    { source: 'K', target: 'K:$' },
-                    { source: 'D', target: 'D:$' },
-                    { source: 'J', target: 'J:$' },
-                ];
-                changeChartWaterMark(chart, initTimeLineIndex);
                 const timelineHelper = new TimeLineHelper(chart, initTimeLineIndex);
-                changeChartLegend(chart, initTimeLineIndex, legendLabelMap)
+                changeChartWaterMark(chart, initTimeLineIndex);
+                changeChartLegend(chart, initTimeLineIndex, [
+                    { source: 'BOLL', target: 'BOLL($): ' },
+                    { source: 'MID', target: 'MID:$' },
+                    { source: 'UP', target: 'UP:$' },
+                    { source: 'LOW', target: 'LOW:$' },
+                ])
                 timeline.on('change', params => {
                     changeChartWaterMark(chart, params.index);
-                    changeChartLegend(chart, params.index, legendLabelMap)
+                    changeChartLegend(chart, params.index, [
+                        { source: 'BOLL', target: 'BOLL($):' },
+                        { source: 'MID', target: 'MID:$' },
+                        { source: 'UP', target: 'UP:$' },
+                        { source: 'LOW', target: 'LOW:$' },
+                    ])
                     const animation = ['play'].indexOf(params.causeBy) !== -1;
                     timelineHelper.change(params.index, animation)
                 })

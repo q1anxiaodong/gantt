@@ -27,6 +27,13 @@
             /* height: 600px; */
             margin: auto;
         }
+        .singleGridChart {
+            width: calc(375px * 3);
+            height: calc(208px * 3);
+            /* width: 800px; */
+            /* height: 600px; */
+            margin: auto;
+        }
 
         .timeline {
             font-size: 300px;
@@ -46,7 +53,7 @@
 </head>
 
 <body>
-    <div class="chart" id="chart"></div>、
+    <div class="singleGridChart" id="chart"></div>、
     <div class="timeline" id="timeline"></div>
     <script>
         const chart = D3Charts.init('chart');
@@ -77,9 +84,8 @@
              * @param {*} data 原始数据
              * @param {*} flagContent 旗子的内容
              */
-            const optionManager = new OptionManager(3, 'KDJ', kData, [
-                { label: '出现一阳包三阴，结合KDJ\n金叉，次日上涨概率30%' },
-                { label: '金叉，买入信号' }
+            const optionManager = new OptionManager(3, 'BearishHarami', kData, [
+                { label: '阳包阴，收盘价大于5日\n线，次日上涨概率20%' },
             ]);
             // 获取对应图表配置项
             const option = optionManager.getOption();
@@ -116,13 +122,10 @@
             chart.on('VIEW_DID_RENDER', () => {
                 const initTimeLineIndex = 0;
                 const legendLabelMap = [
-                    { source: 'KDJ', target: 'KDJ($):' },
-                    { source: 'K', target: 'K:$' },
-                    { source: 'D', target: 'D:$' },
-                    { source: 'J', target: 'J:$' },
+                    { source: 'MA5', target: '日线 MA5:$' },
                 ];
-                changeChartWaterMark(chart, initTimeLineIndex);
                 const timelineHelper = new TimeLineHelper(chart, initTimeLineIndex);
+                changeChartWaterMark(chart, initTimeLineIndex);
                 changeChartLegend(chart, initTimeLineIndex, legendLabelMap)
                 timeline.on('change', params => {
                     changeChartWaterMark(chart, params.index);
