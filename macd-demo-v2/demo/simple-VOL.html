@@ -117,16 +117,17 @@
             chart.on('VIEW_DID_RENDER', () => {
                 const initTimeLineIndex = 37;
                 const legendLabelMap = [
-                    { source: 'VOL', target: '成交量:$' },
-                    { source: 'MA5', target: 'MA5:$' },
-                    { source: 'MA60', target: '60:$' },
+                    { source: 'VOL', target: '成交量:$', index: 1 },
+                    { source: 'MA5', target: 'MA5:$', index: 1 },
+                    { source: 'MA60', target: '60:$', index: 1 },
+                    { source: 'MA24', target: '日线 MA5:$ ', index: 0},
+                    { source: 'MA72', target: '72:$ ', index: 0 },
+                    { source: 'MA200', target: '200:$ ', index: 0 },
                 ];
                 const timelineHelper = new TimeLineHelper(chart, initTimeLineIndex);
-                console.log('33');
                 changeChartWaterMark(chart, initTimeLineIndex);
                 changeChartLegend(chart, initTimeLineIndex, legendLabelMap)
                 timeline.on('change', params => {
-                    console.log('22');
                     changeChartWaterMark(chart, params.index);
                     changeChartLegend(chart, params.index, legendLabelMap)
                     const animation = ['play'].indexOf(params.causeBy) !== -1;

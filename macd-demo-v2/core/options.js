@@ -311,10 +311,12 @@ const legendLabelMap = {
     data: [{ name: "OBV", iconType: 'icon_Line' }],
   },
   Shrinkage: {
-    data: [{ name: "Shrinkage", iconType: "icon_Bar" }, { name: "turnover" }],
+    top: [{ name: "MA5"}, { name: "MA10" }],
+    mid: [{ name: "Shrinkage", iconType: "icon_Bar" }, { name: "turnover" }],
   },
   VOL: {
-    data: [
+    top: [{ name: "MA24" }, { name: "MA72" }, { name: "MA200" }],
+    mid: [
       { name: "VOL", iconType: "icon_Bar" },
       { name: "MA5" },
       { name: "MA60" },
@@ -557,7 +559,7 @@ const getLegend = (data, scale, isSingleGrid, itemMargin) => {
   };
   return {
     show: true,
-    top: isSingleGrid ? 8 * scale : "65%",
+    top: isSingleGrid ? 8 * scale : "67%",
     padding: [0, 15, 0, 15],
     left: 5 * scale,
     addLine: false,
@@ -743,6 +745,7 @@ const getFlagSeries = (name, axisIndex, xIndex, content, scale) => {
     $dataIndex: 0,
     $axisIndex: axisIndex,
     xIndex: xIndex,
+    z: 999,
     view: {
       render: renderFlag,
     },
@@ -1033,21 +1036,22 @@ class OptionManager {
       animation: false,
       data: getData(data),
       textStyle: getTextStyle(scale),
-      grid: [getGrid(0, scale), getGrid(1, scale)],
+      grid: [getGrid(0, scale, true), getGrid(1, scale)],
       axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
       axisPointer: [
         getAxisPointer("vertical", 0, -48, scale),
         getAxisPointer("horizontal", [1, 2], -4, scale),
       ],
-      legend: getLegend(legendLabelMap["Shrinkage"].data, scale),
+      //getLegend(legendLabelMap["Shrinkage"].top, scale),
+      legend: [getLegend(legendLabelMap["Shrinkage"].top, scale, true, 60), getLegend(legendLabelMap["Shrinkage"].mid, scale)],
       series: [
         getKLineSeries(scale),
-        // up线
-        getLineSeries("turnover", "line1", [0, 1], "#ff2436", scale),
-        // mid线
-        getLineSeries("TRMA", "line2", [0, 1], "#000", scale),
-        // low线
-        // getLineSeries("J", "line3", [0, 2], "#0f0f0f", scale),
+        // MA5线
+        getLineSeries("MA5", "line1", [0, 1], "#ff2436", scale),
+        // MA10线
+        getLineSeries("MA10", "line2", [0, 1], "#000", scale),
+        // 换手率
+        getLineSeries("turnover", "line3", [0, 2], "transparent", scale),
         // 下方的柱子
         getBarSeries(
           "Shrinkage",
@@ -1093,13 +1097,13 @@ class OptionManager {
       animation: false,
       data: getData(data),
       textStyle: getTextStyle(scale),
-      grid: [getGrid(0, scale), getGrid(1, scale)],
+      grid: [getGrid(0, scale, true), getGrid(1, scale)],
       axis: [getXAxis([1, 0], scale), getYAxis(0, scale), getYAxis(1, scale)],
       axisPointer: [
         getAxisPointer("vertical", 0, -48, scale),
         getAxisPointer("horizontal", [1, 2], -4, scale),
       ],
-      legend: getLegend(legendLabelMap["VOL"].data, scale),
+      legend: [getLegend(legendLabelMap["VOL"].top, scale, true, 60), getLegend(legendLabelMap["VOL"].mid, scale)],
       series: [
         getKLineSeries(scale),
         // MA24

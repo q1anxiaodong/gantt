@@ -130,9 +130,10 @@ class TimeLineHelper {
 const changeChartLegend = (chart, lastIndex, changeMap) => {
   if (!changeMap || !changeMap.length) return;
   const globalModel = chart.getModel();
-  const legendModel = globalModel.getComponentByIndex("legend", 0);
-  const legendView = chart.getViewOfComponentModel(legendModel);
-  changeMap.forEach(({ source, target }) => {
+  changeMap.forEach(({ source, target, index }) => {
+    const legendIndex = index === undefined ? 0 : index;
+    const legendModel = globalModel.getComponentByIndex("legend", legendIndex);
+    const legendView = chart.getViewOfComponentModel(legendModel);
     const seriesModel = globalModel.getSeriesByName(source)[0];
     const seriesData = seriesModel.getData();
     const last = Math.max(0, Math.min(lastIndex, seriesData.length - 1));

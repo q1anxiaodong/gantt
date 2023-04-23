@@ -116,8 +116,10 @@
             chart.on('VIEW_DID_RENDER', () => {
                 const initTimeLineIndex = 0;
                 const legendLabelMap = [
-                    { source: 'Shrinkage', target: '成交量:$' },
-                    { source: 'turnover', target: '换手:$' },
+                    { source: 'MA5', target: '日线 MA5:$ ', index: 0},
+                    { source: 'MA10', target: '10:$ ', index: 0 },
+                    { source: 'Shrinkage', target: '成交量:$', index: 1 },
+                    { source: 'turnover', target: '换手:$', index: 1 },
                 ];
                 const timelineHelper = new TimeLineHelper(chart, initTimeLineIndex);
                 changeChartWaterMark(chart, initTimeLineIndex);

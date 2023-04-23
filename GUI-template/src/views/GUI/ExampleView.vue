@@ -31,7 +31,7 @@ onMounted(() => {
 </template>
 <style scoped lang="less">
 .chartCard {
-
+  box-shadow: inset;
   .chartName {
     text-align: center;
   }
