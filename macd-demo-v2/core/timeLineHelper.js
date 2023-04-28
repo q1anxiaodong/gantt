@@ -58,7 +58,7 @@ class TimeLineHelper {
         };
         const position = grid.position;
         this.seriesInfo.forEach((itm) => {
-          if (!itm.visible) {
+          if (!itm.visible || itm.model.inited) {
             return;
           }
           if (itm.grid.id === grid.id) {
@@ -90,6 +90,8 @@ class TimeLineHelper {
               clipPath.zeroState = zeroState;
               itm.view.group.setClipPath(clipPath);
             }
+            // 将本series标记为状态初始化完成
+            itm.model.inited = true;
           }
         });
       }
@@ -145,7 +147,7 @@ const changeChartLegend = (chart, lastIndex, changeMap) => {
   const globalModel = chart.getModel();
   const firstGrid = globalModel.getComponentByIndex("grid", 0);
   // 第一个grid到dom的边距
-  let lastTextElPosition = firstGrid.position.left;
+  let lastTextElPosition = [firstGrid.position.left, firstGrid.position.left];
   changeMap.forEach(({ source, target, index }) => {
     const legendIndex = index === undefined ? 0 : index;
     const legendModel = globalModel.getComponentByIndex("legend", legendIndex);
@@ -154,7 +156,7 @@ const changeChartLegend = (chart, lastIndex, changeMap) => {
     const seriesData = seriesModel.getData();
     const horizontalGap = legendModel.get('horizontalGap');
     const symbolSize = legendModel.get('symbol').size[0];
-    lastTextElPosition = lastTextElPosition - symbolSize;
+    lastTextElPosition[legendIndex] = lastTextElPosition[legendIndex] - symbolSize;
     const last = Math.max(0, Math.min(lastIndex, seriesData.length - 1));
     let name = `{${source}|${target.replace(
       "$",
@@ -175,9 +177,9 @@ const changeChartLegend = (chart, lastIndex, changeMap) => {
               style: { text: name },
             });
             el.parent.attr({
-              position: [lastTextElPosition, el.parent.position[1]]
+              position: [lastTextElPosition[legendIndex], el.parent.position[1]]
             });
-            lastTextElPosition = lastTextElPosition + el.getBoundingRect().width + horizontalGap;
+            lastTextElPosition[legendIndex] = lastTextElPosition[legendIndex] + el.getBoundingRect().width + horizontalGap;
           }
         });
       }

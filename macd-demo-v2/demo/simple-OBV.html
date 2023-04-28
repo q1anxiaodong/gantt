@@ -116,6 +116,7 @@
             chart.on('VIEW_DID_RENDER', () => {
                 const initTimeLineIndex = 0;
                 const legendLabelMap = [
+                    // index表示是第几行legend，如果只有一行legend那么为0, 不填默认为0
                     { source: 'OBV', target: 'OBV: $' },
                 ];
                 const timelineHelper = new TimeLineHelper(chart, initTimeLineIndex);

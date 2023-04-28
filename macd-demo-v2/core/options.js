@@ -163,7 +163,7 @@ const getXAxis = (gridIndex, scale) => {
       inRange: true,
       fontFamily: 'THSJinRongTi-Medium',
       formatter: axisLabelFormatter,
-      style: { textFill: "rgba(0,0,0,0.6)" },
+      style: { textFill: "rgba(0,0,0,0.6)", fontWeight: 'normal' },
     },
     line: { show: false },
     tick: { show: false },
@@ -202,6 +202,7 @@ const getYAxis = (gridIndex, scale) => {
       formatter: labelFormatter,
       style: {
         textFill: "rgba(0,0,0,0.6)",
+        fontWeight: 'normal',
         rich: {
           middle: { textPadding: [12 * scale, 0, 0, 0] },
         },
@@ -688,7 +689,7 @@ class OptionManager {
       console.trace("what");
     }
     const dataLen = this.data.length;
-    const invisibleBar = true;
+    const visible = false;
     return {
       scale: scale,
       animation: false,
@@ -710,7 +711,7 @@ class OptionManager {
         // low线
         // getLineSeries("J", "line3", [0, 2], "#0f0f0f", scale),
         // 下方的柱子
-        getBarSeries("_trix", "o", [0, 2], "#ff2436", "#07ab4b", invisibleBar),
+        getBarSeries("_trix", "o", [0, 2], "#ff2436", "#07ab4b", visible),
         getFlagSeries(
           "klineFlag",
           [0, 1],
@@ -742,7 +743,8 @@ class OptionManager {
       console.trace("what");
     }
     const dataLen = this.data.length;
-    const invisibleBar = true;
+    // 柱子是否可见
+    const visible = false;
     return {
       scale: scale,
       animation: false,
@@ -754,7 +756,7 @@ class OptionManager {
         getAxisPointer("vertical", 0, -48, scale),
         getAxisPointer("horizontal", [1, 2], -4, scale),
       ],
-      legend: getLegend(legendLabelMap["OBV"].data, scale),
+      legend: getLegend(legendLabelMap["OBV"].data, scale, false),
       series: [
         getKLineSeries(scale),
         // up线
@@ -770,7 +772,7 @@ class OptionManager {
           [0, 2],
           "#ff2436",
           "#07ab4b",
-          invisibleBar
+          visible
         ),
         getFlagSeries(
           "klineFlag",
@@ -803,7 +805,7 @@ class OptionManager {
       console.trace("what");
     }
     const dataLen = this.data.length;
-    const invisibleBar = false;
+    const visible = true;
     return {
       scale: scale,
       animation: false,
@@ -816,7 +818,7 @@ class OptionManager {
         getAxisPointer("horizontal", [1, 2], -4, scale),
       ],
       //getLegend(legendLabelMap["Shrinkage"].top, scale),
-      legend: [getLegend(legendLabelMap["Shrinkage"].top, scale, true, 60), getLegend(legendLabelMap["Shrinkage"].mid, scale)],
+      legend: [getLegend(legendLabelMap["Shrinkage"].top, scale, true), getLegend(legendLabelMap["Shrinkage"].mid, scale, false)],
       series: [
         getKLineSeries(scale),
         // MA5线
@@ -832,7 +834,7 @@ class OptionManager {
           [0, 2],
           "#ff2436",
           "#07ab4b",
-          invisibleBar
+          visible
         ),
         getFlagSeries(
           "klineFlag",
@@ -865,7 +867,7 @@ class OptionManager {
       console.trace("what");
     }
     const dataLen = this.data.length;
-    const invisibleBar = false;
+    const visible = false;
     return {
       scale: scale,
       animation: false,
@@ -877,7 +879,7 @@ class OptionManager {
         getAxisPointer("vertical", 0, -48, scale),
         getAxisPointer("horizontal", [1, 2], -4, scale),
       ],
-      legend: [getLegend(legendLabelMap["VOL"].top, scale, true, 60), getLegend(legendLabelMap["VOL"].mid, scale)],
+      legend: [getLegend(legendLabelMap["VOL"].top, scale, true), getLegend(legendLabelMap["VOL"].mid, scale)],
       series: [
         getKLineSeries(scale),
         // MA24
@@ -891,7 +893,7 @@ class OptionManager {
         // MA60线
         getLineSeries("MA60", "line4", [0, 2], "#ff9500", scale),
         // 下方的柱子
-        getBarSeries("VOL", "o", [0, 2], "#ff2436", "#07ab4b", invisibleBar),
+        getBarSeries("VOL", "o", [0, 2], "#ff2436", "#07ab4b", visible),
         getFlagSeries(
           "klineFlag",
           [0, 1],
@@ -923,7 +925,7 @@ class OptionManager {
       console.trace("what");
     }
     const dataLen = this.data.length;
-    const invisibleBar = false;
+    const visible = true;
     return {
       scale: scale,
       animation: false,
@@ -945,7 +947,7 @@ class OptionManager {
           [0, 2],
           "#ff2436",
           "#07ab4b",
-          invisibleBar
+          visible
         ),
         getFlagSeries(
           "klineFlag",

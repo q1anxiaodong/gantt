@@ -53,8 +53,8 @@
         const DP = D3Charts.getDataPool();
         const klinedata = {
             type: 'klineLast',
-            code: 'hs_300033',
-            sliceDays: ['20210918', '20211118'],
+            code: 'hs_300502',
+            sliceDays: ['20230224', '20230428'],
             // ma: [5, 10, 30]
         }
         const dataProvider = DP.register(klinedata);
@@ -64,9 +64,9 @@
             kData = kData.map(item => {
                 return {
                     ...item,
-                    line1: item.o - 30,
-                    line2: item.o - 50,
-                    line3: item.o + 30,
+                    line1: item.o - 10,
+                    line2: item.o - 20,
+                    line3: item.o + 10,
                 }
             })
             // 配置管理 
