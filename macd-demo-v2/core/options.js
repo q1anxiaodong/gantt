@@ -287,7 +287,7 @@ const getLegend = (data, scale, isSingleGrid, itemMargin) => {
     show: true,
     top: isSingleGrid ? 8 * scale : "67%",
     padding: [0, 15, 0, 15],
-    left: -5 * scale,
+    left: 10 * scale,
     addLine: false,
     horizontalGap: (itemMargin || 10) * scale,
     symbol: {
@@ -475,18 +475,20 @@ const getFlagSeries = (name, axisIndex, xIndex, content, scale) => {
     const yAxisIndex = axisIndex[1];
     const axisModel = globalModel.getComponent("axis");
     const xScale = axisModel[0].scale;
+    // 旗子距离虚线框第一个数据的边距
+    const xSpace = 10 * scale;
     const YScale = axisModel[yAxisIndex].scale;
     const extent = axisModel[yAxisIndex].domain;
-    const offsetY = yAxisIndex === 1 ? 18 : 12;
     let flagAttr = [];
     const attr = {
       shape: {
         x: xScale(axisModel[0].domain[xIndex]),
-        y: YScale(extent[1]) + offsetY * scale,
+        y: YScale(extent[1]),
       },
       style: {
         fontSize: 12 * scale,
         textPadding: 5 * scale,
+        textVerticalAlign: 'top',
         textBorderRadius: 2 * scale,
         // lineHeight: 25 * scale,
         textAlign: "left",
@@ -502,7 +504,7 @@ const getFlagSeries = (name, axisIndex, xIndex, content, scale) => {
       },
     };
     const text = calcTextWidth(attr);
-    attr.style.textOffset = [-text.getBoundingRect().width - 20, 0];
+    attr.style.textOffset = [-text.getBoundingRect().width - xSpace, 0];
     flagAttr.push(attr);
     this.setShapeGroup("flag", D3Charts.graphic.Rect, flagAttr);
   };
@@ -996,7 +998,7 @@ class OptionManager {
         getFlagSeries(
           "klineFlag",
           [0, 1],
-          dataLen - 1,
+          dataLen - 2,
           flagContent[0].label,
           scale
         ),
