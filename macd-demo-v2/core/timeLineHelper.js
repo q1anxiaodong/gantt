@@ -11,43 +11,56 @@ class TimeLineHelper {
     // 初始化helper
     this.init();
     // 通过helper给图表赋最初状态
-    this.initState(index);
+    // this.initState(index);
   }
   getSeriesInfo() {
     const D3Ins = this._D3Ins;
     const getInfo = (model) => {
-      if (model.get('id') === "waterMark" && model.type === "custom") {
+      if (["waterMark", "mark"].indexOf(model.get('id')) !== -1 && model.type === "custom") {
         return;
       }
       const view = D3Ins.getViewOfComponentModel(model);
       const grid = model.getAxisModel("y").dependentModels.grid;
+      const visible = !(model.get('selected') === false);
       const type = model.type;
 
-      this.seriesInfo.push({ model, view, grid, type });
+      this.seriesInfo.push({ model, view, grid, type, visible });
     };
-    D3Ins.getModel().eachComponent("series", getInfo);
+    D3Ins.getModel().eachComponent("series", getInfo, false);
     D3Ins.getModel().eachComponent("markArea", getInfo);
   }
   init() {
     this.seriesInfo.forEach((series) => {
       if (["bar", "hqbar"].indexOf(series.type) !== -1) {
         const { model, view, grid } = series;
+        let states;
         const scale = this._D3Ins.getModel().get("scale");
         const bandWidth = model.bandwidth;
-        let states = model.points.map((item, index) => {
-          return {
-            // shape: { width: !index ? 0 : model.points[index - 1][0] - bandWidth },
-            shape: { width: item[0] - bandWidth },
-            // lineShape: {width: index ? model.points[index - 1][0] + bandWidth / 2 : bandWidth},
-            // lineShape: {width: item[0] - bandWidth},
-            style: { opacity: 1 },
-          };
-        });
+        if (series.type === 'bar' && !series.visible) {
+          const xAxisModel = model.dependentModels.axis[0];
+          const xAxisScale = xAxisModel.getScale();
+          states = xAxisModel.domain.map(dataItem => {
+            return {
+              shape: {
+                width: xAxisScale(dataItem) - xAxisScale.bandwidth()
+              }
+            }
+          });
+        } else {
+          states = model.points.map((item, index) => {
+            return {
+              shape: { width: item[0] - bandWidth },
+            };
+          });
+        }
         let zeroState = {
           shape: { width: 0 },
         };
         const position = grid.position;
         this.seriesInfo.forEach((itm) => {
+          if (!itm.visible) {
+            return;
+          }
           if (itm.grid.id === grid.id) {
             if (["custom", "markArea"].indexOf(itm.type) !== -1) {
               const elZeroState = {
@@ -72,13 +85,7 @@ class TimeLineHelper {
                 },
               });
               let clipStates;
-              // if (itm.type === 'line') {
-              //   clipStates = states.map(state => {
-              //     return {shape: state.lineShape, style: state.style};
-              //   })
-              // } else {
               clipStates = states;
-              // }
               clipPath.states = clipStates;
               clipPath.zeroState = zeroState;
               itm.view.group.setClipPath(clipPath);
@@ -91,6 +98,9 @@ class TimeLineHelper {
   initState(index) {
     this.seriesInfo.forEach((item) => {
       const { type, view } = item;
+      if (!itm.visible) {
+        return;
+      }
       if (["custom", "markArea"].indexOf(type) !== -1) {
         view.group.childAt(0).eachChild((el) => {
           this.useState(el, index);
@@ -114,6 +124,9 @@ class TimeLineHelper {
     const lineAnimation = animation === undefined ? true : animation;
     this.seriesInfo.forEach((series) => {
       const { type, view } = series;
+      if (!series.visible) {
+        return;
+      }
       if (["custom", "markArea"].indexOf(type) !== -1) {
         view.group.childAt(0).eachChild((el) => {
           this.useState(el, index, animation);
@@ -130,12 +143,18 @@ class TimeLineHelper {
 const changeChartLegend = (chart, lastIndex, changeMap) => {
   if (!changeMap || !changeMap.length) return;
   const globalModel = chart.getModel();
+  const firstGrid = globalModel.getComponentByIndex("grid", 0);
+  // 第一个grid到dom的边距
+  let lastTextElPosition = firstGrid.position.left;
   changeMap.forEach(({ source, target, index }) => {
     const legendIndex = index === undefined ? 0 : index;
     const legendModel = globalModel.getComponentByIndex("legend", legendIndex);
     const legendView = chart.getViewOfComponentModel(legendModel);
     const seriesModel = globalModel.getSeriesByName(source)[0];
     const seriesData = seriesModel.getData();
+    const horizontalGap = legendModel.get('horizontalGap');
+    const symbolSize = legendModel.get('symbol').size[0];
+    lastTextElPosition = lastTextElPosition - symbolSize;
     const last = Math.max(0, Math.min(lastIndex, seriesData.length - 1));
     let name = `{${source}|${target.replace(
       "$",
@@ -155,6 +174,10 @@ const changeChartLegend = (chart, lastIndex, changeMap) => {
             el.attr({
               style: { text: name },
             });
+            el.parent.attr({
+              position: [lastTextElPosition, el.parent.position[1]]
+            });
+            lastTextElPosition = lastTextElPosition + el.getBoundingRect().width + horizontalGap;
           }
         });
       }

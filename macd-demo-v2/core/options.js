@@ -1,3 +1,7 @@
+const waterMarkImages = {
+  dark: 'data:image/png;base64,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',
+  light: 'data:image/png;base64,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'
+};
 const legendLabelMap = {
   BOLL: {
     data: [{ name: "BOLL" }, { name: "MID" }, { name: "UP" }, { name: "LOW" }],
@@ -73,6 +77,22 @@ const legendLabelRichMap = {
   MA200: { fill: "rgba(51, 102, 255, 0.84)" },
   ContinuousRising: { fill: "rgba(0, 0, 0, 0.6)" },
 };
+
+//util
+const numberFormat = (value) => {
+  const TEN_THOUSAND = 10000;
+  let val, unit, tmp;
+  const size = ['', '万', '亿', '万亿'];
+  if (value < TEN_THOUSAND) {
+    val = value.toFixed(2);
+    unit = '';
+  } else {
+    tmp = Math.floor(Math.log(value) / Math.log(TEN_THOUSAND));
+    val = (value / Math.pow(TEN_THOUSAND, tmp)).toFixed(2);
+    unit = size[tmp];
+  }
+  return '' + val + unit;
+}
 //---------------------------------
 const getData = (data) => {
   return [{ originData: data }];
@@ -131,6 +151,7 @@ const getXAxis = (gridIndex, scale) => {
     position: "bottom",
     type: "band",
     $dataIndex: 0,
+    filterHide: false,
     $gridIndex: gridIndex,
     dataKey: "t",
     // paddingInner: 0.1 * scale,
@@ -140,8 +161,9 @@ const getXAxis = (gridIndex, scale) => {
     label: {
       show: true,
       inRange: true,
+      fontFamily: 'THSJinRongTi-Medium',
       formatter: axisLabelFormatter,
-      style: { fill: "rgba(0,0,0,0.6)" },
+      style: { textFill: "rgba(0,0,0,0.6)" },
     },
     line: { show: false },
     tick: { show: false },
@@ -158,7 +180,8 @@ const getYAxis = (gridIndex, scale) => {
     return intervals.map((interval) => start + interval * extent);
   };
   const labelFormatter = (originVal, index, len) => {
-    const value = originVal.toFixed(2);
+    const value = numberFormat(originVal);
+    console.log('value', value);
     if (index !== 0 && index !== len - 1) return `{middle|${value}}`;
     if (!isMainYAxis) return "";
     return value;
@@ -176,9 +199,10 @@ const getYAxis = (gridIndex, scale) => {
     label: {
       inside: true,
       inRange: true,
+      fontFamily: 'THSJinRongTi-Medium',
       formatter: labelFormatter,
       style: {
-        fill: "rgba(0,0,0,0.6)",
+        textFill: "rgba(0,0,0,0.6)",
         rich: {
           middle: { textPadding: [12 * scale, 0, 0, 0] },
         },
@@ -225,10 +249,10 @@ const getBarSeries = (
   axisIndex,
   upBarColor,
   downBarColor,
-  invisibleBar
+  visibleBar
 ) => {
   const itemStyleFun = (data) => {
-    if (invisibleBar) {
+    if (!visibleBar) {
       return { fill: "transparent" };
     }
     // TODO: 后续删除条件中的常量
@@ -242,6 +266,7 @@ const getBarSeries = (
     name: name,
     type: "bar",
     $dataIndex: 0,
+    selected: visibleBar,
     $axisIndex: axisIndex,
     dataKey: dataKey,
     itemStyle: {
@@ -250,8 +275,6 @@ const getBarSeries = (
   };
 };
 const getLegend = (data, scale, isSingleGrid, itemMargin) => {
-  const richStyle = JSON.parse(JSON.stringify(legendLabelRichMap));
-  // const hasIcon = data.forEach()
   const legendFormatter = (label, params) => {
     let res;
     if (params.iconType) {
@@ -261,13 +284,17 @@ const getLegend = (data, scale, isSingleGrid, itemMargin) => {
     }
     return res;
   };
+  console.log('legendData', data, `${100 / data.length}%`,(itemMargin || 45) * scale);
   return {
     show: true,
     top: isSingleGrid ? 8 * scale : "67%",
     padding: [0, 15, 0, 15],
-    left: 5 * scale,
+    left: -5 * scale,
     addLine: false,
-    horizontalGap: (itemMargin || 45) * scale,
+    horizontalGap: (itemMargin || 10) * scale,
+    symbol: {
+      type: 'none',
+    },
     // innerGap: 10 * scale,
     // symbol: { type: "none", size: [10 * scale, 10 * scale] },
     formatter: legendFormatter,
@@ -354,6 +381,7 @@ const getMarkArea = (
     ],
   };
 };
+// 时间水印
 const getWaterMarkSeries = (axisIndex, scale) => {
   const renderWaterMark = function(model, globalModel, global) {
     const yAxisIndex = axisIndex[1];
@@ -382,6 +410,48 @@ const getWaterMarkSeries = (axisIndex, scale) => {
       z: 0
     };
     this.setShapeGroup('waterMark', D3Charts.graphic.Rect, [waterMarkAttr]);
+  } 
+  return {
+    type: 'custom',
+    name: 'waterMark',
+    id: 'waterMark',
+    $axisIndex: axisIndex,
+    domain: [],
+    view: {
+      render: renderWaterMark
+    }
+  }
+}
+// 右下角公司水印
+const getMarkSeries = (axisIndex, scale) => {
+  const renderWaterMark = function(model, globalModel, global) {
+    const markWidth = 36 * scale;
+    const markHeight = 10 * scale;
+    // 不与底部分割线重合
+    const bottomMargin = 1 * scale;
+    const yAxisIndex = axisIndex[1];
+    const xAxisIndex = axisIndex[0];
+    const axisModel = globalModel.getComponent("axis");
+    const yAxisModel = axisModel[yAxisIndex];
+    const xAxisModel = axisModel[xAxisIndex];
+    const gridModel = yAxisModel.dependentModels.grid;
+    const gridPosition = gridModel.position;
+    model.domain = xAxisModel.domain;
+    const waterMarkAttr = {
+      style: {
+        x: gridPosition.right - markWidth,
+        y: gridPosition.bottom - markHeight - bottomMargin,
+        // textFill: 'transparent',
+        width: markWidth,
+        height: markHeight,
+        image: waterMarkImages['light']
+        // textBackgroundColor: {
+        //   image: waterMarkImages['dark']
+        // },
+      },
+      z: 0
+    };
+    this.setShapeGroup('mark', D3Charts.graphic.Image, [waterMarkAttr]);
   } 
   return {
     type: 'custom',
@@ -552,7 +622,8 @@ class OptionManager {
           flagContent[1].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
@@ -568,7 +639,7 @@ class OptionManager {
       console.trace("what");
     }
     const dataLen = this.data.length;
-    const invisibleBar = true;
+    const visibleBar = false;
     return {
       scale: scale,
       animation: false,
@@ -590,7 +661,7 @@ class OptionManager {
         // low线
         getLineSeries("J", "line3", [0, 2], "#0f0f0f", scale),
         // 下方的柱子
-        getBarSeries("KDJ", "o", [0, 2], "#ff2436", "#07ab4b", invisibleBar),
+        getBarSeries("KDJ", "line4", [0, 2], "#ff2436", "#07ab4b", visibleBar),
         getFlagSeries(
           "klineFlag",
           [0, 1],
@@ -605,7 +676,8 @@ class OptionManager {
           flagContent[1].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 3, dataLen - 1], true, scale),
@@ -658,7 +730,8 @@ class OptionManager {
           flagContent[1].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
@@ -718,7 +791,8 @@ class OptionManager {
           flagContent[1].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
@@ -779,7 +853,8 @@ class OptionManager {
           flagContent[1].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
@@ -836,7 +911,8 @@ class OptionManager {
           flagContent[1].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
@@ -890,7 +966,8 @@ class OptionManager {
           flagContent[1].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
@@ -930,7 +1007,8 @@ class OptionManager {
           flagContent[0].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 2, dataLen - 1], true, scale),
@@ -946,7 +1024,7 @@ class OptionManager {
     }
     const dataLen = this.data.length;
     const isSingleGrid = true;
-    const itemMargin = 60;
+    // const itemMargin = 60;
     return {
       scale: scale,
       animation: false,
@@ -958,7 +1036,7 @@ class OptionManager {
         getAxisPointer("vertical", 0, -48, scale),
         getAxisPointer("horizontal", [1], -4, scale),
       ],
-      legend: getLegend(legendLabelMap["YiYang"].data, scale, isSingleGrid, itemMargin),
+      legend: getLegend(legendLabelMap["YiYang"].data, scale, isSingleGrid),
       series: [
         getKLineSeries(scale),
         // MA5线
@@ -973,7 +1051,8 @@ class OptionManager {
           flagContent[0].label,
           scale
         ),
-        getWaterMarkSeries([0, 1], scale)
+        getWaterMarkSeries([0, 1], scale),
+        getMarkSeries([0, 1], scale)
       ],
       markArea: [
         getMarkArea([0, 1], 0, [dataLen - 1, dataLen - 1], true, scale),
