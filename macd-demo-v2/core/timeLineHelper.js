@@ -11,7 +11,7 @@ class TimeLineHelper {
     // 初始化helper
     this.init();
     // 通过helper给图表赋最初状态
-    // this.initState(index);
+    this.initState(index);
   }
   getSeriesInfo() {
     const D3Ins = this._D3Ins;
@@ -98,7 +98,7 @@ class TimeLineHelper {
   initState(index) {
     this.seriesInfo.forEach((item) => {
       const { type, view } = item;
-      if (!itm.visible) {
+      if (!item.visible) {
         return;
       }
       if (["custom", "markArea"].indexOf(type) !== -1) {

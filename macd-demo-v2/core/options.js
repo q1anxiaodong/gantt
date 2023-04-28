@@ -181,7 +181,6 @@ const getYAxis = (gridIndex, scale) => {
   };
   const labelFormatter = (originVal, index, len) => {
     const value = numberFormat(originVal);
-    console.log('value', value);
     if (index !== 0 && index !== len - 1) return `{middle|${value}}`;
     if (!isMainYAxis) return "";
     return value;
@@ -284,7 +283,6 @@ const getLegend = (data, scale, isSingleGrid, itemMargin) => {
     }
     return res;
   };
-  console.log('legendData', data, `${100 / data.length}%`,(itemMargin || 45) * scale);
   return {
     show: true,
     top: isSingleGrid ? 8 * scale : "67%",
@@ -441,13 +439,9 @@ const getMarkSeries = (axisIndex, scale) => {
       style: {
         x: gridPosition.right - markWidth,
         y: gridPosition.bottom - markHeight - bottomMargin,
-        // textFill: 'transparent',
         width: markWidth,
         height: markHeight,
         image: waterMarkImages['light']
-        // textBackgroundColor: {
-        //   image: waterMarkImages['dark']
-        // },
       },
       z: 0
     };
@@ -474,7 +468,6 @@ const getFlagSeries = (name, axisIndex, xIndex, content, scale) => {
   };
   const makeLineHeight = (content) => {
     const res = content.replace('\n', '\n{margin|}\n');
-    console.log('res', res);
     return res
   };
   const renderFlag = function (model, globalModel, global) {
@@ -1024,7 +1017,6 @@ class OptionManager {
     }
     const dataLen = this.data.length;
     const isSingleGrid = true;
-    // const itemMargin = 60;
     return {
       scale: scale,
       animation: false,
