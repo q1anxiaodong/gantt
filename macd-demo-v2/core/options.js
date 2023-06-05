@@ -274,6 +274,15 @@ const getBarSeries = (
     },
   };
 };
+
+/**
+ * 
+ * @param {*} data 数据
+ * @param {*} scale 缩放比例
+ * @param {*} isSingleGrid 是否只有一个grid
+ * @param {*} itemMargin 相邻图例的间距
+ * @returns 
+ */
 const getLegend = (data, scale, isSingleGrid, itemMargin) => {
   const legendFormatter = (label, params) => {
     let res;
