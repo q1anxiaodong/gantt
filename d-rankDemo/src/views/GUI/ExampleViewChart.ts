@@ -1,6 +1,7 @@
 import type { XAXisComponentOption, GridComponentOption, YAXisComponentOption, LineSeriesOption, EChartsOption, } from 'echarts';
 import type ExtensionAPI from 'echarts/types/src/core/ExtensionAPI';
 import type GlobalModel from 'echarts/types/src/model/Global';
+import { install } from '@/extensions/install';
 import { use } from 'echarts';
 
 // import type { EChartsExtensionInstallRegisters, EChartsExtensionInstaller } from 'echarts/types/src/extension'
@@ -28,38 +29,65 @@ const getYAxis = (): YAXisComponentOption  => {
         type: 'value'
     };
 }
-const getSeries = (data: SeriesData): LineSeriesOption => {
+export const getSeries = (name, seriesData) => {
     return {
-        type: 'line',
-        data: data
+        clip: true,
+        // withTimeline: {
+        //     range: [0, 0],
+        //     curIndex: 0,
+        //     maxRange: range
+        // },
+        name,
+        lineStyle: {
+            join: 'miter'
+        },
+        miterLimit: 100,
+        type: 'dvLine',
+        data: seriesData,
+        endLabel: {
+            show: true,
+            valueAnimation: true,
+            formatter: (params) => {
+                return name + '  排名 ' + params.data.rank + ' 利润 ' + params.data.data;
+            },
+            backgroundColor: 'inherit',
+            padding: 4,
+            offset: [20, 0],
+            color: '#fff'
+        },
+        emphasis: {
+            focus: 'series'
+        },
+        select: {
+            itemStyle: {
+                color: 'red'
+            }
+        },
+        symbol: 'circle',
+        showAllSymbol: true,
+        labelLayout: {
+            labelOverlap: 'shiftY'
+        },
+        symbolSize: (dataItem) => {
+            return 10 / parseFloat(dataItem) + 20;
+        },
+        animationDurationUpdate: 1000,
+        animationDuration: 1000,
     }
-}
+};
 
 export const getExampleChartOption = (data: number[]): EChartsOption => {
     return {
         grid: getGrid(),
         xAxis: getXAxis(),
         yAxis: getYAxis(),
-        series: getSeries(data)
+        // series: getSeries(data)
     }
 }
 
 // ----------------------------------------------------- //
 
 export const myUse = () => {
-    function printSeriesType(ecModel: GlobalModel, chart: ExtensionAPI) {
-        const seriesModels = ecModel.getSeries();
-        seriesModels.forEach(series => {
-            console.log('哈哈', series.type);
-        })
-    }
-
-    const extensionRegister: ECExtensionInstaller = (register: Parameters<ECExtensionInstaller>[0]) => {
-        register.registerUpdateLifecycle('series:afterupdate', (...args) => {
-            printSeriesType(args[0], args[1]);
-        })
-    }
-
-    use([extensionRegister]);
+    use([install]);
 }
 
