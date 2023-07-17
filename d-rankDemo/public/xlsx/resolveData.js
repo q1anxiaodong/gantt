@@ -62,7 +62,7 @@ const getXAxisData = (raw) => {
 }
 
 const getYAxisData = (raw) => {
-    const count = 10;
+    const count = 20;
     const yData = [];
     for (let i = count; i > 0; i--) {
         yData.push(i + '');
@@ -72,8 +72,10 @@ const getYAxisData = (raw) => {
 
 const getSeriesData = (raw, xData) => {
     const seriesData = new Map();
+    const seriesNames = [...new Set(raw.map(obj => obj.name))];
     const extent = [Infinity, -Infinity];
-    
+
+
     xData.forEach((x, xIdx) => {
         // const curr = raw.filter(item => item['date'] === x).sort((a, b) => a['rank'] - b['rank']);
         const curr = raw.filter(item => item['date'] === x);
@@ -82,13 +84,19 @@ const getSeriesData = (raw, xData) => {
         extent[1] = Math.max(extent[1], curr[0]['stockValue']);
     })
 
+    seriesNames.forEach(name => {
+        const arr = Array.from({length: xData.length}).fill({
+            name: name,
+            value: seriesNames.length + '',
+            extent: extent
+        });
+        seriesData.set(name, arr);
+    })
+
+
     xData.forEach((x, xIdx) => {
         const curr = raw.filter(item => item['date'] === x);
         curr.forEach((datum, rankIdx) => {
-            if ([...seriesData.keys()].indexOf(datum['name']) === -1) {
-                const arr = Array.from({length: xData.length});
-                seriesData.set(datum['name'], arr);
-            }
             seriesData.get(datum['name'])[xIdx] = {
                 ...datum,
                 value: datum['rank'],

@@ -319,7 +319,7 @@ export class EPolyline extends ECPolyline {
                     //如果是第一个点
                     // if (i === 3) {
                     //     x4 = 0;
-                    //     y4 = 0 
+                    //     y4 = 0; 
                     // } else {
                     //     x4 = data[i - 2];
                     //     y4 = data[i - 1];

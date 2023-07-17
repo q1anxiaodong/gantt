@@ -110,7 +110,11 @@ const initTimeline = () => {
     theme: 'mobile-withValueOuter',
     data: solvedData.xData,
     config: {
-      axis: {},
+      // axis: {
+      //   tooltip: {
+      //     style: {display: 'none'}
+      //   }
+      // },
       // dataIndex: xAxisData.length - 1,
       dataIndex: 0,
       // 动画
