@@ -1,6 +1,6 @@
 import RankLineSeries from './RankLineSeries';
 import RankLineView from './RankLineView';
-import layoutPoints from 'echarts/lib/layout/points.js';
+import layoutPoints from './layout/points.js';
 
 import type { LineSeriesOption } from 'echarts';
 import type { use } from 'echarts/types/src/extension';

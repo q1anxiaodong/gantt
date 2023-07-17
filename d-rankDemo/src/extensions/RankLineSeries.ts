@@ -1,11 +1,15 @@
-import LineSeriesModel from 'echarts/lib/chart/line/LineSeries.js';
+import LineSeriesModel$1 from 'echarts/lib/chart/line/LineSeries.js';
 import createSeriesData from 'echarts/lib/chart/helper/createSeriesData.js'
 import type { LineSeriesOption } from 'echarts/types/src/chart/line/LineSeries';
-export interface RankLineSeriesOption extends LineSeriesOption {
-    type: 'dvLine'
+import type LineSeriesModel from 'echarts/types/src/chart/line/LineSeries';
+import type SeriesData from 'echarts/types/src/data/SeriesData';
+export interface RankLineSeriesOption extends Omit<LineSeriesOption, 'type'> {
+    type: 'dvLine',
+    // clip?: ''
 }
+export interface RankLineSeriesModelType extends LineSeriesModel {};
 
-class RankLineSeriesModel extends LineSeriesModel {
+class RankLineSeriesModel extends LineSeriesModel$1 {
     static readonly type = 'series.dvLine';
     type = RankLineSeriesModel.type;
 
@@ -13,11 +17,15 @@ class RankLineSeriesModel extends LineSeriesModel {
 
     hasSymbolVisual = true;
 
+    _dvRawData: SeriesData;
+
 
     getInitialData(option) {
-        return createSeriesData(null, this, {
+        const data =  createSeriesData(null, this, {
             useEncodeDefaulter: true
         })
+        this._dvRawData = data;
+        return data;
         // return LineSeriesModel.prototype.getInitialData.apply(this, option);
     }
 
