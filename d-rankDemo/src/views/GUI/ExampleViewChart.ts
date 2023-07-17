@@ -26,6 +26,23 @@ export const colors = [
     '#42B7FF',
     '#6F5CFF',
     '#5C8AFF',
+    '#6F5CFF',
+    '#ff5cb6',
+    '#df6ae6',
+    '#ffc252',
+    '#60e6d2',
+    '#6bcbff',
+    '#85abff',
+    '#9785ff',
+    '#ff85c4',
+    '#f196f2',
+    '#ffd57a',
+    '#8df2e0',
+    '#94ddff',
+    '#adcaff',
+    '#bcadff',
+    '#ffadd5',
+    '#ffc7fe',
 ];
 
 
@@ -66,8 +83,8 @@ export const getSeries = (name, seriesData) => {
             valueAnimation: true,
             formatter: (params) => {
                 // return name + '  排名 ' + params.data.rank + ' 热度 ' + params.data.data;
-                return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
-                // return `{avatar|${name.slice(0, 1)}}{margin|}{content|${name  + ' ' + params.data.rank}}`;
+                // return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
+                return `{avatar|${name.slice(0, 1)}}{margin|}{content|${ name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ')  + ' ' + params.data.rank}}`;
             },
             rich: {
                 avatar: {
@@ -83,9 +100,9 @@ export const getSeries = (name, seriesData) => {
                     padding: 4
                 }
             },
-            padding: 4,
-            distance: 5,
-            backgroundColor: 'inherit',
+            // padding: 4,
+            // distance: 5,
+            // backgroundColor: 'inherit',
             color: '#fff'
             // color: '#000'
         },
@@ -111,6 +128,9 @@ export const getSeries = (name, seriesData) => {
             const max = 20;
             const extent = params.data.extent;
             return 3 + (max - min) * (params.data.stockValue - extent[0]) / (extent[1] - extent[0]) ;
+        },
+        tooltip: {
+
         },
         animationDurationUpdate: 1000,
         animationDuration: 1000,

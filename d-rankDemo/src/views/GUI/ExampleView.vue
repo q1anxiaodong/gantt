@@ -24,7 +24,7 @@ const initChart = () => {
   option = {
     grid: {
       left: 35,
-      right: 100,
+      right: 130,
       top: '8%',
       bottom: 0
     },

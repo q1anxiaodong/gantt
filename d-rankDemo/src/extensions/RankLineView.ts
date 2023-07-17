@@ -1202,33 +1202,33 @@ class RankLineView extends LineView {
             if (withTimeline) {
                 // return;
                 const { range, curIndex, maxRange } = withTimeline;
-                // const pts = coordSys.dataToPoint([
-                //     seriesModel._dvRawData.getByRawIndex('x', curIndex),
-                //     seriesModel._dvRawData.getByRawIndex('y', curIndex),
-                // ]);
+                const pts = coordSys.dataToPoint([
+                    seriesModel._dvRawData.getByRawIndex('x', curIndex),
+                    seriesModel._dvRawData.getByRawIndex('y', curIndex),
+                ]);
 
-                // console.log('pts', pts);
+                console.log('pts', pts);
 
 
-                // const ptOnPolyline = polyline.getDisplayblePointOn(xOrY, dim);
-                // // console.log('pt', ptOnPolyline);
+                const ptOnPolyline = polyline.getDisplayblePointOn(xOrY, dim);
+                // console.log('pt', ptOnPolyline);
 
-                // if (!ptOnPolyline) {
-                //     endLabel.attr({
-                //         ignore: true,
-                //         x: xOrY + distanceX,
-                //         y: endLabel.y + distanceY,
-                //         // style: {
-                //         //     text: ''
-                //         // }
-                //     })
-                // } else {
-                //     endLabel.attr({
-                //         ignore: false,
-                //         x: ptOnPolyline[0] + distanceX,
-                //         y: ptOnPolyline[1] + distanceY
-                //     })
-                // }
+                if (!ptOnPolyline) {
+                    endLabel.attr({
+                        ignore: true,
+                        x: xOrY + distanceX,
+                        y: endLabel.y + distanceY,
+                        // style: {
+                        //     text: ''
+                        // }
+                    })
+                } else {
+                    endLabel.attr({
+                        ignore: false,
+                        x: ptOnPolyline[0] + distanceX,
+                        y: ptOnPolyline[1] + distanceY
+                    })
+                }
                 // -------------------------------
                 if (diff >= 0) {
                     const ptOnPolyline = polyline.getDisplayblePointOn(xOrY, dim);
