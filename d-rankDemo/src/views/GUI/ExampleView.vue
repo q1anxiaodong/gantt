@@ -94,7 +94,6 @@ const initChart = () => {
     series: [...solvedData.seriesData.keys()].slice().map((key, index) => {
       return getSeries(key, solvedData.seriesData.get(key))
     }),
-    // animationDuration: 6000,
     animationDurationUpdate: 1000,
     animationEasing: 'linear',
     animationEasingUpdate: 'linear'
@@ -110,11 +109,11 @@ const initTimeline = () => {
     theme: 'mobile-withValueOuter',
     data: solvedData.xData,
     config: {
-      // axis: {
-      //   tooltip: {
-      //     style: {display: 'none'}
-      //   }
-      // },
+      axis: {
+        tooltip: {
+          style: {display: 'none'}
+        }
+      },
       // dataIndex: xAxisData.length - 1,
       dataIndex: 0,
       // 动画

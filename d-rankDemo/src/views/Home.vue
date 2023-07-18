@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Vue, { computed, getCurrentInstance, ref } from 'vue'
+import Vue, { computed, getCurrentInstance, onMounted, ref } from 'vue'
 import ExampleView from './GUI/ExampleView.vue'
-import Drawer from './Drawer.vue'
+import Drawer from '../components/Drawer.vue'
 
 import { ElIcon } from 'element-plus'
 import 'element-plus/es/components/icon/style/css'
@@ -12,14 +12,11 @@ import messageIcon from '@/assets/icons/message.png'
 import shareIcon from '@/assets/icons/share.png'
 
 const isMusicOpen = ref(false);
+const musicDom = ref();
 const datasetDrawer = ref();
 
 const tools = computed(() => {
   return [
-    {
-      icon: isMusicOpen.value ? musicIcon : muteIcon,
-      text: '音乐'
-    },
     {
       icon: messageIcon,
       text: '留言'
@@ -31,15 +28,20 @@ const tools = computed(() => {
   ]
 })
 
-function toolsClick(item) {
-  if (item.text === '音乐') {
-    isMusicOpen.value = !isMusicOpen.value
-  }
-}
+// function toolsClick(item) {
+//   if (item.text === '音乐') {
+//     isMusicOpen.value = !isMusicOpen.value;
+
+//   }
+// }
 
 function click11() {
   datasetDrawer.value.show()
 }
+
+onMounted(() => {
+  const musicPlayer = new MusicPlayer('#music', { probability: 0.33,});
+})
 </script>
 <template>
   <div class="rank">
@@ -49,12 +51,12 @@ function click11() {
         <ElIcon color="#fff" size="26"><ArrowLeft /></ElIcon>
       </div>
       <div class="rank-tools-buttons">
+        <div style="height: 30px;width: 30px;backgroundColor: #fff" id="music"></div>
         <img
           v-for="item in tools"
           :key="item.text"
           :title="item.text"
           :src="item.icon"
-          @click="toolsClick(item)"
           class="rank-tools-buttons-item"
         />
       </div>
@@ -68,7 +70,7 @@ function click11() {
           <!-- <ElIcon color="#fff" size="20"> -->
         </div>
       </div>
-      <div class="rank-header-sub">持股量越高，排名越靠前且气泡面积越大</div>
+      <div class="rank-header-sub">十大流通股东</div>
     </div>
     <div class="rank-container">
       <div class="rank-container-main" id="container">
