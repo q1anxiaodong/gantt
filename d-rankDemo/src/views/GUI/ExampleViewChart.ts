@@ -4,6 +4,8 @@ import type GlobalModel from 'echarts/types/src/model/Global';
 import { install } from '@/extensions/install';
 import { use } from 'echarts';
 
+const rootPath = 'http://127.0.0.1:5173'
+
 // import type { EChartsExtensionInstallRegisters, EChartsExtensionInstaller } from 'echarts/types/src/extension'
 
 // 根据业务做图表组件类型推断、类型定义的地方 //
@@ -84,13 +86,13 @@ export const getSeries = (name, seriesData) => {
             formatter: (params) => {
                 // return name + '  排名 ' + params.data.rank + ' 热度 ' + params.data.data;
                 // return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
-                return `{avatar|${name.slice(0, 1)}}{margin|}{content|${ name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ')  + ' ' + params.data.rank}}`;
+                return `{margin|}{avatar|${name.slice(0, 1)}}{margin|}{content|${ name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ')  + ' ' + params.data.rank}}`;
             },
             rich: {
                 avatar: {
                     // width: 16,
                     // height: 16,
-                    padding: [4, 4, 4, 4],
+                    padding: 4,
                     borderRadius: 10,
                     backgroundColor: 'inherit',
                 },
@@ -101,10 +103,8 @@ export const getSeries = (name, seriesData) => {
                 }
             },
             // padding: 4,
-            // distance: 5,
-            // backgroundColor: 'inherit',
-            color: '#fff'
-            // color: '#000'
+            distance: 1,
+            color: '#fff',
         },
         emphasis: {
             focus: 'series'
@@ -124,10 +124,10 @@ export const getSeries = (name, seriesData) => {
             if (value === undefined) {
                 return 0;
             }
-            const min = 3;
+            const min = 6;
             const max = 20;
             const extent = params.data.extent;
-            return 3 + (max - min) * (params.data.stockValue - extent[0]) / (extent[1] - extent[0]) ;
+            return 6 + (max - min) * (params.data.stockValue - extent[0]) / (extent[1] - extent[0]) ;
         },
         tooltip: {
 

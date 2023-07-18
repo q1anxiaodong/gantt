@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import Vue, { computed, ref } from 'vue'
-import ExampleView from './GUI/ExampleView.vue';
+import Vue, { computed, getCurrentInstance, ref } from 'vue'
+import ExampleView from './GUI/ExampleView.vue'
+import Drawer from './Drawer.vue'
+
 import { ElIcon } from 'element-plus'
 import 'element-plus/es/components/icon/style/css'
 import { ArrowLeft, Calendar } from '@element-plus/icons-vue'
@@ -9,7 +11,9 @@ import muteIcon from '@/assets/icons/music.png'
 import messageIcon from '@/assets/icons/message.png'
 import shareIcon from '@/assets/icons/share.png'
 
-const isMusicOpen = ref(false)
+const isMusicOpen = ref(false);
+const datasetDrawer = ref();
+
 const tools = computed(() => {
   return [
     {
@@ -31,6 +35,10 @@ function toolsClick(item) {
   if (item.text === '音乐') {
     isMusicOpen.value = !isMusicOpen.value
   }
+}
+
+function click11() {
+  datasetDrawer.value.show()
 }
 </script>
 <template>
@@ -54,8 +62,8 @@ function toolsClick(item) {
     <div class="rank-header">
       <div class="rank-header-main">
         <div class="rank-header-main-title">行业热度</div>
-        <!-- <div class="rank-header-main-industry"></div>
-        <div class="rank-header-main-sentiment"></div> -->
+        <div class="rank-header-main-industry" @click="click11">同花顺</div>
+        <!-- <div class="rank-header-main-sentiment"></div> -->
         <div class="rank-header-main-date">
           <!-- <ElIcon color="#fff" size="20"> -->
         </div>
@@ -64,22 +72,29 @@ function toolsClick(item) {
     </div>
     <div class="rank-container">
       <div class="rank-container-main" id="container">
-          <div class="rank-container-main-legends">
-            <div class="rank-container-main-legends-line">
-              <div class="rank-container-main-legends-line-icon"></div>
-              持股排名
-            </div>
-            <div class="rank-container-main-legends-circle">
-              <div class="rank-container-main-legends-circle-icon"></div>
-              持股量
-            </div>
+        <div class="rank-container-main-legends">
+          <div class="rank-container-main-legends-line">
+            <div class="rank-container-main-legends-line-icon"></div>
+            持股排名
           </div>
-          <div class="rank-container-main-content">
-            <ExampleView/>
+          <div class="rank-container-main-legends-circle">
+            <div class="rank-container-main-legends-circle-icon"></div>
+            持股量
           </div>
+        </div>
+        <div class="rank-container-main-content">
+          <ExampleView />
+        </div>
       </div>
     </div>
-    <!-- <div class="rank-foot"></div> -->
+    <Drawer ref="datasetDrawer">
+      <template #header> 123 </template>
+      <template #main> 456 </template>
+      <template #footer>
+        <div class="btn" @click="hide">取消</div>
+        <div class="btn confirm-btn" @click="handleConfirm">确定</div>
+      </template>
+    </Drawer>
   </div>
 </template>
 <style lang="less" scoped>
@@ -154,6 +169,7 @@ function toolsClick(item) {
         font-weight: 600;
       }
       &-industry {
+        color: #fff;
         width: 88px;
         height: 30px;
         display: flex;
@@ -163,7 +179,21 @@ function toolsClick(item) {
         border-radius: 4px;
         padding: 0px 8px;
         margin-left: 8px;
+        position: relative;
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          right: 8px;
+          top: 12px;
+          width: 0;
+          height: 0;
+          border-width: 6px;
+          border-style: solid;
+          border-color: #fff transparent transparent transparent;
+        }
       }
+
       &-sentiment {
         width: 88px;
         height: 30px;
@@ -199,7 +229,7 @@ function toolsClick(item) {
       height: 100%;
       background-color: #fff;
       border-radius: 6px 6px 0 0;
-      
+
       @legends-height: 16px;
       &-legends {
         width: 100%;
@@ -216,8 +246,8 @@ function toolsClick(item) {
           &-icon {
             width: 12px;
             height: 1px;
-            border: 1px solid #D1D1D1 ;
-            background-color: #D1D1D1;
+            border: 1px solid #d1d1d1;
+            background-color: #d1d1d1;
             border-radius: 10px;
             margin: 0 2px;
           }
@@ -231,7 +261,7 @@ function toolsClick(item) {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background-color: #D1D1D1 ;
+            background-color: #d1d1d1;
             margin: 0 6px;
           }
         }
@@ -252,5 +282,22 @@ function toolsClick(item) {
     border-radius: 8px 8px 0 0;
     z-index: 2;
   }
+}
+
+
+
+.btn {
+  height: 44px;
+  line-height: 44px;
+  border-radius: 4px;
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.04);
+  text-align: center;
+  color: rgba(0, 0, 0, 0.84);
+  font-size: 16px;
+}
+.confirm-btn {
+  color: #fff;
+  background-color: #ff2436;
 }
 </style>>
