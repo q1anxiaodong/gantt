@@ -3,7 +3,7 @@ import path from 'path';
 import { parseExcel } from './util/excel.js';
 
 
-const xlsxPath = './public/xlsx/assets/同花顺持股量.xlsx';
+const xlsxPath = './public/xlsx/assets/日播时尚十大股东数据.xlsx';
 const sheets = parseExcel(path.resolve(xlsxPath));
 
 fs.writeFileSync(
