@@ -68,8 +68,8 @@ export const getSeries = (name, seriesData) => {
     return {
         clip: true,
         withTimeline: {
-            range: [0, 0],
-            curIndex: 0,
+            range: [0, 5],
+            curIndex: 5,
             maxRange: 5
         },
         name,
@@ -86,7 +86,7 @@ export const getSeries = (name, seriesData) => {
             formatter: (params) => {
                 // return name + '  排名 ' + params.data.rank + ' 热度 ' + params.data.data;
                 // return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
-                return `{margin|}{avatar|${name.slice(0, 1)}}{margin|}{content|${ name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ')  + ' ' + params.data.rank}}`;
+                return `{margin|}{avatar|${name.slice(0, 1)}}{margin|}{content|${ name.slice(0, 3)  + (name.length > 3 ? '... ' : ' ')  + ' ' + params.data.rank}}`;
             },
             rich: {
                 avatar: {

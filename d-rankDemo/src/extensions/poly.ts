@@ -371,6 +371,7 @@ export class EPolyline extends ECPolyline {
                     break;
             }
         }
+        return [NaN, NaN]
     }
 }
 class ECPolygonShape extends ECPolylineShape {

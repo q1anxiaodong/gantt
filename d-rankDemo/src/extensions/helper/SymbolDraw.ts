@@ -22,6 +22,7 @@ import type { ScatterSeriesOption } from 'echarts/types/src/scatter/ScatterSerie
 import { getLabelStatesModels } from 'echarts/lib/label/labelStyle';
 import Element from 'zrender/src/Element';
 import type SeriesModel from 'echarts/types/src/model/Series';
+import { Rect } from 'echarts/types/src/util/graphic';
 
 interface UpdateOpt {
     isIgnore?(idx: number): boolean

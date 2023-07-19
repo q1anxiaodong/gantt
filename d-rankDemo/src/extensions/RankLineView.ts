@@ -526,7 +526,8 @@ function createLineClipPath(
     lineView: LineView,
     coordSys: Cartesian2D | Polar,
     hasAnimation: boolean,
-    seriesModel: LineSeriesModel
+    seriesModel: LineSeriesModel,
+    noChangeEndLabel?: boolean
 ) {
     if (isCoordinateSystemType<Cartesian2D>(coordSys, 'cartesian2d')) {
         const endLabelModel = seriesModel.getModel('endLabel');
@@ -537,7 +538,7 @@ function createLineClipPath(
 
         const during = anyStateShowEndLabel(seriesModel)
             ? (percent: number, clipRect: graphic.Rect) => {
-                lineView._endLabelOnDuring(
+                lineView._updateEndLabelOnDuring(
                     percent,
                     clipRect,
                     data,
@@ -552,7 +553,7 @@ function createLineClipPath(
         const isHorizontal = coordSys.getBaseAxis().isHorizontal();
         const clipPath = createGridClipPath(coordSys, hasAnimation, seriesModel, () => {
             const endLabel = lineView._endLabel;
-            if (endLabel && hasAnimation) {
+            if (endLabel && hasAnimation && !noChangeEndLabel) {
                 if (labelAnimationRecord.originalX != null) {
                     endLabel.attr({
                         x: labelAnimationRecord.originalX,
@@ -576,7 +577,7 @@ function createLineClipPath(
         }
 
         // Set to the final frame. To make sure label layout is right.
-        if (during) {
+        if (during && !noChangeEndLabel) {
             during(1, clipPath);
         }
         return clipPath;
@@ -758,7 +759,7 @@ class RankLineView extends LineView {
 
             // NOTE: Must update _endLabel before setClipPath.
             if (!isCoordSysPolar) {
-                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor));
+                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), withTimeline.curIndex);
                 this._endLabel && withTimeline && (this._endLabel.lastWithTimeline = withTimeline);
             }
             seriesModel._points = points;
@@ -783,12 +784,15 @@ class RankLineView extends LineView {
                 polygon = this._polygon = null;
             }
 
+            if (this._endLabel) {
+                console.log('endLabel前', this._endLabel.x, this._endLabel.y, this._endLabel.style.text);
+            }
             // NOTE: Must update _endLabel before setClipPath.
             if (!isCoordSysPolar) {
-                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor));
+                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), withTimeline.curIndex);
             }
-            if (this._endLabel && this._endLabel.style.text?.indexOf('冯继东') !== -1) {
-                console.log('endLabel', this._endLabel.x, this._endLabel.y, this._endLabel.style.text);
+            if (this._endLabel) {
+                console.log('endLabel后', this._endLabel.x, this._endLabel.y, this._endLabel.style.text);
             }
 
 
@@ -796,7 +800,7 @@ class RankLineView extends LineView {
             const oldClipPath = lineGroup.getClipPath();
             seriesModel._points = undefined;
             if (oldClipPath) {
-                const newClipPath = createLineClipPath(this, coordSys, false, seriesModel);
+                const newClipPath = createLineClipPath(this, coordSys, false, seriesModel, true);
                 const endLabelModel = seriesModel.getModel('endLabel');
                 const valueAnimation = endLabelModel.get('valueAnimation');
                 const { curIndex, maxRange, range } = withTimeline;
@@ -811,7 +815,7 @@ class RankLineView extends LineView {
                 // const labelAnimationRecord = { lastFrameIndex: 0 };
                 // console.log('original', originalX, originalY, 'cur', curIndex, 'max',maxRange, 'pre',this.preIndex, isBackward);
 
-                !this._labelAnimationRecord && (this._labelAnimationRecord = { lastFrameIndex: 0 });
+                !this.labelAnimationRecord && (this.labelAnimationRecord = { lastFrameIndex: 0, lastDisplay: true });
 
                 // const during = (percent: number) => {
                 //     const oldPoint = getPointAtIndex(points, this.labelAnimationRecord.lastFrameIndex);
@@ -826,11 +830,11 @@ class RankLineView extends LineView {
                 // };
                 const during = anyStateShowEndLabel(seriesModel)
                     ? (percent: number) => {
-                        this._endLabelOnDuring(
+                        this._updateEndLabelOnDuring(
                             percent,
                             oldClipPath,
                             data,
-                            this._labelAnimationRecord,
+                            this.labelAnimationRecord,
                             valueAnimation,
                             endLabelModel,
                             coordSys
@@ -838,14 +842,10 @@ class RankLineView extends LineView {
                     }
                     : null;
 
-                // console.log('pts', seriesModel._dvRawData);
                 graphic.initProps(oldClipPath, {
                     shape: newClipPath.shape
                 }, seriesModel, undefined, () => {
-                    this._labelAnimationRecord = {
-                        originalX: this._endLabel?.x,
-                        originalY: this._endLabel?.y
-                    }
+                    this.labelAnimationRecord.lastFrameIndex = curIndex;
                 }, during);
 
             }
@@ -1223,9 +1223,9 @@ class RankLineView extends LineView {
         if (endLabel) {
             // NOTE: Don't remove percent < 1. percent === 1 means the first frame during render.
             // The label is not prepared at this time.
-            if (animationRecord.originalX == null || animationRecord.originalY == null) {
+            if (percent < 1 && animationRecord.originalX == null) {
                 animationRecord.originalX = endLabel.x;
-                animationRecord.originalY = 1000;
+                animationRecord.originalY = endLabel.y;
             }
 
             const points = data.getLayout('points');
@@ -1253,169 +1253,170 @@ class RankLineView extends LineView {
 
             const diff = indices[1] - indices[0];
             let value: ParsedValue;
-            if (withTimeline) {
-                // return;
-                const { range, curIndex, maxRange } = withTimeline;
-                // const { curIndex: lastIndex } = endLabel.lastWithTimeline;
-                let pts = coordSys.dataToPoint([
-                    seriesModel._dvRawData.getByRawIndex('x', curIndex),
-                    seriesModel._dvRawData.getByRawIndex('y', curIndex),
-                ]);
-                // const lastPts = coordSys.dataToPoint([
-                //     seriesModel._dvRawData.getByRawIndex('x', lastIndex),
-                //     seriesModel._dvRawData.getByRawIndex('y', lastIndex)
-                // ])
-                if (endLabel.style.text?.indexOf('冯继东') !== -1) {
-                    console.log('pts', pts,[animationRecord.originalX, animationRecord.originalY]
-                    );
-                }
-
-
-                const ptOnPolyline = polyline.getDisplayblePointOn(xOrY, dim);
-                // pts = ptOnPolyline;
-
-                // if (!ptOnPolyline) {
-                //     endLabel.attr({
-                //         ignore: true,
-                //         x: xOrY + distanceX,
-                //         y: endLabel.y + distanceY,
-                //         // style: {
-                //         //     text: ''
-                //         // }
-                //     })
-                // } else {
-                //     endLabel.attr({
-                //         ignore: false,
-                //         x: ptOnPolyline[0] + distanceX,
-                //         y: ptOnPolyline[1] + distanceY
-                //     })
-                // }
-                // 如果这一帧裁切矩形右边界和折线存在交点, 那么直接用交点
-                // if (ptOnPolyline) {
-                //     endLabel.attr({
-                //         ignore: false,
-                //         x: ptOnPolyline[0] + distanceX,
-                //         y: ptOnPolyline[1] + distanceY
-                //     })
-                // } else {
-                endLabel.attr({
-                    x: (pts[0] - animationRecord.originalX) * percent + animationRecord.originalX,
-                    y: ((pts[1] - animationRecord.originalY) * percent + animationRecord.originalY) || 1000,
-                    // ignore: animationRecord.originalY === 1000 && curIndex !== 0
-                })
-                // }
-                // -------------------------------
-                // if (diff >= 0) {
-                //     const ptOnPolyline = polyline.getDisplayblePointOn(xOrY, dim);
-                //     if (diff > 0 && !ptOnPolyline && !connectNulls) {
-                //         const pt = getPointAtIndex(points, indices[0]);
-
-                //         // console.log('diff大于1且不连接空数据',indices[1], indices[0], pt, xOrY);
-
-                //         endLabel.attr({
-                //             x: pt[0] + distanceX,
-                //             y: pt[1] + distanceY,
-                //             ignore: true
-                //         });
-                //         valueAnimation && (value = seriesModel.getRawValue(indices[0]) as ParsedValue);
-                //     }
-                //     else {
-                //         const pt = polyline.getDisplayblePointOn(xOrY, dim) || getPointAtIndex(points, indices[1]);
-                //         // console.log('diff小于等于1且不连接空数据',indices[1], indices[0], pt, xOrY);
-
-                //         pt && endLabel.attr({
-                //             x: pt[0] + distanceX,
-                //             y: pt[1] + distanceY,
-                //             ignore: false
-                //         });
-
-                //         const startValue = seriesModel.getRawValue(indices[0]) as ParsedValue;
-                //         const endValue = seriesModel.getRawValue(indices[1]) as ParsedValue;
-                //         valueAnimation && (value = modelUtil.interpolateRawValues(
-                //             data, precision, startValue, endValue, dataIndexRange.t
-                //         ) as ParsedValue);
-                //         if (withTimeline && range[1] && valueAnimation) {
-                //             value = seriesModel.getRawValue(range[1]) as ParsedValue;
-                //         }
-                //     }
-                //     animationRecord.lastFrameIndex = indices[0];
-                // }
-                // else {
-                //     // If diff <= 0, which is the range is not found(Include NaN)
-                //     // Choose the first point or last point.
-                //     // 如果当前的裁切矩形的宽度不在折线线段内，则判断需要显示的索引
-                //     const idx = (percent === 1 || animationRecord.lastFrameIndex > 0) ?
-                //         indices[0] === seriesModel.get(['withTimeline', 'maxRange']) ? 0 : indices[0]
-                //         : 0;
-
-                //     const pt = getPointAtIndex(points, idx);
-                //     // console.log('endLabel帧', idx, indices[1], indices[0], '当前进度', range[1], maxRange, 'percent', percent);
-
-                //     valueAnimation && (value = seriesModel.getRawValue(idx) as ParsedValue);
-                //     endLabel.attr({
-                //         x: pt[0] + distanceX,
-                //         y: pt[1] + distanceY,
-                //         ignore: range[1] !== indices[0]
-                //     });
-                // }
-                // if (valueAnimation) {
-                //     try {
-                //         labelInner(endLabel).setLabelText(value);
-                //     } catch (err) {
-                //         // console.warn('绘制末尾标签前，请保证折线数据至少有一个数据');
-                //         endLabel.attr({
-                //             style: {
-                //                 text: ''
-                //             }
-                //         })
-                //     }
-                // }
-
-                endLabel.lastWithTimeline = withTimeline;
-            }
-            else {
-                if (diff >= 1) {
-                    // diff > 1 && connectNulls, which is on the null data.
-                    if (diff > 1 && !connectNulls) {
-                        const pt = getPointAtIndex(points, indices[0]);
-                        endLabel.attr({
-                            x: pt[0] + distanceX,
-                            y: pt[1] + distanceY
-                        });
-                        valueAnimation && (value = seriesModel.getRawValue(indices[0]) as ParsedValue);
-                    }
-                    else {
-                        const pt = polyline.getPointOn(xOrY, dim);
-                        pt && endLabel.attr({
-                            x: pt[0] + distanceX,
-                            y: pt[1] + distanceY
-                        });
-
-                        const startValue = seriesModel.getRawValue(indices[0]) as ParsedValue;
-                        const endValue = seriesModel.getRawValue(indices[1]) as ParsedValue;
-                        valueAnimation && (value = modelUtil.interpolateRawValues(
-                            data, precision, startValue, endValue, dataIndexRange.t
-                        ) as ParsedValue);
-                    }
-                    animationRecord.lastFrameIndex = indices[0];
-                }
-                else {
-                    // If diff <= 0, which is the range is not found(Include NaN)
-                    // Choose the first point or last point.
-                    const idx = (percent === 1 || animationRecord.lastFrameIndex > 0) ? indices[0] : 0;
-                    const pt = getPointAtIndex(points, idx);
-                    valueAnimation && (value = seriesModel.getRawValue(idx) as ParsedValue);
+            // if (indices[0] > data.indexOfRawIndex(withTimeline.curIndex)) endLabel.attr({style: {opacity: 0}});
+            if (diff >= 1) {
+                // diff > 1 && connectNulls, which is on the null data.
+                if (diff > 1 && !connectNulls) {
+                    const pt = getPointAtIndex(points, indices[0]);
                     endLabel.attr({
                         x: pt[0] + distanceX,
                         y: pt[1] + distanceY
                     });
+                    valueAnimation && (value = seriesModel.getRawValue(indices[0]) as ParsedValue);
                 }
-                if (valueAnimation) {
-                    try {
-                        labelInner(endLabel).setLabelText(value);
-                    } catch (err) {
-                        console.warn('绘制末尾标签前，请保证折线数据至少有一个数据');
-                    }
+                else {
+                    const pt = polyline.getPointOn(xOrY, dim);
+                    pt && endLabel.attr({
+                        x: pt[0] + distanceX,
+                        y: pt[1] + distanceY
+                    });
+
+                    const startValue = seriesModel.getRawValue(indices[0]) as ParsedValue;
+                    const endValue = seriesModel.getRawValue(indices[1]) as ParsedValue;
+                    valueAnimation && (value = modelUtil.interpolateRawValues(
+                        data, precision, startValue, endValue, dataIndexRange.t
+                    ) as ParsedValue);
+                }
+                animationRecord.lastFrameIndex = indices[0];
+            }
+            else {
+                // If diff <= 0, which is the range is not found(Include NaN)
+                // Choose the first point or last point.
+                const idx = (percent === 1 || animationRecord.lastFrameIndex > 0) ? indices[0] : 0;
+                const pt = getPointAtIndex(points, idx);
+                valueAnimation && (value = seriesModel.getRawValue(idx) as ParsedValue);
+                endLabel.attr({
+                    x: pt[0] + distanceX,
+                    y: pt[1] + distanceY
+                });
+            }
+            if (valueAnimation) {
+                try {
+                    labelInner(endLabel).setLabelText(value);
+                } catch (err) {
+                    console.warn('绘制末尾标签前，请保证折线数据至少有一个数据');
+                }
+            }
+        }
+    }
+
+    _updateEndLabelOnDuring(
+        percent: number,
+        clipRect: graphic.Rect,
+        data: SeriesData,
+        animationRecord: EndLabelAnimationRecord,
+        valueAnimation: boolean,
+        endLabelModel: Model<LabelOption>,
+        coordSys: Cartesian2D
+    ) {
+        const endLabel = this._endLabel;
+        const polyline = this._polyline;
+
+        if (endLabel) {
+            // NOTE: Don't remove percent < 1. percent === 1 means the first frame during render.
+            // The label is not prepared at this time.
+
+            const points = data.getLayout('points');
+
+            const seriesModel = data.hostModel as LineSeriesModel;
+            const connectNulls = seriesModel.get('connectNulls');
+            const precision = endLabelModel.get('precision');
+            const distance = endLabelModel.get('distance') || 0;
+            const withTimeline = seriesModel.get('withTimeline');
+
+            const baseAxis = coordSys.getBaseAxis();
+            const isHorizontal = baseAxis.isHorizontal();
+            const isBaseInversed = baseAxis.inverse;
+            const clipShape = clipRect.shape;
+
+            const xOrY = isBaseInversed
+                ? isHorizontal ? clipShape.x : (clipShape.y + clipShape.height)
+                : isHorizontal ? (clipShape.x + clipShape.width) : clipShape.y;
+            const distanceX = (isHorizontal ? distance : 0) * (isBaseInversed ? -1 : 1);
+            const distanceY = (isHorizontal ? 0 : -distance) * (isBaseInversed ? -1 : 1);
+            const dim = isHorizontal ? 'x' : 'y';
+
+            const dataIndexRange = getIndexRange(points, xOrY, dim);
+            const indices = dataIndexRange.range;
+
+            const diff = indices[1] - indices[0];
+            let value: ParsedValue;
+            if (withTimeline) {
+                // 记录上一周期的标签位置
+                if (percent === 0) {
+                    animationRecord.originalX = endLabel.x;
+                    animationRecord.originalY = endLabel.y;
+                }
+                const { range, curIndex, maxRange } = withTimeline;
+                const lastPt = [animationRecord.originalX, animationRecord.originalY] as [number, number];
+                const lastIndex = animationRecord.lastFrameIndex;
+
+                const ptOnCurrIndex = getPointAtIndex(points, data.indexOfRawIndex(curIndex));
+                const ptOnLastIndex = coordSys.dataToPoint([
+                    data.getByRawIndex('x', lastIndex),
+                    data.getByRawIndex('y', lastIndex)
+                ]);
+                // console.log('pts', percent, endLabel.style.text, lastPt, ptOnCurrIndex, ptOnLastIndex, animationRecord.lastFrameIndex);
+
+                function valueAtPercent(source: number, target: number, percent: number) {
+                    const diff = target - source;
+                    return source + diff * percent;
+                }
+
+                // 如果标签在上一状态位于坐标系合法位置，且本状态也在合法位置
+                if (!isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && !isPointNull(lastPt[0], lastPt[1])) {
+                    endLabel.attr({
+                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX,
+                        y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY,
+                        ignore: false,
+                        style: {
+                            opacity: 1
+                        }
+                    })
+                }
+                // 如果标签在上一状态位于合法位置，且本状态位于坐标系外
+                else if (isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && !isPointNull(lastPt[0], lastPt[1])) {
+                    endLabel.attr({
+                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX) || ptOnLastIndex[0],
+                        y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || ptOnLastIndex[1],
+                        ignore: true,
+                        style: {
+                            opacity: 0
+                        }
+                    });
+                    polyline.attr({
+                        style: {
+                            stroke: 'grey'
+                        }
+                    })
+                }
+                // 如果标签在上一状态位于坐标系外，且本状态位于合法位置
+                else if (!isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
+                    endLabel.attr({
+                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX) || ptOnCurrIndex[0],
+                        y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || ptOnCurrIndex[1],
+                        ignore: false,
+                        style: {
+                            opacity: percent
+                        }
+                    })
+                }
+                // 如果标签在上一状态位于坐标系外，且本状态位于坐标系外
+                else if (isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
+                    endLabel.attr({
+                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX) || ptOnCurrIndex[0],
+                        y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || endLabel.y,
+                        ignore: true,
+                        style: {
+                            opacity: 0
+                        }
+                    });
+
+                    polyline.attr({
+                        style: {
+                            stroke: 'grey'
+                        }
+                    })
                 }
             }
         }
