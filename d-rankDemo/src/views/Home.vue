@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Vue, { computed, getCurrentInstance, onMounted, ref } from 'vue'
+import resolveData from '../../public/xlsx/resolveData.js'
 import ExampleView from './GUI/ExampleView.vue'
 import Drawer from '../components/Drawer.vue'
 
@@ -14,6 +15,7 @@ import shareIcon from '@/assets/icons/share.png'
 const isMusicOpen = ref(false);
 const musicDom = ref();
 const datasetDrawer = ref();
+const currDataName = ref<'ths' | 'rb' | 'kl'>('ths');
 
 const tools = computed(() => {
   return [
@@ -26,17 +28,29 @@ const tools = computed(() => {
       text: '分享'
     }
   ]
+});
+const dataset = computed(() => {
+  return resolveData(currDataName.value);
+})
+const datasetName = computed(() => {
+  const datasetNameMap = {
+    ths: '同花顺',
+    rb: '日播时尚',
+    kl: '昆仑万维'
+  };
+  return datasetNameMap[currDataName.value];
 })
 
-// function toolsClick(item) {
-//   if (item.text === '音乐') {
-//     isMusicOpen.value = !isMusicOpen.value;
-
-//   }
-// }
-
-function click11() {
+const drawerShow = () => {
   datasetDrawer.value.show()
+}
+const drawerHide = () => {
+  datasetDrawer.value.hide();
+}
+
+const changeDataSetHandler = (datasetName) => {
+  currDataName.value = datasetName;
+  drawerHide();
 }
 
 onMounted(() => {
@@ -63,14 +77,14 @@ onMounted(() => {
     </div>
     <div class="rank-header">
       <div class="rank-header-main">
-        <div class="rank-header-main-title">行业热度</div>
-        <div class="rank-header-main-industry" @click="click11">同花顺</div>
+        <div class="rank-header-main-title">十大股东</div>
+        <div class="rank-header-main-industry" @click="drawerShow">{{datasetName}}</div>
         <!-- <div class="rank-header-main-sentiment"></div> -->
         <div class="rank-header-main-date">
           <!-- <ElIcon color="#fff" size="20"> -->
         </div>
       </div>
-      <div class="rank-header-sub">十大流通股东</div>
+      <div class="rank-header-sub">这里是提示文案</div>
     </div>
     <div class="rank-container">
       <div class="rank-container-main" id="container">
@@ -85,16 +99,16 @@ onMounted(() => {
           </div>
         </div>
         <div class="rank-container-main-content">
-          <ExampleView />
+          <ExampleView :solvedData="dataset" />
         </div>
       </div>
     </div>
     <Drawer ref="datasetDrawer">
-      <template #header> 123 </template>
-      <template #main> 456 </template>
-      <template #footer>
-        <div class="btn" @click="hide">取消</div>
-        <div class="btn confirm-btn" @click="handleConfirm">确定</div>
+      <template #header>选择数据集</template>
+      <template #main>
+        <div class="btn" @click="changeDataSetHandler('ths')">同花顺</div>
+        <div class="btn" @click="changeDataSetHandler('rb')">日播时尚</div>
+        <div class="btn" @click="changeDataSetHandler('kl')">昆仑万维</div>
       </template>
     </Drawer>
   </div>

@@ -1,16 +1,26 @@
 import * as fs from 'fs';
 import path from 'path';
-import sheets from './assets/sheets.js'
+import sheetThs from './assets/sheet_ths.js'
+import sheetRb from './assets/sheet_rb.js'
+import sheetKl from './assets/sheet_kl.js'
 
 // console.log('xlsx', sheets[0]);
 
 /** 表格前一行内容为表头 */
 const SCHEMALEN = 1;
+// 静态数据集映射表
+const sheetMap = {
+    ths: sheetThs,
+    rb: sheetRb,
+    kl: sheetKl
+};
 const dataMap = {
     date: 0,
     name: 1,
     stockValue: 2,
-    rank: 3
+    stockPercent: 3,
+    link: 4,
+    pic: 5
 };
 
 function getDateAfter18991230(nDays) {
@@ -26,15 +36,22 @@ function getDateAfter18991230(nDays) {
     return `${yyyy}/${mm}/${dd}`;
 }
 
-const parse = () => {
+const parse = (sheets) => {
     const dataSheet = sheets[0].slice(SCHEMALEN);
     const keys = Object.keys(dataMap);
     const baseDate = new Date();
     baseDate.setFullYear(1899, 12, 30);
-
+    let rank = 0;
+    let curr;
     return dataSheet.filter(item => item[0] != null && item[1] != null && item[2] != null && item[3] != null)
-        .map(dataItem => {
-            const item = {};
+        .map((dataItem, index) => {
+            if (curr !== dataItem[0]) {
+                curr = dataItem[0];
+                rank = 1;
+            }
+            const item = {
+                rank: '' + rank++
+            };
             keys.forEach(key => {
                 const idx = dataMap[key];
                 item[key] = dataItem[idx];
@@ -49,6 +66,9 @@ const parse = () => {
                 }
                 if (key === 'rank') {
                     item[key] = '' + item[key];
+                }
+                if (key === 'link') {
+                    item[key] = item[key] === 42 ? null : item[key];
                 }
             });
             return item;
@@ -108,8 +128,10 @@ const getSeriesData = (raw, xData) => {
     return { seriesData, extent };
 }
 
-const main = () => {
-    const rawData = parse();
+const main = (sheetKey) => {
+    const sheet = sheetMap[sheetKey]; 
+    console.log('sheet', sheet);
+    const rawData = parse(sheet);
     const xData = getXAxisData(rawData);
     const yData = getYAxisData(rawData);
     const { seriesData, extent } = getSeriesData(rawData, xData);
@@ -117,7 +139,6 @@ const main = () => {
         xData, yData, seriesData, extent
     }
 };
-const res = main();
 
-export default res;
+export default main;
 

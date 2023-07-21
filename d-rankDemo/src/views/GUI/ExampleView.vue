@@ -1,25 +1,33 @@
 <script setup lang="ts">
 import * as echarts from 'echarts'
 import type { EChartsType } from 'echarts'
-import { markRaw, onMounted, ref } from 'vue'
+import { markRaw, onMounted, ref, defineProps, watch } from 'vue'
 // 存放扩展逻辑、图表各组件配置生成方法的地方
 import { colors, getExampleChartOption, getSeries, myUse } from './ExampleViewChart'
 // import rawData from '../../../public/script/resolveData.js'
 // import solvedData from '../../../public/csv/resolveData'
-import solvedData from '../../../public/xlsx/resolveData.js'
+
+interface ChartProps {
+  solvedData: {
+    xData: []
+    yData: []
+    seriesData: Object
+  }
+}
 
 const chartDom = ref()
 const timelineDom = ref()
+let timeline;
 let exampleChart: EChartsType
 const range = 5
 let option
 
-console.log('dd', solvedData)
+const props = defineProps<ChartProps>()
+
+console.log('dd', props.solvedData)
 
 // 绘制图表的方法
 const initChart = () => {
-  console.log('wineData', solvedData.xData)
-
   // const option = getExampleChartOption([2, 5, 1, 7, 3]);
   option = {
     grid: {
@@ -31,7 +39,7 @@ const initChart = () => {
     color: colors,
     xAxis: {
       position: 'top',
-      data: solvedData.xData,
+      data: props.solvedData.xData,
       type: 'category',
       boundaryGap: false,
       axisLine: {
@@ -41,7 +49,7 @@ const initChart = () => {
         show: false
       },
       splitLine: {
-        show: true,
+        show: false,
         interval: 0
       },
       axisLabel: {
@@ -54,9 +62,6 @@ const initChart = () => {
     },
     yAxis: {
       type: 'category',
-      splitLine: {
-        show: false
-      },
       axisLabel: {
         margin: 15
       },
@@ -66,10 +71,11 @@ const initChart = () => {
       axisLine: {
         show: false
       },
-      data: solvedData.yData
-      // min: 11,
-      // max: 20
-      // data: ['9', '8', '7', '6', '5', '4', '3', '2', '1']
+      splitLine: {
+        show: true,
+        interval: 0
+      },
+      data: props.solvedData.yData
     },
     tooltip: {},
     dataZoom: [
@@ -91,27 +97,27 @@ const initChart = () => {
         maxSpanValue: range
       }
     ],
-    series: [...solvedData.seriesData.keys()].slice().map((key, index) => {
-      return getSeries(key, solvedData.seriesData.get(key))
+    series: [...props.solvedData.seriesData.keys()].slice().map((key, index) => {
+      return getSeries(key, props.solvedData.seriesData.get(key))
     }),
     animationDurationUpdate: 1000,
     animationEasing: 'linear',
     animationEasingUpdate: 'linear'
   }
 
-  console.log('option', option);
-  
+  console.log('option', option)
+
   exampleChart.setOption(option)
 }
 
 const initTimeline = () => {
-  const TimeLine = new ThsDataVTimeline.Timeline(timelineDom.value, {
+  timeline = new ThsDataVTimeline.Timeline(timelineDom.value, {
     theme: 'mobile-withValueOuter',
-    data: solvedData.xData,
+    data: props.solvedData.xData,
     config: {
       axis: {
         tooltip: {
-          style: {display: 'none'}
+          style: { display: 'none' }
         }
       },
       // dataIndex: xAxisData.length - 1,
@@ -122,7 +128,7 @@ const initTimeline = () => {
       }
     }
   })
-  TimeLine.on('change', ({ index }) => {
+  timeline.on('change', ({ index }) => {
     // const dataZoomModel = chart.getModel().getComponent('dataZoom', 0);
     // const startValue = dataZoomModel.get('startValue');
     // const endValue = dataZoomModel.get('endValue');
@@ -140,7 +146,7 @@ const initTimeline = () => {
             endValue: range
           }
         ],
-        series: [...solvedData.seriesData.keys()].slice().map((item) => {
+        series: [...props.solvedData.seriesData.keys()].slice().map((item) => {
           return {
             clip: 'strict',
             withTimeline: {
@@ -164,7 +170,7 @@ const initTimeline = () => {
             endValue: index
           }
         ],
-        series: [...solvedData.seriesData.keys()].slice().map((item) => {
+        series: [...props.solvedData.seriesData.keys()].slice().map((item) => {
           return {
             clip: 'strict',
             withTimeline: {
@@ -180,9 +186,23 @@ const initTimeline = () => {
   })
 }
 
+watch(
+  () => props.solvedData,
+  () => {
+    timeline && timeline.destroy();
+    exampleChart && exampleChart.dispose();
+    initTimeline()
+    // 初始化图表实例
+    exampleChart = markRaw(echarts.init(chartDom.value))
+    // 绘制图表
+    initChart()
+  },
+  {
+    deep: true
+  }
+)
+
 onMounted(() => {
-  console.log('ff', chartDom.value.clientHeight);
-  
   // 插入扩展逻辑
   myUse()
   initTimeline()
@@ -216,4 +236,3 @@ onMounted(() => {
   }
 }
 </style>
-../../../public/xlsx/resolveData.js
