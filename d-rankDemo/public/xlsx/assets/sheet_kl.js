@@ -6,1367 +6,1709 @@ export default [
       "持股数量",
       "持股占比",
       "icon",
-      "跳转链接"
+      "跳转链接",
+      "事件",
+      "文案"
     ],
     [
-      43555,
+      "2019年一季度",
       "李琼",
       "195,872,245",
       "17.00%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "190,953,285",
       "16.58%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "周亚辉",
       "188,330,213",
       "16.35%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "王立伟",
       "50,479,353",
       "4.38%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "广东恒阔投资管理有限公司",
       "14,577,400",
       "1.27%",
       "kl_5.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "9,424,127",
       "0.82%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "陈芳",
       "7,358,392",
       "0.64%",
       "kl_7.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T633908000&company_size=6&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T633908000&company_size=6&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "邦信资产管理有限公司",
       "6,451,612",
       0.00569,
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "中国建设银行股份有限公司-华安创业板50交易型开放式指数证券投资基金",
       "6,430,827",
       0.00563,
       "kl_9.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159949"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159949",
+      null,
+      null
     ],
     [
-      43555,
+      "2019年一季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "5,921,207",
       "0.51%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "李琼",
       "195,872,245",
       "17.00%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "190,953,285",
       "16.58%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "周亚辉",
       "183,169,013",
       "15.90%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "王立伟",
       "44,132,996",
       "3.83%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "广东恒阔投资管理有限公司",
       "14,547,400",
       "1.26%",
       "kl_5.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "10,648,427",
       "0.92%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "6,891,807",
       "0.60%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "邦信资产管理有限公司",
       "6,451,612",
       "0.56%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "陈芳",
       "6,020,992",
       "0.52%",
       "kl_7.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T633908000&company_size=6&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T633908000&company_size=6&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43646,
+      "2019年二季度",
       "中国建设银行股份有限公司-华安创业板50交易型开放式指数证券投资基金",
       "5,865,307",
       "0.51%",
       "kl_9.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159949"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159949",
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "李琼",
       "195,872,245",
       "17.00%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.47%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "周亚辉",
       "178,622,235",
       "15.51%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "王立伟",
       "44,061,696",
       "3.82%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "广东恒阔投资管理有限公司",
       "14,764,600",
       "1.28%",
       "kl_5.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "8,263,227",
       "0.72%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "邦信资产管理有限公司",
       "6,451,612",
       "0.56%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "6,255,307",
       "0.54%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "陈芳",
       "5,518,794",
       "0.48%",
       "kl_7.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T633908000&company_size=6&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T633908000&company_size=6&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43738,
+      "2019年三季度",
       "香港中央结算有限公司",
       "4,593,400",
       "0.40%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "李琼",
       "195,872,245",
       "17.06%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.52%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "周亚辉",
       "178,622,235",
       "15.55%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "王立伟",
       "44,061,696",
       "3.84%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "广东恒阔投资管理有限公司",
       "14,764,600",
       "1.29%",
       "kl_5.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "香港中央结算有限公司",
       "12,661,873",
       "1.10%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "邦信资产管理有限公司",
       "6,451,612",
       0.00569,
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "中国工商银行股份有限公司-富国创新科技混合型证券投资基金",
       "6,419,001",
       0.00564,
       "kl_12.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "6,377,490",
       0.0055,
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      43830,
+      "2019年四季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "6,212,027",
       "0.54%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "李琼",
       "195,872,245",
       "16.93%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.40%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "周亚辉",
       "161,261,935",
       "13.94%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "王立伟",
       "34,400,196",
       "2.97%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "香港中央结算有限公司",
       "29,642,642",
       "2.56%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "中国工商银行股份有限公司-富国创新科技混合型证券投资基金",
       "7,576,158",
       "0.65%",
       "kl_12.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "广东恒阔投资管理有限公司",
       "7,459,700",
       "0.64%",
       "kl_5.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "邦信资产管理有限公司",
       "6,451,612",
       "0.56%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "6,403,527",
       "0.55%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      43921,
+      "2020年一季度",
       "法国兴业银行",
       "5,124,300",
       "0.44%",
       "kl_13.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.18%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "李琼",
       "172,895,039",
       "14.74%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "周亚辉",
       "144,844,325",
       "12.35%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "香港中央结算有限公司",
       "38,952,421",
       "3.32%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "上海高毅资产管理合伙企业(有限合伙)-高毅邻山1号远望基金",
       "35,000,039",
       "2.98%",
       "kl_14.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "王立伟",
       "34,400,196",
       "2.93%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "邦信资产管理有限公司",
       "6,441,612",
       "0.55%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "陈珍妮",
       "5,799,700",
       "0.49%",
       "kl_15.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "4,872,377",
       "0.42%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44012,
+      "2020年二季度",
       "中信银行股份有限公司-建信中证500指数增强型证券投资基金",
       "4,491,816",
       "0.38%",
       "kl_16.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.17%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "李琼",
       "158,769,536",
       "13.53%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "周亚辉",
       "144,844,325",
       "12.34%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "上海高毅资产管理合伙企业(有限合伙)-高毅邻山1号远望基金",
       "35,000,039",
       "2.98%",
       "kl_14.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "王立伟",
       "34,400,196",
       "2.93%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "北京昆仑万维科技股份有限公司回购专用证券账户",
       "23,237,806",
       "1.98%",
       "kl_17.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "香港中央结算有限公司",
       "15,386,524",
       "1.31%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "陈珍妮",
       "6,788,500",
       "0.58%",
       "kl_15.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "邦信资产管理有限公司",
       "6,261,612",
       "0.53%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44104,
+      "2020年三季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "4,033,877",
       "0.34%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.17%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "周亚辉",
       "144,844,325",
       "12.34%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "李琼",
       "132,209,942",
       "11.27%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "王立伟",
       "34,400,196",
       "2.93%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "香港中央结算有限公司",
       "24,248,376",
       "2.07%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "北京昆仑万维科技股份有限公司回购专用证券账户",
       "23,237,806",
       "1.98%",
       "kl_17.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "邦信资产管理有限公司",
       "6,261,612",
       "0.53%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "4,294,254",
       "0.37%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "3,822,662",
       "0.33%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44196,
+      "2020年四季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "3,550,627",
       "0.30%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.17%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "周亚辉",
       "144,844,325",
       "12.34%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "李琼",
       "132,209,942",
       "11.27%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "王立伟",
       "32,494,596",
       "2.77%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "北京昆仑万维科技股份有限公司回购专用证券账户",
       "23,237,806",
       "1.98%",
       "kl_17.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "香港中央结算有限公司",
       "12,250,715",
       "1.04%",
       "kl_11.png",
-      42
+      42,
+      "并购重组",
+      "昆仑万维的全资子公司香港万维以现金方式向KFH购买其所持有的19500000股，即Opera在外流通股份的8.47%的股份。交易完成后，Opera将成为昆仑万维全资子公司的控股子公司。"
     ],
     [
-      44286,
+      "2021年一季度",
       "邦信资产管理有限公司",
       "6,261,612",
       "0.53%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "5,265,862",
       "0.45%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "4,360,954",
       "0.37%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44286,
+      "2021年一季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "3,506,227",
       "0.30%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.11%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "周亚辉",
       "144,844,325",
       "12.30%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "李琼",
       "132,209,942",
       "11.22%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "王立伟",
       "25,826,666",
       "2.19%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "香港中央结算有限公司",
       "13,109,659",
       "1.11%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "邦信资产管理有限公司",
       "6,261,612",
       "0.53%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "5,635,862",
       "0.48%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "3,662,054",
       "0.31%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "中国建设银行股份有限公司-华夏新兴消费混合型证券投资基金",
       "3,441,783",
       "0.29%",
       "kl_19.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44377,
+      "2021年二季度",
       "中国建设银行-华夏红利混合型开放式证券投资基金",
       "3,312,963",
       "0.28%",
       "kl_20.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.04%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "周亚辉",
       "144,844,325",
       "12.24%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "李琼",
       "132,209,942",
       "11.17%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "王立伟",
       "25,116,666",
       "2.12%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      "股票激励计划",
+      "2020年激励计划：本激励计划授予的限制性股票数量6249.00万股，约占本激励计划草案公告时公司股本总额1177302.3110万股的5.33%。"
     ],
     [
-      44469,
+      "2021年三季度",
       "香港中央结算有限公司",
       "19,314,729",
       "1.63%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "8,392,762",
       "0.71%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "邦信资产管理有限公司",
       "6,261,612",
       "0.53%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "4,387,154",
       "0.37%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "陈友发",
       "4,241,144",
       "0.36%",
       "kl_21.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44469,
+      "2021年三季度",
       "蔡强",
       "4,206,700",
       0.0035,
       "kl_22.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "15.84%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "周亚辉",
       "144,844,325",
       "12.09%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "李琼",
       "132,209,942",
       "11.04%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "香港中央结算有限公司",
       "34,673,516",
       "2.89%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "王立伟",
       "12,119,215",
       "1.01%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "7,526,662",
       "0.63%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "李涛",
       "7,500,000",
       0.0062,
       "kl_23.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "邦信资产管理有限公司",
       "6,261,612",
       "0.52%",
       "kl_8.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "蔡强",
       "5,336,850",
       "0.45%",
       "kl_22.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44561,
+      "2021年四季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "5,090,854",
       "0.43%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "15.84%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "周亚辉",
       "144,844,325",
       "12.09%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "李琼",
       "132,209,942",
       "11.04%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "香港中央结算有限公司",
       "21,100,282",
       "1.76%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "8,994,562",
       "0.75%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "王立伟",
       "5,684,566",
       "0.47%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "蔡强",
       "5,255,476",
       "0.44%",
       "kl_22.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "4,385,754",
       "0.37%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "勒伍超",
       "3,478,000",
       "0.29%",
       "kl_24.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000339316034&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000339316034&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44651,
+      "2022年一季度",
       "中国建设银行股份有限公司-华安创业板50交易型开放式指数证券投资基金",
       "3,301,645",
       "0.28%",
       "kl_9.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159949"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159949",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "15.82%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "周亚辉",
       "144,844,325",
       "12.07%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "李琼",
       "132,209,942",
       "11.02%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "香港中央结算有限公司",
       "17,355,647",
       "1.45%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "10,245,762",
       "0.85%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "蔡强",
       "5,141,476",
       "0.43%",
       "kl_22.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "勒伍超",
       "5,050,000",
       "0.42%",
       "kl_24.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000339316034&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000339316034&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "4,250,754",
       "0.35%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "王立伟",
       "3,760,150",
       "0.31%",
       "kl_4.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600569000&company_size=20&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44742,
+      "2022年二季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "2,902,178",
       "0.24%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.12%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "周亚辉",
       "144,844,325",
       "12.30%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "李琼",
       "132,209,942",
       "11.23%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "香港中央结算有限公司",
       "16,327,422",
       "1.39%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "11,406,262",
       "0.97%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "勒伍超",
       "6,215,000",
       "0.53%",
       "kl_24.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000339316034&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000339316034&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "蔡强",
       "5,164,476",
       "0.44%",
       "kl_22.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "4,513,754",
       "0.38%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "李越",
       "3,918,900",
       "0.33%",
       "kl_25.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000427226953&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000427226953&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44834,
+      "2022年三季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "3,612,478",
       "0.31%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "16.00%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "周亚辉",
       "144,844,325",
       "12.21%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "李琼",
       "132,209,942",
       "11.15%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "香港中央结算有限公司",
       "15,281,249",
       "1.29%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "9,568,862",
       "0.81%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "中国农业银行股份有限公司-中证500交易型开放式指数证券投资基金",
       "7,945,554",
       "0.67%",
       "kl_10.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/510500",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "勒伍超",
       "7,415,000",
       "0.63%",
       "kl_24.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000339316034&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000339316034&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "李越",
       "5,588,370",
       "0.47%",
       "kl_25.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000427226953&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000427226953&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "蔡强",
       "5,153,076",
       "0.43%",
       "kl_22.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000329120226&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      44926,
+      "2022年四季度",
       "中国工商银行股份有限公司-易方达创业板交易型开放式指数证券投资基金",
       "4,202,578",
       "0.35%",
       "kl_6.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/159915",
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "新余盈瑞世纪软件研发中心(有限合伙)",
       "189,744,943",
       "15.97%",
       "kl_2.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=T000293456&type=gqdc&company_count=1&holder_count=2&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "周亚辉",
       "144,844,325",
       "12.19%",
       "kl_3.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=T600565000&company_size=25&person_size=15&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "李琼",
       "132,209,942",
       "11.13%",
       "kl_1.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000088446938&company_size=7&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "香港中央结算有限公司",
       "20,934,399",
       "1.76%",
       "kl_11.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "基本养老保险基金一二零二组合",
       "10,030,762",
       "0.84%",
       "kl_26.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "深圳展博投资管理有限公司-展博多策略2号基金",
       "7,796,241",
       "0.66%",
       "kl_27.png",
-      42
+      42,
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "中国工商银行股份有限公司-广发中证传媒交易型开放式指数证券投资基金",
       "6,755,362",
       "0.57%",
       "kl_18.png",
-      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980"
+      "https://fund.10jqka.com.cn/public/ifundout/dist/detail.html?frm=ijijinsdk&share_userid=A1XHy&share_jjid=feefad1a5ff6b2ef&share_hxapp=gsdk&back_source=wxhy#/512980",
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "中信证券股份有限公司",
       "6,397,651",
       "0.54%",
       "kl_28.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=03130225&type=gqdc&company_count=501&holder_count=10&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=03130225&type=gqdc&company_count=501&holder_count=10&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "中国国际金融股份有限公司",
       "6,086,971",
       "0.51%",
       "kl_29.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=03131331&type=gqdc&company_count=138&holder_count=10&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/companyDetail/chart?id=03131331&type=gqdc&company_count=138&holder_count=10&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
-      45016,
+      "2023年一季度",
       "王孝安",
       "6,000,250",
       "0.50%",
       "kl_30.png",
-      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000455898919&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false"
+      "https://kuaicha.10jqka.com.cn/yuqingwebapp/yuqingapp/?client_userid=A1XHy&share_hxapp=gsc&share_action=&back_source=wxhy#/personDetail/personMap?id=Q00000455898919&company_size=1&person_size=0&scFrom=f10&share=hexin&isShowAppBar=false&isShowStatusBar=false",
+      null,
+      null
     ],
     [
       null,
@@ -1374,25 +1716,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1406,6 +1756,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1414,25 +1766,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1446,6 +1806,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1454,25 +1816,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1486,6 +1856,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1494,17 +1866,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1518,25 +1896,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1550,6 +1936,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1558,25 +1946,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1590,17 +1986,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1614,6 +2016,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1622,25 +2026,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1654,6 +2066,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1662,17 +2076,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1686,25 +2106,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1718,6 +2146,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1726,25 +2156,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1758,6 +2196,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1766,25 +2206,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1798,6 +2246,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1806,25 +2256,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1838,17 +2296,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1862,6 +2326,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1870,25 +2336,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1902,6 +2376,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1910,17 +2386,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1934,25 +2416,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -1966,6 +2456,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -1974,25 +2466,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2006,17 +2506,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2030,6 +2536,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2038,25 +2546,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2070,6 +2586,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2078,25 +2596,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2110,6 +2636,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2118,25 +2646,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2150,6 +2686,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2158,17 +2696,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2182,25 +2726,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2214,6 +2766,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2222,25 +2776,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2254,17 +2816,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2278,6 +2846,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2286,25 +2856,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2318,6 +2896,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2326,17 +2906,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2350,25 +2936,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2382,6 +2976,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2390,25 +2986,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2422,6 +3026,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2430,25 +3036,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2462,6 +3076,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2470,25 +3086,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2502,17 +3126,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2526,6 +3156,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2534,25 +3166,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2566,6 +3206,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2574,17 +3216,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2598,25 +3246,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2630,6 +3286,8 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
@@ -2638,25 +3296,33 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,
@@ -2670,17 +3336,23 @@ export default [
       null,
       null,
       null,
+      null,
+      null,
       null
     ],
     [
+      null,
       null,
       null,
       null,
       null,
       null,
+      null,
       null
     ],
     [
+      null,
+      null,
       null,
       null,
       null,

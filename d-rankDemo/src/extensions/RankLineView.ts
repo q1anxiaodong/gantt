@@ -7,7 +7,7 @@ import lineAnimationDiff from './lineAnimationDiff';
 import * as graphic from 'echarts/lib/util/graphic';
 import * as modelUtil from 'echarts/lib/util/model';
 import { EPolyline as ECPolyline, ECPolygon } from './poly';
-import type ChartView from 'echarts/types/src/view/Chart';
+import  ChartView from 'echarts/lib/view/Chart';
 import { prepareDataCoordInfo, getStackedOnPoint } from 'echarts/lib/chart/line/helper';
 import { createGridClipPath, createPolarClipPath } from './helper/createClipPathFromCoordSys';
 import type { RankLineSeriesModelType as LineSeriesModel } from './RankLineSeries';
@@ -41,6 +41,7 @@ import { convertToColorString } from 'echarts/lib/util/format';
 import { lerp } from 'zrender/src/tool/color';
 import Element from 'zrender/src/Element';
 import type { CoordinateSystem } from 'echarts/types/src/coord/CoordinateSystem';
+import { createSymbol } from 'echarts/lib/util/symbol';
 
 // const __DEV__ = undefined;
 
@@ -743,6 +744,9 @@ class RankLineView extends LineView {
                             }
                         })
                     }
+                    if (el.animators && el.animators.length){
+                        el.animators[0].delay = 1000
+                    }
                 }
             })
 
@@ -782,18 +786,11 @@ class RankLineView extends LineView {
                     if (this._endSymbol) {
                         lineGroup.remove(this._endSymbol)
                     }
-                    this._endSymbol = new SymbolClz(data, (withTimeline?.maxRange as number))
+                    this._endSymbol = createSymbol('circle', 0, 0, 0, 0, visualColor);
                     this._endSymbol.isSymbol = true;
                     this._endSymbol.__temp = false;
 
                     this._endSymbol.attr({
-                        shape: {
-                            width: 0,
-                            height: 0
-                        },
-                        style: {
-                            fill: visualColor
-                        },
                         ignoreClip: true
                     })
                     lineGroup.add(this._endSymbol);
@@ -826,18 +823,9 @@ class RankLineView extends LineView {
             if (!isCoordSysPolar) {
                 this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), withTimeline.curIndex);
                 if (withTimeline && !this._endSymbol) {
-                    this._endSymbol = new SymbolClz(data, (withTimeline?.maxRange as number))
-                    this._endSymbol.isSymbol = true;
-                    this._endSymbol.__temp = false;
+                    this._endSymbol = new createSymbol('circle', 0, 0, 0, 0, visualColor)
 
                     this._endSymbol.attr({
-                        shape: {
-                            width: 0,
-                            height: 0
-                        },
-                        style: {
-                            fill: visualColor
-                        },
                         ignoreClip: true
                     })
                     lineGroup.add(this._endSymbol);
@@ -904,6 +892,13 @@ class RankLineView extends LineView {
                             }
                         })
                     }
+                    // if (el.animators && el.animators.length){
+                    //     el.animators[0].when(999, {
+                    //         style: {
+                    //             opacity: 0
+                    //         }
+                    //     })
+                    // }
                 }
             })
 
@@ -1039,8 +1034,63 @@ class RankLineView extends LineView {
         }
     }
 
-    highlight(...args) {
-        LineView.prototype.highlight.apply(this, args);
+    highlight(seriesModel, ecModel, api, payload) {
+        // LineView.prototype.highlight.apply(this, args);
+        const data = seriesModel.getData();
+        const dataIndex = modelUtil.queryDataIndex(data, payload);
+        const curIndex = seriesModel.get(['withTimeline', 'curIndex']);
+
+        this._changePolyState('emphasis');
+
+        if (!(dataIndex instanceof Array) && dataIndex != null && dataIndex >= 0) {
+            const points = data.getLayout('points');
+            let symbol = data.getItemGraphicEl(dataIndex) as SymbolClz;
+            if (!isNaN(curIndex) && dataIndex > curIndex) {
+                return;
+            } 
+            if (!symbol) {
+                // Create a temporary symbol if it is not exists
+                const x = points[dataIndex * 2];
+                const y = points[dataIndex * 2 + 1];
+                if (isNaN(x) || isNaN(y)) {
+                    // Null data
+                    return;
+                }
+                // fix #11360: shouldn't draw symbol outside clipShapeForSymbol
+                if (this._clipShapeForSymbol && !this._clipShapeForSymbol.contain(x, y)) {
+                    return;
+                }
+                const zlevel = seriesModel.get('zlevel') || 0;
+                const z = seriesModel.get('z') || 0;
+                symbol = new SymbolClz(data, dataIndex);
+                symbol.x = x;
+                symbol.y = y;
+                symbol.setZ(zlevel, z);
+
+                // ensure label text of the temporary symbol is in front of line and area polygon
+                const symbolLabel = symbol.getSymbolPath().getTextContent();
+                if (symbolLabel) {
+                    symbolLabel.zlevel = zlevel;
+                    symbolLabel.z = z;
+                    symbolLabel.z2 = this._polyline.z2 + 1;
+                }
+
+                (symbol as SymbolExtended).__temp = true;
+                data.setItemGraphicEl(dataIndex, symbol);
+
+                // Stop scale animation
+                symbol.stopSymbolAnimation(true);
+
+                this.group.add(symbol);
+            }
+            symbol.highlight();
+        }
+        else {
+            // Highlight whole series
+            ChartView.prototype.highlight.call(
+                this, seriesModel, ecModel, api, payload
+            );
+        }
     }
 
     downplay(...args) {
@@ -1188,6 +1238,8 @@ class RankLineView extends LineView {
             return;
         }
 
+        // console.log('cur', current, 'next', next);
+        
         (polyline.shape as any).__points = diff.current;
         polyline.shape.points = current;
 
@@ -1425,6 +1477,10 @@ class RankLineView extends LineView {
 
                 // 如果标签在上一状态位于坐标系合法位置，且本状态也在合法位置
                 if (!isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && !isPointNull(lastPt[0], lastPt[1])) {
+                    const symbolSize = SymbolClz.getSymbolSize(data, data.indexOfRawIndex(curIndex));
+
+                    const widthInFrame = valueAtPercent(endSymbol.shape.width, symbolSize[0], percent);
+                    const heightInFrame = valueAtPercent(endSymbol.shape.height, symbolSize[1], percent);
                     endLabel.attr({
                         x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX,
                         y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY,
@@ -1434,11 +1490,15 @@ class RankLineView extends LineView {
                         }
                     })
                     endSymbol.attr({
-                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
-                        y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent),
+                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) - widthInFrame / 2,
+                        y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) - heightInFrame / 2,
                         ignore: false,
+                        shape: {
+                            width: widthInFrame,
+                            height: heightInFrame
+                        },
                         style: {
-                            opacity: 1
+                            opacity: 1,
                         }
                     })
                 }

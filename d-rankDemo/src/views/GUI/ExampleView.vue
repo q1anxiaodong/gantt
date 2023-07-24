@@ -3,7 +3,13 @@ import * as echarts from 'echarts'
 import type { EChartsType } from 'echarts'
 import { markRaw, onMounted, ref, defineProps, watch } from 'vue'
 // 存放扩展逻辑、图表各组件配置生成方法的地方
-import { colors, getExampleChartOption, getSeries, handlePointClick, myUse } from './ExampleViewChart'
+import {
+  colors,
+  getExampleChartOption,
+  getSeries,
+  handlePointClick,
+  myUse
+} from './ExampleViewChart'
 // import rawData from '../../../public/script/resolveData.js'
 // import solvedData from '../../../public/csv/resolveData'
 
@@ -12,13 +18,13 @@ interface ChartProps {
     xData: []
     yData: []
     seriesData: Object
-  },
+  }
   dataName: string
 }
 
 const chartDom = ref()
 const timelineDom = ref()
-let timeline;
+let timeline
 let exampleChart: EChartsType
 const range = 5
 let option
@@ -34,8 +40,8 @@ const initChart = () => {
     grid: {
       left: 35,
       right: 130,
-      top: '8%',
-      bottom: 0
+      top: '10%',
+      bottom: '5%'
     },
     color: colors,
     axisPointer: {
@@ -57,12 +63,17 @@ const initChart = () => {
         interval: 0
       },
       axisLabel: {
-        // formatter: (value) => {
-        //   return value.split(' ')[1]
-        // }
+        fontSize: 10,
+        margin: 15
       },
       axisPointer: {
         show: true,
+        label: {
+          backgroundColor: '#3b3b3b',
+          padding: 4,
+          fontSize: 10,
+          margin: 11
+        },
         lineStyle: {
           opacity: 0
         }
@@ -70,23 +81,37 @@ const initChart = () => {
     },
     yAxis: {
       type: 'category',
+
       axisLabel: {
         margin: 15
       },
+      boundaryGap: false,
       axisTick: {
-        show: false
+        show: false,
+        alignWithLabel: false
       },
       axisLine: {
         show: false
       },
       splitLine: {
         show: true,
-        interval: 0
+        interval: 0,
+        lineStyle: {
+          opacity: 0.5
+        }
       },
       data: props.solvedData.yData
     },
     tooltip: {
-      trigger: 'item'
+      trigger: 'item',
+      backgroundColor: '#3B3B3B',
+      stroke: '#3B3B3B',
+      confine: true,
+      textStyle: {
+        color: 'rgba(255, 255, 255, 0.84)',
+        fontSize: 12
+      },
+      extraCssText: 'border-color: transparent;' 
     },
     dataZoom: [
       {
@@ -108,7 +133,7 @@ const initChart = () => {
       }
     ],
     series: [...props.solvedData.seriesData.keys()].slice().map((key, index) => {
-      return getSeries(key, props.solvedData.seriesData.get(key), )
+      return getSeries(key, props.solvedData.seriesData.get(key))
     }),
     animationDurationUpdate: 1000,
     animationEasing: 'linear',
@@ -118,12 +143,12 @@ const initChart = () => {
   console.log('option', option)
 
   exampleChart.setOption(option)
-  handlePointClick(exampleChart);
+  handlePointClick(exampleChart)
 }
 
 const initTimeline = () => {
   timeline = new ThsDataVTimeline.Timeline(timelineDom.value, {
-    theme: 'mobile-withValueOuter',
+    theme: 'mobile',
     data: props.solvedData.xData,
     config: {
       axis: {
@@ -131,8 +156,8 @@ const initTimeline = () => {
           style: { display: 'none' }
         }
       },
-      // dataIndex: xAxisData.length - 1,
-      dataIndex: 0,
+      dataIndex: props.solvedData.xData.length - 1,
+      // dataIndex: 0,
       // 动画
       animation: {
         intervalTime: 1000
@@ -200,8 +225,8 @@ const initTimeline = () => {
 watch(
   () => props.solvedData,
   () => {
-    timeline && timeline.destroy();
-    exampleChart && exampleChart.dispose();
+    timeline && timeline.destroy()
+    exampleChart && exampleChart.dispose()
     initTimeline()
     // 初始化图表实例
     exampleChart = markRaw(echarts.init(chartDom.value))

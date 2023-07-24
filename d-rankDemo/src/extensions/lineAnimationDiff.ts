@@ -8,7 +8,8 @@ import { createFloat32Array } from 'echarts/lib/util/vendor';
 interface DiffItem {
     cmd: '+' | '=' | '-'
     idx: number
-    idx1?: number
+    idx1?: number,
+    isRemove?: boolean
 }
 
 function diffData(oldData: SeriesData, newData: SeriesData) {
@@ -22,7 +23,7 @@ function diffData(oldData: SeriesData, newData: SeriesData) {
             diffResult.push({cmd: '=', idx: oldIdx, idx1: newIdx});
         })
         .remove(function (idx) {
-            diffResult.push({cmd: '-', idx: idx,});
+            diffResult.push({cmd: '+', idx: idx, isRemove: true});
         })
         .execute();
 
@@ -59,7 +60,7 @@ export default function lineAnimationDiff(
     const newDataOldCoordInfo = prepareDataCoordInfo(oldCoordSys, newData, oldValueOrigin);
     // console.log('newDataOldCoordInfo', newDataOldCoordInfo);
     
-    // const oldDataNewCoordInfo = prepareDataCoordInfo(newCoordSys, oldData, newValueOrigin);
+    const oldDataNewCoordInfo = prepareDataCoordInfo(newCoordSys, oldData, newValueOrigin);
 
     const oldPoints = oldData.getLayout('points') as number[] || [];
     const newPoints = newData.getLayout('points') as number[] || [];
@@ -98,14 +99,28 @@ export default function lineAnimationDiff(
             case '+':
                 const newIdx = diffItem.idx;
                 const newDataDimsForPoint = newDataOldCoordInfo.dataDimsForPoint;
-                const oldPt = oldCoordSys.dataToPoint([
+                const oldDataDimsForPoint = oldDataNewCoordInfo.dataDimsForPoint;
+                newIdx2 = newIdx * 2;
+                let oldPt = oldCoordSys.dataToPoint([
                     newData.get(newDataDimsForPoint[0], newIdx),
                     newData.get(newDataDimsForPoint[1], newIdx)
                 ]);
-                newIdx2 = newIdx * 2;
+                let newPt = [newPoints[newIdx2], newPoints[newIdx2 + 1]];
+                
+                if (diffItem.isRemove) {
+                    oldPt = [oldPoints[newIdx2], oldPoints[newIdx2 + 1]];
+                    newPt = newCoordSys.dataToPoint([
+                        oldData.get(oldDataDimsForPoint[0], newIdx),
+                        oldData.get(oldDataNewCoordInfo[1], newIdx)
+                    ])
+                    newPt[1] = isNaN(newPt[1]) ? oldPt[1] : newPt[1];
+                    newPt[0] = isNaN(newPt[0]) ? oldPt[0] : newPt[0];
+                    console.log(newIdx, 'old', oldPt, 'newPt', newPt);
+                    
+                }
                 currPoints.push(oldPt[0], oldPt[1]);
+                nextPoints.push(newPt[0], newPt[1]);
 
-                nextPoints.push(newPoints[newIdx2], newPoints[newIdx2 + 1]);
 
                 const stackedOnPoint = getStackedOnPoint(newDataOldCoordInfo, oldCoordSys, newData, newIdx);
 

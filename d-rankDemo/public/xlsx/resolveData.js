@@ -20,7 +20,9 @@ const dataMap = {
     stockValue: 2,
     stockPercent: 3,
     pic: 4,
-    link: 5
+    link: 5,
+    event: 6,
+    content: 7
 };
 
 function getDateAfter18991230(nDays) {
@@ -58,12 +60,12 @@ const parse = (sheets) => {
                 if (key === 'stockValue') {
                     item[key] = Number(item[key].replace(/,/g, ''));
                 }
-                if (key === 'date') {
-                    const currDate = new Date();
-                    currDate.setDate(baseDate.getDate() + item[key]);
-                    item[key] = getDateAfter18991230(item[key]);
-                    // console.log('date', item[key], dataItem[idx]);
-                }
+                // if (key === 'date') {
+                //     const currDate = new Date();
+                //     currDate.setDate(baseDate.getDate() + item[key]);
+                //     item[key] = getDateAfter18991230(item[key]);
+                //     // console.log('date', item[key], dataItem[idx]);
+                // }
                 if (key === 'rank') {
                     item[key] = '' + item[key];
                 }
@@ -110,6 +112,7 @@ const getSeriesData = (raw, xData) => {
             value: seriesNames.length + '',
             extent: extent
         });
+        arr.markPointData = [];
         seriesData.set(name, arr);
     })
 
@@ -122,6 +125,14 @@ const getSeriesData = (raw, xData) => {
                 value: datum['rank'],
                 extent: extent
             };
+            if (datum['event'] != null && datum['content'] != null) {
+                seriesData.get(datum['name']).markPointData.push({
+                    xAxis: datum['date'],
+                    yAxis: datum['rank'],
+                    value: datum['event'],
+                    content: datum['content']
+                })
+            }
         })
     });
 

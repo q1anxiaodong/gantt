@@ -54,13 +54,13 @@ const getGrid = (): GridComponentOption => {
     return {};
 }
 
-const getXAxis = (): XAXisComponentOption  => {
+const getXAxis = (): XAXisComponentOption => {
     return {
         type: 'category'
     };
 }
 
-const getYAxis = (): YAXisComponentOption  => {
+const getYAxis = (): YAXisComponentOption => {
     return {
         type: 'value'
     };
@@ -72,6 +72,29 @@ export const getSeries = (name, seriesData, index) => {
         item.pic ? (picName = item.pic) : null;
         item.link ? (link = item.link) : null;
     });
+    let markPoint;
+    if (seriesData.markPointData) {
+        markPoint = {
+            symbolSize: 20,
+            data: seriesData.markPointData,
+            itemStyle: {
+                opacity: 0,
+            },
+            label: {
+                formatter: (params) => {
+                    return params.data.value;
+                },
+                backgroundColor: '#fff',
+                borderRadius: 2,
+                borderColor: 'rgba(99, 99, 99, 0.8)',
+                borderWidth: 0.5,
+                padding: 4,
+                fontSize: 10,
+                opacity: 0.8,
+                offset: [0, -5],
+            }
+        }
+    }
     return {
         clip: true,
         withTimeline: {
@@ -86,6 +109,25 @@ export const getSeries = (name, seriesData, index) => {
         miterLimit: 100,
         type: 'dvLine',
         data: seriesData,
+        label: {
+            show: true,
+            formatter: (params) => {
+                return params.data.event ? `{label|${params.data.event}}` : null;
+            },
+            rich: {
+                label: {
+                    padding: 4
+                }
+            },
+            backgroundColor: '#fff',
+            borderRadius: 2,
+            borderColor: 'rgba(99, 99, 99, 0.8)',
+            borderWidth: 0.5,
+            fontSize: 10,
+            opacity: 0.8,
+            offset: [0, -5],
+        },
+
         // connectNulls: true,
         endLabel: {
             show: true,
@@ -94,7 +136,7 @@ export const getSeries = (name, seriesData, index) => {
                 // return name + '  排名 ' + params.data.rank + ' 热度 ' + params.data.data;
                 // return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
                 const pic = picName == null ? `{margin|}{margin|}{textAvatar|${name.slice(0, 1)}}{margin|}` : `{margin|}{margin|}{avatar|}{margin|}`;
-                return pic + `{content|${ name.slice(0, 3)  + (name.length > 3 ? '... ' : ' ')  + ' ' + params.data.stockPercent}}`;
+                return pic + `{content|${name.slice(0, 3) + (name.length > 3 ? '... ' : ' ') + ' ' + params.data.stockPercent}}`;
             },
             rich: {
                 textAvatar: {
@@ -114,7 +156,7 @@ export const getSeries = (name, seriesData, index) => {
                         image: rootPath + '/' + picName
                     }
                 },
-                margin: {width: 5},
+                margin: { width: 5 },
                 content: {
                     // backgroundColor: 'inherit',
                     padding: 4
@@ -129,6 +171,9 @@ export const getSeries = (name, seriesData, index) => {
                 })
             }
         },
+        lineStyle: {
+            width: 1
+        },
         emphasis: {
             focus: 'series',
             itemStyle: {
@@ -137,12 +182,6 @@ export const getSeries = (name, seriesData, index) => {
             },
             // label: {show: true},
         },
-        select: {
-            itemStyle: {
-                color: 'red'
-            }
-        },
-        selectMode: 'single',
         symbol: 'circle',
         showAllSymbol: true,
         labelLayout: {
@@ -155,13 +194,27 @@ export const getSeries = (name, seriesData, index) => {
             const min = 6;
             const max = 20;
             const extent = params.data.extent;
-            return 6 + (max - min) * (params.data.stockValue - extent[0]) / (extent[1] - extent[0]) ;
+            return 6 + (max - min) * (params.data.stockValue - extent[0]) / (extent[1] - extent[0]);
         },
-        tooltip: {
-
-        },
+        // markPoint: markPoint,
         animationDurationUpdate: 1000,
         animationDuration: 1000,
+        tooltip: {
+            formatter: (params) => {
+                const container = document.createElement('div');
+                container.innerHTML = `
+                    <div style="padding: 8px; width: 180px;display: flex;flex-wrap: wrap; ">
+                        <div style="">${params.data.date}</div>
+                        <div style="">${params.data.name}</div>
+                        <div style="display: flex;width: 100%; justify-content: space-between;">
+                            <div style="">持股占比</div>
+                            <div style="">${params.data.stockPercent}</div>
+                        </div>
+                    </div>
+                `;
+                return container;
+            },
+        }
     }
 };
 
@@ -177,10 +230,15 @@ export const getExampleChartOption = (data: number[]): EChartsOption => {
 
 
 export function handlePointClick(chart: EChartsType) {
-    chart.on('click', { seriesType: 'dvLine' }, param => {
+    chart.on('click', { seriesType: 'dvLine', }, params => {
+        console.log('label', params);
+        
+        if (!params.data.content) {
+            return;
+        }
         showDialog({
-            title: '标题',
-            message: JSON.stringify(param.data),
+            title: params.data.event,
+            message: params.data.content,
             theme: 'round-button',
             messageAlign: 'left',
             confirmButtonText: '我知道了'

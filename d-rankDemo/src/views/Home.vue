@@ -12,10 +12,10 @@ import muteIcon from '@/assets/icons/music.png'
 import messageIcon from '@/assets/icons/message.png'
 import shareIcon from '@/assets/icons/share.png'
 
-const isMusicOpen = ref(false);
-const musicDom = ref();
-const datasetDrawer = ref();
-const currDataName = ref<'ths' | 'rb' | 'kl'>('ths');
+const isMusicOpen = ref(false)
+const musicDom = ref()
+const datasetDrawer = ref()
+const currDataName = ref<'ths' | 'rb' | 'kl'>('ths')
 
 const tools = computed(() => {
   return [
@@ -28,33 +28,37 @@ const tools = computed(() => {
       text: '分享'
     }
   ]
-});
+})
 const dataset = computed(() => {
-  return resolveData(currDataName.value);
+  return resolveData(currDataName.value)
 })
 const datasetName = computed(() => {
   const datasetNameMap = {
     ths: '同花顺',
     rb: '日播时尚',
     kl: '昆仑万维'
-  };
-  return datasetNameMap[currDataName.value];
+  }
+  return datasetNameMap[currDataName.value]
 })
 
 const drawerShow = () => {
   datasetDrawer.value.show()
 }
 const drawerHide = () => {
-  datasetDrawer.value.hide();
+  datasetDrawer.value.hide()
 }
 
 const changeDataSetHandler = (datasetName) => {
-  currDataName.value = datasetName;
-  drawerHide();
+  currDataName.value = datasetName
+  drawerHide()
 }
 
 onMounted(() => {
-  const musicPlayer = new MusicPlayer('#music', { probability: 0.33,});
+  const musicPlayer = new MusicPlayer('#music', { probability: 0.33 })
+  const svg = document.querySelector(`#music svg`) as SVGElement
+  svg.setAttribute('fill', '#fff')
+  svg.setAttribute('width', '24px')
+  svg.setAttribute('height', '24px')
 })
 </script>
 <template>
@@ -65,7 +69,10 @@ onMounted(() => {
         <ElIcon color="#fff" size="26"><ArrowLeft /></ElIcon>
       </div>
       <div class="rank-tools-buttons">
-        <div style="height: 30px;width: 30px;backgroundColor: #fff" id="music"></div>
+        <div
+          style="background: #eb382f"
+          id="music"
+        ></div>
         <img
           v-for="item in tools"
           :key="item.text"
@@ -78,7 +85,7 @@ onMounted(() => {
     <div class="rank-header">
       <div class="rank-header-main">
         <div class="rank-header-main-title">十大股东</div>
-        <div class="rank-header-main-industry" @click="drawerShow">{{datasetName}}</div>
+        <div class="rank-header-main-industry" @click="drawerShow">{{ datasetName }}</div>
         <!-- <div class="rank-header-main-sentiment"></div> -->
         <div class="rank-header-main-date">
           <!-- <ElIcon color="#fff" size="20"> -->
@@ -125,7 +132,6 @@ onMounted(() => {
   justify-content: flex-start;
   &-bg {
     box-sizing: border-box;
-
     width: 100%;
     height: 200px;
     position: fixed;
@@ -227,9 +233,11 @@ onMounted(() => {
       font-family: PingFangSC-Regular;
       font-size: 13px;
       color: #ffeae8;
+      opacity: 0;
       letter-spacing: 0;
       font-weight: 400;
       margin-bottom: 8px;
+      justify-content: space-between;
     }
   }
 
@@ -261,12 +269,12 @@ onMounted(() => {
           color: rgba(0, 0, 0, 0.6);
           font-family: PingFangSC-Regular;
           &-icon {
-            width: 12px;
+            width: 8px;
             height: 1px;
-            border: 1px solid #FF9500;
-            background-color: #FF9500;
+            border: 1px solid #ff9500;
+            background-color: #ff9500;
             border-radius: 10px;
-            margin: 0 2px;
+            margin: 4px 4px 4px 0;
           }
         }
         &-circle {
@@ -278,7 +286,7 @@ onMounted(() => {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background-color: #3366FF;
+            background-color: #3366ff;
             margin: 0 6px;
           }
         }
@@ -300,8 +308,6 @@ onMounted(() => {
     z-index: 2;
   }
 }
-
-
 
 .btn {
   height: 44px;
