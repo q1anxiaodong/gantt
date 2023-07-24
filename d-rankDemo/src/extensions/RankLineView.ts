@@ -731,6 +731,20 @@ class RankLineView extends LineView {
                 }
             });
 
+            symbolDraw.eachRendered((el) => {
+                if (withTimeline && withTimeline.curIndex) {
+                    const pt = getPointAtIndex(points, data.indexOfRawIndex(withTimeline.curIndex));
+                    console.log('dataIndex', pt)
+                    if (!pt || isPointNull(pt[0], pt[1])) {
+                        el.attr({
+                            style: {
+                                fill: '#858585'
+                            }
+                        })
+                    }
+                }
+            })
+
             hasAnimation && this._initSymbolLabelAnimation(
                 data,
                 coordSys,
@@ -804,30 +818,9 @@ class RankLineView extends LineView {
                 const endLabelModel = seriesModel.getModel('endLabel');
                 const valueAnimation = endLabelModel.get('valueAnimation');
                 const { curIndex, maxRange, range } = withTimeline;
-                // const pt = [this._endLabel.x, this._endLabel.y];
-                // const {x: originalX, y: originalY} = this._endLabel;
-                // if(withTimeline) {
-                //     if (typeof this.preIndex === 'undefined') {
-                //         this.preIndex = curIndex;
-                //     }
-                //     isBackward = curIndex >= maxRange && curIndex < this.preIndex;
-                // }
-                // const labelAnimationRecord = { lastFrameIndex: 0 };
-                // console.log('original', originalX, originalY, 'cur', curIndex, 'max',maxRange, 'pre',this.preIndex, isBackward);
 
                 !this.labelAnimationRecord && (this.labelAnimationRecord = { lastFrameIndex: 0, lastDisplay: true });
 
-                // const during = (percent: number) => {
-                //     const oldPoint = getPointAtIndex(points, this.labelAnimationRecord.lastFrameIndex);
-                //     const dist = [pt[0] - oldPoint[0], pt[1] - oldPoint[1]];
-                //     this._endLabel.attr({
-                //         x: oldPoint[0] + dist[0] * percent,
-                //         y: oldPoint[1] + dist[1] * percent,
-                //         style: {
-                //             text: '111'
-                //         }
-                //     });
-                // };
                 const during = anyStateShowEndLabel(seriesModel)
                     ? (percent: number) => {
                         this._updateEndLabelOnDuring(
@@ -865,6 +858,20 @@ class RankLineView extends LineView {
                     return [points[idx * 2], points[idx * 2 + 1]];
                 }
             });
+
+            symbolDraw.eachRendered((el) => {
+                if (withTimeline && withTimeline.curIndex) {
+                    const pt = getPointAtIndex(points, data.indexOfRawIndex(withTimeline.curIndex));
+                    console.log('dataIndex', pt)
+                    if (!pt || isPointNull(pt[0], pt[1])) {
+                        el.attr({
+                            style: {
+                                fill: '#858585'
+                            }
+                        })
+                    }
+                }
+            })
 
             // In the case data zoom triggered refreshing frequently
             // Data may not change if line has a category axis. So it should animate nothing.
@@ -931,6 +938,14 @@ class RankLineView extends LineView {
             smoothMonotone,
             connectNulls
         });
+
+        const pt = getPointAtIndex(points, data.indexOfRawIndex(withTimeline.curIndex));
+        if (!pt || isPointNull(pt[0], pt[1])) {
+            polyline.useStyle({
+                stroke: '#858585'
+            });
+        }
+
 
         if (polygon) {
             const stackedOnSeries = data.getCalculationInfo('stackedOnSeries');
@@ -1384,11 +1399,6 @@ class RankLineView extends LineView {
                             opacity: 1 - percent
                         }
                     });
-                    polyline.attr({
-                        style: {
-                            stroke: 'grey'
-                        }
-                    })
                 }
                 // 如果标签在上一状态位于坐标系外，且本状态位于合法位置
                 else if (!isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
@@ -1412,11 +1422,6 @@ class RankLineView extends LineView {
                         }
                     });
 
-                    polyline.attr({
-                        style: {
-                            stroke: 'grey'
-                        }
-                    })
                 }
             }
         }

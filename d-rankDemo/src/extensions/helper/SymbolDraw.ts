@@ -193,11 +193,6 @@ class SymbolDraw {
                 symbolClipShape = new graphic.Rect({
                     shape: {x, y, width, height}
                 });
-                symbolClipShape.attr({
-                    style: {
-                        fill: 'rgba(255, 0, 0, 0.3)'
-                    }
-                })
             }
             this.group.setClipPath(symbolClipShape)
         } else {

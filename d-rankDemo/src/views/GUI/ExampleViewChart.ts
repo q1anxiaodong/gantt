@@ -123,7 +123,8 @@ export const getSeries = (name, seriesData, index) => {
             itemStyle: {
                 borderColor: '#000',
                 borderWidth: 0.5
-            }
+            },
+            // label: {show: true},
         },
         select: {
             itemStyle: {
