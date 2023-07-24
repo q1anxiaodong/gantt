@@ -57,9 +57,13 @@ const initChart = () => {
         // formatter: (value) => {
         //   return value.split(' ')[1]
         // }
+      },
+      axisPointer: {
+        show: true,
+        lineStyle: {
+          opacity: 0
+        }
       }
-      // min: 0,
-      // max: range
     },
     yAxis: {
       type: 'category',

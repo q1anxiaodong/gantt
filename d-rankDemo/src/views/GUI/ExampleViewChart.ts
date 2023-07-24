@@ -119,7 +119,11 @@ export const getSeries = (name, seriesData, index) => {
             // color: '#fff',
         },
         emphasis: {
-            focus: 'series'
+            focus: 'series',
+            itemStyle: {
+                borderColor: '#000',
+                borderWidth: 0.5
+            }
         },
         select: {
             itemStyle: {
