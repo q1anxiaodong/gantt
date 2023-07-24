@@ -160,8 +160,10 @@ export const getExampleChartOption = (data: number[]): EChartsOption => {
 
 
 export const clickHandler = (chart: EChartsType) => {
-    chart.on('click', {}, (...args) => {
-        console.log('click', chart, args);
+    chart.on('click', {}, (params) => {
+        if (params.dataIndex === 5 && params.data.link != null) {
+            window.location.assign(params.data.link);
+        }
     })
 } 
 
