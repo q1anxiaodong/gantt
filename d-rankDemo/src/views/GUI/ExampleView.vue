@@ -118,7 +118,6 @@ const initChart = () => {
   console.log('option', option)
 
   exampleChart.setOption(option)
-  clickHandler(exampleChart);
 }
 
 const initTimeline = () => {

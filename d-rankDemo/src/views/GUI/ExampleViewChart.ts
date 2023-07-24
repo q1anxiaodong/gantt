@@ -122,6 +122,7 @@ export const getSeries = (name, seriesData, index) => {
             // padding: 4,
             distance: 1,
             afterInit: (endLabel) => {
+                if (!link) return;
                 endLabel.on('click', () => {
                     window.location.assign(link);
                 })
@@ -173,14 +174,6 @@ export const getExampleChartOption = (data: number[]): EChartsOption => {
 }
 
 
-export const clickHandler = (chart: EChartsType) => {
-    chart.on('click', {seriesType: 'dvLine'}, (params) => {
-        console.log('llll', params);
-        if (params.dataIndex === 5 && params.data.link != null) {
-            window.location.assign(params.data.link);
-        }
-    })
-} 
 
 // ----------------------------------------------------- //
 

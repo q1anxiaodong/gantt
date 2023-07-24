@@ -253,6 +253,7 @@ onMounted(() => {
         display: flex;
         font-size: 12px;
         padding-top: 8px;
+        padding-left: 5%;
         &-line {
           margin-right: 12px;
           display: flex;
@@ -262,8 +263,8 @@ onMounted(() => {
           &-icon {
             width: 12px;
             height: 1px;
-            border: 1px solid #d1d1d1;
-            background-color: #d1d1d1;
+            border: 1px solid #FF9500;
+            background-color: #FF9500;
             border-radius: 10px;
             margin: 0 2px;
           }
@@ -277,7 +278,7 @@ onMounted(() => {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background-color: #d1d1d1;
+            background-color: #3366FF;
             margin: 0 6px;
           }
         }
