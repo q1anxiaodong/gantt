@@ -3,7 +3,7 @@ import * as echarts from 'echarts'
 import type { EChartsType } from 'echarts'
 import { markRaw, onMounted, ref, defineProps, watch } from 'vue'
 // 存放扩展逻辑、图表各组件配置生成方法的地方
-import { colors, getExampleChartOption, getSeries, myUse } from './ExampleViewChart'
+import { clickHandler, colors, getExampleChartOption, getSeries, myUse } from './ExampleViewChart'
 // import rawData from '../../../public/script/resolveData.js'
 // import solvedData from '../../../public/csv/resolveData'
 
@@ -12,7 +12,8 @@ interface ChartProps {
     xData: []
     yData: []
     seriesData: Object
-  }
+  },
+  dataName: string
 }
 
 const chartDom = ref()
@@ -98,7 +99,7 @@ const initChart = () => {
       }
     ],
     series: [...props.solvedData.seriesData.keys()].slice().map((key, index) => {
-      return getSeries(key, props.solvedData.seriesData.get(key))
+      return getSeries(key, props.solvedData.seriesData.get(key), )
     }),
     animationDurationUpdate: 1000,
     animationEasing: 'linear',
@@ -108,6 +109,7 @@ const initChart = () => {
   console.log('option', option)
 
   exampleChart.setOption(option)
+  clickHandler(exampleChart);
 }
 
 const initTimeline = () => {

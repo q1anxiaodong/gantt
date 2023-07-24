@@ -19,8 +19,8 @@ const dataMap = {
     name: 1,
     stockValue: 2,
     stockPercent: 3,
-    link: 4,
-    pic: 5
+    pic: 4,
+    link: 5
 };
 
 function getDateAfter18991230(nDays) {

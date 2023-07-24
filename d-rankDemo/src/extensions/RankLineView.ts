@@ -1381,7 +1381,7 @@ class RankLineView extends LineView {
                         y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || ptOnLastIndex[1],
                         ignore: true,
                         style: {
-                            opacity: 0
+                            opacity: 1 - percent
                         }
                     });
                     polyline.attr({

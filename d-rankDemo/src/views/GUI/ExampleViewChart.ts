@@ -1,10 +1,10 @@
-import type { XAXisComponentOption, GridComponentOption, YAXisComponentOption, LineSeriesOption, EChartsOption, } from 'echarts';
+import type { XAXisComponentOption, GridComponentOption, YAXisComponentOption, LineSeriesOption, EChartsOption, EChartsType, } from 'echarts';
 import type ExtensionAPI from 'echarts/types/src/core/ExtensionAPI';
 import type GlobalModel from 'echarts/types/src/model/Global';
 import { install } from '@/extensions/install';
 import { use } from 'echarts';
 
-const rootPath = 'http://127.0.0.1:5173'
+const rootPath = 'https://t.zhouchangju.com/test/qianxiaodong/assets'
 
 // import type { EChartsExtensionInstallRegisters, EChartsExtensionInstaller } from 'echarts/types/src/extension'
 
@@ -64,7 +64,8 @@ const getYAxis = (): YAXisComponentOption  => {
         type: 'value'
     };
 }
-export const getSeries = (name, seriesData) => {
+export const getSeries = (name, seriesData, index) => {
+    const picName = seriesData[0].pic;
     return {
         clip: true,
         withTimeline: {
@@ -86,25 +87,36 @@ export const getSeries = (name, seriesData) => {
             formatter: (params) => {
                 // return name + '  排名 ' + params.data.rank + ' 热度 ' + params.data.data;
                 // return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
-                return `{margin|}{avatar|${name.slice(0, 1)}}{margin|}{content|${ name.slice(0, 3)  + (name.length > 3 ? '... ' : ' ')  + ' ' + params.data.rank}}`;
+                const pic = picName == null ? `{margin|}{margin|}{textAvatar|${name.slice(0, 1)}}{margin|}` : `{margin|}{margin|}{avatar|}{margin|}`;
+                return pic + `{content|${ name.slice(0, 3)  + (name.length > 3 ? '... ' : ' ')  + ' ' + params.data.rank}}`;
             },
             rich: {
-                avatar: {
-                    // width: 16,
-                    // height: 16,
-                    padding: 4,
-                    borderRadius: 10,
+                textAvatar: {
                     backgroundColor: 'inherit',
+                    borderRadius: 10,
+                    padding: 3,
+                    color: '#fff'
+                },
+                avatar: {
+                    width: 14,
+                    height: 14,
+                    color: '#fff',
+                    // padding: 4,
+                    borderRadius: 10,
+                    // backgroundColor: 'inherit',
+                    backgroundColor: {
+                        image: rootPath + '/' + picName
+                    }
                 },
                 margin: {width: 5},
                 content: {
-                    backgroundColor: 'inherit',
+                    // backgroundColor: 'inherit',
                     padding: 4
                 }
             },
             // padding: 4,
             distance: 1,
-            color: '#fff',
+            // color: '#fff',
         },
         emphasis: {
             focus: 'series'
@@ -145,6 +157,13 @@ export const getExampleChartOption = (data: number[]): EChartsOption => {
         // series: getSeries(data)
     }
 }
+
+
+export const clickHandler = (chart: EChartsType) => {
+    chart.on('click', {}, (...args) => {
+        console.log('click', chart, args);
+    })
+} 
 
 // ----------------------------------------------------- //
 

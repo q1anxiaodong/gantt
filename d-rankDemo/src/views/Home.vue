@@ -91,15 +91,15 @@ onMounted(() => {
         <div class="rank-container-main-legends">
           <div class="rank-container-main-legends-line">
             <div class="rank-container-main-legends-line-icon"></div>
-            持股排名
+            排名走势
           </div>
           <div class="rank-container-main-legends-circle">
             <div class="rank-container-main-legends-circle-icon"></div>
-            持股量
+            面积代表持股占比
           </div>
         </div>
         <div class="rank-container-main-content">
-          <ExampleView :solvedData="dataset" />
+          <ExampleView :solvedData="dataset" :dataName="currDataName" />
         </div>
       </div>
     </div>
