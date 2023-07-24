@@ -3,14 +3,16 @@ import createSeriesData from 'echarts/lib/chart/helper/createSeriesData.js'
 import type { LineEndLabelOption, LineSeriesOption } from 'echarts/types/src/chart/line/LineSeries';
 import type LineSeriesModel from 'echarts/types/src/chart/line/LineSeries';
 import type SeriesData from 'echarts/types/src/data/SeriesData';
+import type { Text } from 'echarts/types/src/util/graphic';
 export interface RankLineSeriesOption extends Omit<LineSeriesOption, 'type'> {
     type: 'dvLine',
     endLabel?: LineEndLabelOption & {
-        lastWithTimeline?: {
-            range: [number, number],
-            maxRange: number,
-            curIndex: number
-        }
+        afterInit: (endLabel: Text) => void;
+    },
+    withTimeline: {
+        range: [number, number],
+        maxRange: number,
+        curIndex: number,
     }
     // clip?: ''
 }

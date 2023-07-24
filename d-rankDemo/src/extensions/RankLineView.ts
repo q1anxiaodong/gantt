@@ -441,15 +441,16 @@ function isPointNull(x: number, y: number) {
     return isNaN(x) || isNaN(y);
 }
 
-function getLastIndexNotNull(points: ArrayLike<number>) {
+function getLastIndexNotNull(points: ArrayLike<number>, end?: number) {
     let len = points.length / 2;
-    for (; len > 0; len--) {
-        if (!isPointNull(points[len * 2 - 2], points[len * 2 - 1])) {
+    let endRange = end || len;
+    for (; endRange > 0; endRange--) {
+        if (!isPointNull(points[endRange * 2 - 2], points[endRange * 2 - 1])) {
             break;
         }
     }
 
-    return len - 1;
+    return endRange - 1;
 }
 
 function getPointAtIndex(points: ArrayLike<number>, idx: number) {
@@ -617,6 +618,7 @@ class RankLineView extends LineView {
     static readonly type = 'dvLine';
 
     _symbolDraw: SymbolDraw;
+    _endSymbol: SymbolExtended;
 
     _lineGroup: graphic.Group;
     _coordSys: Cartesian2D | Polar;
@@ -734,11 +736,10 @@ class RankLineView extends LineView {
             symbolDraw.eachRendered((el) => {
                 if (withTimeline && withTimeline.curIndex) {
                     const pt = getPointAtIndex(points, data.indexOfRawIndex(withTimeline.curIndex));
-                    console.log('dataIndex', pt)
                     if (!pt || isPointNull(pt[0], pt[1])) {
                         el.attr({
                             style: {
-                                fill: '#858585'
+                                fill: '#D1D1D1'
                             }
                         })
                     }
@@ -773,9 +774,32 @@ class RankLineView extends LineView {
 
             // NOTE: Must update _endLabel before setClipPath.
             if (!isCoordSysPolar) {
-                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), withTimeline.curIndex);
+                // 绑定事件 目前直接在view里绑定事件， 后续要暴露接口
+                let callback = seriesModel.get(['endLabel', 'afterInit']);
+                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), callback);
                 this._endLabel && withTimeline && (this._endLabel.lastWithTimeline = withTimeline);
+                if (withTimeline) {
+                    if (this._endSymbol) {
+                        lineGroup.remove(this._endSymbol)
+                    }
+                    this._endSymbol = new SymbolClz(data, (withTimeline?.maxRange as number))
+                    this._endSymbol.isSymbol = true;
+                    this._endSymbol.__temp = false;
+
+                    this._endSymbol.attr({
+                        shape: {
+                            width: 0,
+                            height: 0
+                        },
+                        style: {
+                            fill: visualColor
+                        },
+                        ignoreClip: true
+                    })
+                    lineGroup.add(this._endSymbol);
+                }
             }
+
             seriesModel._points = points;
             lineGroup.setClipPath(
                 createLineClipPath(this, coordSys, false, seriesModel)
@@ -798,15 +822,26 @@ class RankLineView extends LineView {
                 polygon = this._polygon = null;
             }
 
-            if (this._endLabel) {
-                console.log('endLabel前', this._endLabel.x, this._endLabel.y, this._endLabel.style.text);
-            }
             // NOTE: Must update _endLabel before setClipPath.
             if (!isCoordSysPolar) {
                 this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), withTimeline.curIndex);
-            }
-            if (this._endLabel) {
-                console.log('endLabel后', this._endLabel.x, this._endLabel.y, this._endLabel.style.text);
+                if (withTimeline && !this._endSymbol) {
+                    this._endSymbol = new SymbolClz(data, (withTimeline?.maxRange as number))
+                    this._endSymbol.isSymbol = true;
+                    this._endSymbol.__temp = false;
+
+                    this._endSymbol.attr({
+                        shape: {
+                            width: 0,
+                            height: 0
+                        },
+                        style: {
+                            fill: visualColor
+                        },
+                        ignoreClip: true
+                    })
+                    lineGroup.add(this._endSymbol);
+                }
             }
 
 
@@ -862,11 +897,10 @@ class RankLineView extends LineView {
             symbolDraw.eachRendered((el) => {
                 if (withTimeline && withTimeline.curIndex) {
                     const pt = getPointAtIndex(points, data.indexOfRawIndex(withTimeline.curIndex));
-                    console.log('dataIndex', pt)
                     if (!pt || isPointNull(pt[0], pt[1])) {
                         el.attr({
                             style: {
-                                fill: '#858585'
+                                fill: '#D1D1D1'
                             }
                         })
                     }
@@ -875,33 +909,33 @@ class RankLineView extends LineView {
 
             // In the case data zoom triggered refreshing frequently
             // Data may not change if line has a category axis. So it should animate nothing.
-            if (!isPointsSame(this._stackedOnPoints, stackedOnPoints)
-                || !isPointsSame(this._points, points)
-            ) {
-                if (hasAnimation) {
-                    this._doUpdateAnimation(
-                        data, stackedOnPoints, coordSys, api, step, valueOrigin, connectNulls
-                    );
-                }
-                else {
-                    // Not do it in update with animation
-                    if (step) {
-                        // TODO If stacked series is not step
-                        points = turnPointsIntoStep(points, coordSys, step, connectNulls);
-                        if (stackedOnPoints) {
-                            stackedOnPoints = turnPointsIntoStep(stackedOnPoints, coordSys, step, connectNulls);
-                        }
-                    }
-
-                    polyline.setShape({
-                        points: points
-                    });
-                    polygon && polygon.setShape({
-                        points: points,
-                        stackedOnPoints: stackedOnPoints
-                    });
-                }
+            // if (!isPointsSame(this._stackedOnPoints, stackedOnPoints)
+            //     || !isPointsSame(this._points, points)
+            // ) {
+            if (hasAnimation) {
+                this._doUpdateAnimation(
+                    data, stackedOnPoints, coordSys, api, step, valueOrigin, connectNulls, seriesModel.get('name')
+                );
             }
+            else {
+                // Not do it in update with animation
+                if (step) {
+                    // TODO If stacked series is not step
+                    points = turnPointsIntoStep(points, coordSys, step, connectNulls);
+                    if (stackedOnPoints) {
+                        stackedOnPoints = turnPointsIntoStep(stackedOnPoints, coordSys, step, connectNulls);
+                    }
+                }
+
+                polyline.setShape({
+                    points: points
+                });
+                polygon && polygon.setShape({
+                    points: points,
+                    stackedOnPoints: stackedOnPoints
+                });
+            }
+            // }
         }
 
         const emphasisModel = seriesModel.getModel('emphasis');
@@ -941,8 +975,10 @@ class RankLineView extends LineView {
 
         const pt = getPointAtIndex(points, data.indexOfRawIndex(withTimeline.curIndex));
         if (!pt || isPointNull(pt[0], pt[1])) {
-            polyline.useStyle({
-                stroke: '#858585'
+            polyline.attr({
+                style: {
+                    stroke: '#D1D1D1'
+                }
             });
         }
 
@@ -1046,7 +1082,7 @@ class RankLineView extends LineView {
         LineView.prototype._initSymbolLabelAnimation.apply(this, args);
     }
 
-    _initOrUpdateEndLabel(seriesModel, coordSys, inheritColor) {
+    _initOrUpdateEndLabel(seriesModel, coordSys, inheritColor, callBack) {
         // LineView.prototype._initOrUpdateEndLabel.apply(this, args);
         const endLabelModel = seriesModel.getModel('endLabel');
 
@@ -1068,6 +1104,7 @@ class RankLineView extends LineView {
                 endLabel.ignoreClip = true;
                 polyline.setTextContent(this._endLabel);
                 (polyline as ECElement).disableLabelAnimation = true;
+                callBack && callBack(endLabel);
             }
 
             // Find last non-NaN data to display data
@@ -1105,7 +1142,8 @@ class RankLineView extends LineView {
         api: ExtensionAPI,
         step: LineSeriesOption['step'],
         valueOrigin: LineSeriesOption['areaStyle']['origin'],
-        connectNulls: boolean
+        connectNulls: boolean,
+        name: string
     ) {
         // LineView.prototype._doUpdateAnimation.apply(this, args);
         const polyline = this._polyline;
@@ -1166,6 +1204,7 @@ class RankLineView extends LineView {
 
         // Stop previous animation.
         polyline.stopAnimation();
+
         graphic.updateProps(polyline, target, seriesModel);
 
         if (polygon) {
@@ -1194,15 +1233,15 @@ class RankLineView extends LineView {
 
         for (let i = 0; i < diffStatus.length; i++) {
             const cmd = diffStatus[i].cmd;
-            // if (cmd === '=') {
-            const el = data.getItemGraphicEl(diffStatus[i].idx1) as SymbolExtended;
-            if (el) {
-                updatedDataInfo.push({
-                    el: el,
-                    ptIdx: i    // Index of points
-                });
+            if (cmd === '=') {
+                const el = data.getItemGraphicEl(diffStatus[i].idx1) as SymbolExtended;
+                if (el) {
+                    updatedDataInfo.push({
+                        el: el,
+                        ptIdx: i    // Index of points
+                    });
+                }
             }
-            // }
         }
         if (polyline.animators && polyline.animators.length) {
             polyline.animators[0].during(function () {
@@ -1326,6 +1365,7 @@ class RankLineView extends LineView {
     ) {
         const endLabel = this._endLabel;
         const polyline = this._polyline;
+        const endSymbol = this._endSymbol;
 
         if (endLabel) {
             // NOTE: Don't remove percent < 1. percent === 1 means the first frame during render.
@@ -1356,7 +1396,7 @@ class RankLineView extends LineView {
 
             const diff = indices[1] - indices[0];
             let value: ParsedValue;
-            if (withTimeline) {
+            if (withTimeline && endSymbol) {
                 // 记录上一周期的标签位置
                 if (percent === 0) {
                     animationRecord.originalX = endLabel.x;
@@ -1367,9 +1407,14 @@ class RankLineView extends LineView {
                 const lastIndex = animationRecord.lastFrameIndex;
 
                 const ptOnCurrIndex = getPointAtIndex(points, data.indexOfRawIndex(curIndex));
+                const lastIndexNotNull = getLastIndexNotNull(points, range[1]);
                 const ptOnLastIndex = coordSys.dataToPoint([
                     data.getByRawIndex('x', lastIndex),
                     data.getByRawIndex('y', lastIndex)
+                ]);
+                const ptOnLastNotNull = coordSys.dataToPoint([
+                    data.get('x', lastIndexNotNull),
+                    data.get('y', lastIndexNotNull)
                 ]);
                 // console.log('pts', percent, endLabel.style.text, lastPt, ptOnCurrIndex, ptOnLastIndex, animationRecord.lastFrameIndex);
 
@@ -1388,17 +1433,34 @@ class RankLineView extends LineView {
                             opacity: 1
                         }
                     })
+                    endSymbol.attr({
+                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
+                        y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent),
+                        ignore: false,
+                        style: {
+                            opacity: 1
+                        }
+                    })
                 }
                 // 如果标签在上一状态位于合法位置，且本状态位于坐标系外
                 else if (isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && !isPointNull(lastPt[0], lastPt[1])) {
                     endLabel.attr({
-                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX) || ptOnLastIndex[0],
-                        y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || ptOnLastIndex[1],
+                        x: (valueAtPercent(lastPt[0], ptOnLastNotNull[0], percent) + distanceX) || ptOnLastIndex[0],
+                        y: (valueAtPercent(lastPt[1], ptOnLastNotNull[1], percent) + distanceY) || ptOnLastIndex[1],
+                        ignore: lastIndex > curIndex,
+                        style: {
+                            opacity: 1,
+                            text: '{margin|}{margin|}{avatar|}{margin|}'
+                        }
+                    });
+                    endSymbol.attr({
+                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
+                        y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent),
                         ignore: true,
                         style: {
                             opacity: 1 - percent
                         }
-                    });
+                    })
                 }
                 // 如果标签在上一状态位于坐标系外，且本状态位于合法位置
                 else if (!isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
@@ -1410,6 +1472,14 @@ class RankLineView extends LineView {
                             opacity: percent
                         }
                     })
+                    // endSymbol.attr({
+                    //     x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
+                    //     y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent),
+                    //     ignore: false,
+                    //     style: {
+                    //         opacity: percent
+                    //     }
+                    // })
                 }
                 // 如果标签在上一状态位于坐标系外，且本状态位于坐标系外
                 else if (isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
@@ -1421,7 +1491,14 @@ class RankLineView extends LineView {
                             opacity: 0
                         }
                     });
-
+                    // endSymbol.attr({
+                    //     x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) || ptOnCurrIndex[0],
+                    //     y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) || endLabel.y,
+                    //     ignore: true,
+                    //     style: {
+                    //         opacity: 0
+                    //     }
+                    // })
                 }
             }
         }

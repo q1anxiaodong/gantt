@@ -65,7 +65,12 @@ const getYAxis = (): YAXisComponentOption  => {
     };
 }
 export const getSeries = (name, seriesData, index) => {
-    const picName = seriesData[0].pic;
+    let picName = undefined;
+    let link = undefined;
+    seriesData.forEach(item => {
+        item.pic ? (picName = item.pic) : null;
+        item.link ? (link = item.link) : null;
+    });
     return {
         clip: true,
         withTimeline: {
@@ -88,7 +93,7 @@ export const getSeries = (name, seriesData, index) => {
                 // return name + '  排名 ' + params.data.rank + ' 热度 ' + params.data.data;
                 // return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
                 const pic = picName == null ? `{margin|}{margin|}{textAvatar|${name.slice(0, 1)}}{margin|}` : `{margin|}{margin|}{avatar|}{margin|}`;
-                return pic + `{content|${ name.slice(0, 3)  + (name.length > 3 ? '... ' : ' ')  + ' ' + params.data.rank}}`;
+                return pic + `{content|${ name.slice(0, 3)  + (name.length > 3 ? '... ' : ' ')  + ' ' + params.data.stockPercent}}`;
             },
             rich: {
                 textAvatar: {
@@ -98,8 +103,8 @@ export const getSeries = (name, seriesData, index) => {
                     color: '#fff'
                 },
                 avatar: {
-                    width: 14,
-                    height: 14,
+                    width: 16,
+                    height: 16,
                     color: '#fff',
                     // padding: 4,
                     borderRadius: 10,
@@ -116,7 +121,11 @@ export const getSeries = (name, seriesData, index) => {
             },
             // padding: 4,
             distance: 1,
-            // color: '#fff',
+            afterInit: (endLabel) => {
+                endLabel.on('click', () => {
+                    window.location.assign(link);
+                })
+            }
         },
         emphasis: {
             focus: 'series',
@@ -165,7 +174,8 @@ export const getExampleChartOption = (data: number[]): EChartsOption => {
 
 
 export const clickHandler = (chart: EChartsType) => {
-    chart.on('click', {}, (params) => {
+    chart.on('click', {seriesType: 'dvLine'}, (params) => {
+        console.log('llll', params);
         if (params.dataIndex === 5 && params.data.link != null) {
             window.location.assign(params.data.link);
         }

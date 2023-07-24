@@ -38,6 +38,9 @@ const initChart = () => {
       bottom: 0
     },
     color: colors,
+    axisPointer: {
+      triggerTooltip: false
+    },
     xAxis: {
       position: 'top',
       data: props.solvedData.xData,
@@ -82,7 +85,9 @@ const initChart = () => {
       },
       data: props.solvedData.yData
     },
-    tooltip: {},
+    tooltip: {
+      trigger: 'item'
+    },
     dataZoom: [
       {
         type: 'slider',
