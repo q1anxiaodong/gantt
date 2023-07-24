@@ -3,6 +3,7 @@ import type ExtensionAPI from 'echarts/types/src/core/ExtensionAPI';
 import type GlobalModel from 'echarts/types/src/model/Global';
 import { install } from '@/extensions/install';
 import { use } from 'echarts';
+import { showDialog } from 'vant';
 
 const rootPath = 'https://t.zhouchangju.com/test/qianxiaodong/assets'
 
@@ -174,6 +175,18 @@ export const getExampleChartOption = (data: number[]): EChartsOption => {
 }
 
 
+
+export function handlePointClick(chart: EChartsType) {
+    chart.on('click', { seriesType: 'dvLine' }, param => {
+        showDialog({
+            title: '标题',
+            message: JSON.stringify(param.data),
+            theme: 'round-button',
+            messageAlign: 'left',
+            confirmButtonText: '我知道了'
+        })
+    });
+}
 
 // ----------------------------------------------------- //
 
