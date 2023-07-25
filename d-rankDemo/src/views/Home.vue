@@ -69,10 +69,7 @@ onMounted(() => {
         <ElIcon color="#fff" size="26"><ArrowLeft /></ElIcon>
       </div>
       <div class="rank-tools-buttons">
-        <div
-          style="background: #eb382f"
-          id="music"
-        ></div>
+        <div id="music"></div>
         <img
           v-for="item in tools"
           :key="item.text"
@@ -110,20 +107,28 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <Drawer ref="datasetDrawer">
-      <template #header>选择数据集</template>
-      <template #main>
-        <div class="btn" @click="changeDataSetHandler('ths')">同花顺</div>
-        <div class="btn" @click="changeDataSetHandler('rb')">日播时尚</div>
-        <div class="btn" @click="changeDataSetHandler('kl')">昆仑万维</div>
+    <Drawer ref="datasetDrawer" class="data-drawer">
+      <template #header class="data-drawer-title">选择股票</template>
+      <template #main class="data-drawer-main">
+        <div :class="['data-drawer-main-item', currDataName === 'ths' ? 'data-drawer-main-item__active' : '']" @click="changeDataSetHandler('ths')">同花顺</div>
+        <div :class="['data-drawer-main-item', currDataName === 'rb' ? 'data-drawer-main-item__active' : '']" @click="changeDataSetHandler('rb')">日播时尚</div>
+        <div :class="['data-drawer-main-item', currDataName === 'kl' ? 'data-drawer-main-item__active' : '']" @click="changeDataSetHandler('kl')">昆仑万维</div>
+      </template>
+      <template #footer class="data-drawer-footer">
+        <div class="data-drawer-footer-item" @click="drawerHide">取消</div>
       </template>
     </Drawer>
   </div>
 </template>
 <style lang="less" scoped>
+#music {
+  background-color: transparent !important;
+}
+
 .rank {
   width: 100%;
   height: 100%;
+  overflow: hidden;
   //   padding: 16px;
   background: linear-gradient(to bottom, #eb382f 0%; #eb382f 200px; #f5f5f5 320px; #f5f5f5 100%);
   display: flex;
@@ -306,6 +311,53 @@ onMounted(() => {
     box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.08);
     border-radius: 8px 8px 0 0;
     z-index: 2;
+  }
+}
+
+.data-drawer {
+  font-family: PingFangSC-Regular;
+  &-title {
+    font-family: PingFangSC-Medium;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.84);
+    text-align: center;
+    line-height: 22px;
+    font-weight: bolder;
+  }
+
+  &-main {
+    &-item {
+      text-align: left;
+      line-height: 52px;
+      font-size: 16px;
+      font-weight: 400;
+    }
+    &-item__active {
+      color: #ff2436;
+      display: flex;
+      justify-content: space-between;
+      &::after {
+        content: '\2713';
+        color: #ff2436;
+        font-size: 18px;
+      }
+    }
+
+    &-item__normal {
+      color: rgba(0, 0, 0, 0.84);
+    }
+  }
+
+  &-footer {
+    &-item {
+      width: 100%;
+      height: 44px;
+      line-height: 44px;
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 4px;
+      text-align: center;
+      vertical-align: middle;
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 // @ts-ignore
 import LineView from 'echarts/lib/chart/line/LineView.js';
 import * as zrUtil from 'zrender/src/core/util';
-import type SymbolDraw from './helper/SymbolDraw';
+import type SymbolDraw from 'echarts/lib/chart/helper/SymbolDraw';
 import SymbolClz from 'echarts/lib/chart/helper/Symbol';
 import lineAnimationDiff from './lineAnimationDiff';
 import * as graphic from 'echarts/lib/util/graphic';
@@ -779,8 +779,7 @@ class RankLineView extends LineView {
             // NOTE: Must update _endLabel before setClipPath.
             if (!isCoordSysPolar) {
                 // 绑定事件 目前直接在view里绑定事件， 后续要暴露接口
-                let callback = seriesModel.get(['endLabel', 'afterInit']);
-                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), callback);
+                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), api);
                 this._endLabel && withTimeline && (this._endLabel.lastWithTimeline = withTimeline);
                 if (withTimeline) {
                     if (this._endSymbol) {
@@ -821,7 +820,7 @@ class RankLineView extends LineView {
 
             // NOTE: Must update _endLabel before setClipPath.
             if (!isCoordSysPolar) {
-                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), withTimeline.curIndex);
+                this._initOrUpdateEndLabel(seriesModel, coordSys as Cartesian2D, convertToColorString(visualColor), api);
                 if (withTimeline && !this._endSymbol) {
                     this._endSymbol = new createSymbol('circle', 0, 0, 0, 0, visualColor)
 
@@ -1132,7 +1131,7 @@ class RankLineView extends LineView {
         LineView.prototype._initSymbolLabelAnimation.apply(this, args);
     }
 
-    _initOrUpdateEndLabel(seriesModel, coordSys, inheritColor, callBack) {
+    _initOrUpdateEndLabel(seriesModel, coordSys, inheritColor, api) {
         // LineView.prototype._initOrUpdateEndLabel.apply(this, args);
         const endLabelModel = seriesModel.getModel('endLabel');
 
@@ -1154,7 +1153,8 @@ class RankLineView extends LineView {
                 endLabel.ignoreClip = true;
                 polyline.setTextContent(this._endLabel);
                 (polyline as ECElement).disableLabelAnimation = true;
-                callBack && callBack(endLabel);
+                const callback = seriesModel.get(['endLabel', 'afterInit']);
+                callback && callback(endLabel, seriesModel, api);
             }
 
             // Find last non-NaN data to display data
