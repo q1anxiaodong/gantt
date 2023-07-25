@@ -146,8 +146,8 @@ export const getSeries = (name, seriesData, index) => {
                     color: '#fff'
                 },
                 avatar: {
-                    width: 16,
-                    height: 16,
+                    width: 20,
+                    height: 20,
                     color: '#fff',
                     // padding: 4,
                     borderRadius: 10,
@@ -204,8 +204,8 @@ export const getSeries = (name, seriesData, index) => {
                 const container = document.createElement('div');
                 container.innerHTML = `
                     <div style="padding: 8px; width: 180px;display: flex;flex-wrap: wrap; ">
-                        <div style="">${params.data.date}</div>
-                        <div style="">${params.data.name}</div>
+                        <div style="width: 100%;">${params.data.date}</div>
+                        <div style="width: 100%;">${params.data.name}</div>
                         <div style="display: flex;width: 100%; justify-content: space-between;">
                             <div style="">持股占比</div>
                             <div style="">${params.data.stockPercent}</div>
@@ -231,8 +231,6 @@ export const getExampleChartOption = (data: number[]): EChartsOption => {
 
 export function handlePointClick(chart: EChartsType) {
     chart.on('click', { seriesType: 'dvLine', }, params => {
-        console.log('label', params);
-        
         if (!params.data.content) {
             return;
         }

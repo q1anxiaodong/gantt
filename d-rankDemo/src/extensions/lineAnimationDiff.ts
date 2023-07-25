@@ -72,6 +72,14 @@ export default function lineAnimationDiff(
         let oldIdx2: number;
         let newIdx2: number;
 
+        let removePoints = 0;
+        diff.forEach(item => {
+            if(item.cmd === '+' && item.isRemove) {
+                removePoints += 1;
+            }
+        });
+        const needRemovePoint = removePoints <= 1;
+
         // FIXME, animation is not so perfect when dataZoom window moves fast
         // Which is in case remvoing or add more than one data in the tail or head
         switch (diffItem.cmd) {
@@ -107,7 +115,7 @@ export default function lineAnimationDiff(
                 ]);
                 let newPt = [newPoints[newIdx2], newPoints[newIdx2 + 1]];
                 
-                if (diffItem.isRemove) {
+                if (diffItem.isRemove && needRemovePoint) {
                     oldPt = [oldPoints[newIdx2], oldPoints[newIdx2 + 1]];
                     newPt = newCoordSys.dataToPoint([
                         oldData.get(oldDataDimsForPoint[0], newIdx),
@@ -115,7 +123,6 @@ export default function lineAnimationDiff(
                     ])
                     newPt[1] = isNaN(newPt[1]) ? oldPt[1] : newPt[1];
                     newPt[0] = isNaN(newPt[0]) ? oldPt[0] : newPt[0];
-                    console.log(newIdx, 'old', oldPt, 'newPt', newPt);
                     
                 }
                 currPoints.push(oldPt[0], oldPt[1]);

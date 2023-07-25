@@ -66,18 +66,18 @@ const initChart = () => {
         fontSize: 10,
         margin: 15
       },
-      axisPointer: {
-        show: true,
-        label: {
-          backgroundColor: '#3b3b3b',
-          padding: 4,
-          fontSize: 10,
-          margin: 11
-        },
-        lineStyle: {
-          opacity: 0
-        }
-      }
+      // axisPointer: {
+      //   show: true,
+      //   label: {
+      //     backgroundColor: '#3b3b3b',
+      //     padding: 4,
+      //     fontSize: 10,
+      //     margin: 11
+      //   },
+      //   lineStyle: {
+      //     opacity: 0
+      //   }
+      // }
     },
     yAxis: {
       type: 'category',
