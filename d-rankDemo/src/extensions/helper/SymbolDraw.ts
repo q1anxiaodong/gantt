@@ -1,5 +1,5 @@
 import * as graphic from 'echarts/lib/util/graphic';
-import SymbolClz from 'echarts/types/src/chart/helper/Symbol';
+import SymbolClz from 'echarts/lib/chart/helper/Symbol';
 import { isObject } from 'zrender/src/core/util';
 import type SeriesData from 'echarts/types/src/data/SeriesData';
 import type Displayable from 'zrender/src/graphic/Displayable';
@@ -22,7 +22,7 @@ import type { ScatterSeriesOption } from 'echarts/types/src/scatter/ScatterSerie
 import { getLabelStatesModels } from 'echarts/lib/label/labelStyle';
 import Element from 'zrender/src/Element';
 import type SeriesModel from 'echarts/types/src/model/Series';
-import { Rect } from 'echarts/types/src/util/graphic';
+import type { Rect } from 'echarts/types/src/util/graphic';
 
 interface UpdateOpt {
     isIgnore?(idx: number): boolean

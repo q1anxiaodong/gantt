@@ -1,7 +1,7 @@
 // @ts-ignore
 import LineView from 'echarts/lib/chart/line/LineView.js';
 import * as zrUtil from 'zrender/src/core/util';
-import type SymbolDraw from 'echarts/lib/chart/helper/SymbolDraw';
+import SymbolDraw from './helper/SymbolDraw';
 import SymbolClz from 'echarts/lib/chart/helper/Symbol';
 import lineAnimationDiff from './lineAnimationDiff';
 import * as graphic from 'echarts/lib/util/graphic';
@@ -640,7 +640,13 @@ class RankLineView extends LineView {
     _data: SeriesData;
 
     init() {
-        LineView.prototype.init.apply(this);
+        const lineGroup = new graphic.Group();
+
+        const symbolDraw = new SymbolDraw();
+        this.group.add(symbolDraw.group);
+
+        this._symbolDraw = symbolDraw;
+        this._lineGroup = lineGroup;
     }
 
     render(seriesModel: LineSeriesModel, ecModel: GlobalModel, api: ExtensionAPI) {
@@ -1017,8 +1023,14 @@ class RankLineView extends LineView {
             el && ((el as ECElement).onHoverStateChange = changePolyState);
         });
         (this._endSymbol as unknown as  ECElement).onHoverStateChange = (...args) => {
-            console.log('xxxx', args);
-            
+            // 支持默认的鼠标切换状态
+            // const itemModel = data.getItemModel(withTimeline.curIndex);
+            const itemModel = seriesModel;
+            this._endSymbol.ensureState('emphasis').style = itemModel.getModel('emphasis').getModel('itemStyle').getItemStyle();
+            this._endSymbol.ensureState('select').style = itemModel.getModel(['select', 'itemStyle']).getItemStyle();
+            this._endSymbol.ensureState('blur').style = itemModel.getModel(['blur', 'itemStyle']).getItemStyle();
+            toggleHoverEmphasis(this._endSymbol, itemModel.get(['emphasis', 'focus']), null, itemModel.get(['emphasis', 'disabled']));
+            this._endSymbol.useStates(args); 
             changePolyState(...args);
         };
 
@@ -1544,14 +1556,14 @@ class RankLineView extends LineView {
                             opacity: percent
                         }
                     })
-                    // endSymbol.attr({
-                    //     x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
-                    //     y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent),
-                    //     ignore: false,
-                    //     style: {
-                    //         opacity: percent
-                    //     }
-                    // })
+                    endSymbol.attr({
+                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
+                        y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent),
+                        ignore: false,
+                        style: {
+                            opacity: percent
+                        }
+                    })
                 }
                 // 如果标签在上一状态位于坐标系外，且本状态位于坐标系外
                 else if (isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
