@@ -153,7 +153,7 @@ onMounted(() => {
   &-tools {
     box-sizing: border-box;
     width: 100%;
-    padding: 30px 16px 0px;
+    padding: 50px 16px 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
