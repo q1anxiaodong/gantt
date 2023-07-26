@@ -1,4 +1,4 @@
-import type { XAXisComponentOption, GridComponentOption, YAXisComponentOption, LineSeriesOption, EChartsOption, EChartsType, } from 'echarts';
+import type { XAXisComponentOption, GridComponentOption, YAXisComponentOption, LineSeriesOption, EChartsOption, EChartsType, ECharts, } from 'echarts';
 import type ExtensionAPI from 'echarts/types/src/core/ExtensionAPI';
 import type GlobalModel from 'echarts/types/src/model/Global';
 import { install } from '@/extensions/install';
@@ -65,36 +65,13 @@ const getYAxis = (): YAXisComponentOption => {
         type: 'value'
     };
 }
-export const getSeries = (name, seriesData, index) => {
+export const getSeries = (name, seriesData) => {
     let picName = undefined;
     let link = undefined;
     seriesData.forEach(item => {
         item.pic ? (picName = item.pic) : null;
         item.link ? (link = item.link) : null;
     });
-    let markPoint;
-    if (seriesData.markPointData) {
-        markPoint = {
-            symbolSize: 20,
-            data: seriesData.markPointData,
-            itemStyle: {
-                opacity: 0,
-            },
-            label: {
-                formatter: (params) => {
-                    return params.data.value;
-                },
-                backgroundColor: '#fff',
-                borderRadius: 2,
-                borderColor: 'rgba(99, 99, 99, 0.8)',
-                borderWidth: 0.5,
-                padding: 4,
-                fontSize: 10,
-                opacity: 0.8,
-                offset: [0, -5],
-            }
-        }
-    }
     return {
         clip: true,
         withTimeline: {
@@ -103,10 +80,6 @@ export const getSeries = (name, seriesData, index) => {
             maxRange: 5
         },
         name,
-        lineStyle: {
-            join: 'miter'
-        },
-        miterLimit: 100,
         type: 'dvLine',
         data: seriesData,
         label: {
@@ -135,7 +108,7 @@ export const getSeries = (name, seriesData, index) => {
             formatter: (params) => {
                 // return name + '  排名 ' + params.data.rank + ' 热度 ' + params.data.data;
                 // return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
-                const pic = picName == null ? `{margin|}{margin|}{textAvatar|${name.slice(0, 1)}}{margin|}` : `{margin|}{margin|}{avatar|}{margin|}`;
+                const pic = `{margin|}{margin|}{avatar|}{margin|}`;
                 return pic + `{content|${name.slice(0, 3) + (name.length > 3 ? '... ' : ' ') + ' ' + params.data.stockPercent}}`;
             },
             rich: {
@@ -149,25 +122,23 @@ export const getSeries = (name, seriesData, index) => {
                     width: 20,
                     height: 20,
                     color: '#fff',
-                    // padding: 4,
                     borderRadius: 10,
-                    // backgroundColor: 'inherit',
                     backgroundColor: {
                         image: rootPath + '/' + picName
                     }
                 },
                 margin: { width: 5 },
                 content: {
-                    // backgroundColor: 'inherit',
                     padding: 4
                 }
             },
-            // padding: 4,
-            distance: 1,
-            afterInit: (endLabel) => {
-                if (!link) return;
-                endLabel.on('click', () => {
-                    window.location.assign(link);
+            afterInit: (endLabel, seriesModel, api) => {
+                endLabel.traverse(el => {
+                    
+                    el.dataIndex = seriesModel.get(['withTimeline', 'curIndex']);
+                    el.seriesIndex = seriesModel.seriesIndex;
+                    console.log('el',el, el.dataIndex, el.seriesIndex);
+
                 })
             }
         },
@@ -175,12 +146,11 @@ export const getSeries = (name, seriesData, index) => {
             width: 1
         },
         emphasis: {
-            focus: 'series',
-            itemStyle: {
-                borderColor: '#000',
-                borderWidth: 0.5
-            },
-            // label: {show: true},
+          focus: 'series',
+          itemStyle: {
+              borderColor: '#3b3b3b',
+              borderWidth: 2
+          }
         },
         symbol: 'circle',
         showAllSymbol: true,
@@ -196,19 +166,41 @@ export const getSeries = (name, seriesData, index) => {
             const extent = params.data.extent;
             return 6 + (max - min) * (params.data.stockValue - extent[0]) / (extent[1] - extent[0]);
         },
-        // markPoint: markPoint,
         animationDurationUpdate: 1000,
         animationDuration: 1000,
         tooltip: {
+            enterable: true,
+            alwaysShowContent: true,
+            triggerOn: 'click',
+            width: 163,
             formatter: (params) => {
+                window.tooltipParams = params;
+                window.tooltipClickHandler = (params) => {
+                    if (!params.data.link) return;
+                    window.location.assign(params.data.link);
+                }
                 const container = document.createElement('div');
                 container.innerHTML = `
-                    <div style="padding: 8px; width: 180px;display: flex;flex-wrap: wrap; ">
-                        <div style="width: 100%;">${params.data.date}</div>
-                        <div style="width: 100%;">${params.data.name}</div>
-                        <div style="display: flex;width: 100%; justify-content: space-between;">
-                            <div style="">持股占比</div>
-                            <div style="">${params.data.stockPercent}</div>
+                    <!-- tooltip包围盒 -->
+                    <div onclick="tooltipClickHandler(window.tooltipParams)" style="padding: 0px 0; width: 180px;display: flex;flex-wrap: wrap; id="dvLineTooltip">
+                        <!-- tooltip标题-年份 -->
+                        <div style="width: 100%;margin-left: 10px;">${params.data.date}</div>
+                        <!-- 公司/股东名 和 持股占比 -->
+                        <div style="width: 100%;display: flex; justify-content: space-between;">
+                            <!-- 名称前面的圆点和名字包围盒 -->
+                            <div style="display: flex;justify-content: start;">
+                                <div style="width: 6px;height: 6px;margin-right: 6px;margin-top: 7px;background-color: ${params.color}; border-radius: 50%;"></div>
+                                <div style="width: 80px;white-space: normal;word-break: break-all;">${params.data.name}</div>
+                            </div>
+                            <!-- 右边的持股占比 -->
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.84);line-height: 16px;">${params.data.stockPercent}</div>
+                        </div>
+                        <!-- 白色分割线 -->
+                        <div style="height: 1px;width: 100%; margin: 8px 0 0 0;background-color: #ffffff10"></div>
+                        <!-- 跳转文字 -->
+                        <div style="width: 100%;height: 16px;margin-top: 8px;display: flex;justify-content: space-between;align-items: center;font-size: 12px;color: rgba(255,255,255,0.84)">
+                            <div style="margin-left: 8px">查看图谱</div>
+                            <div style="width: 6px;height: 6px;border-top: 2px solid #ffffff84;border-right: 2px solid #ffffff84; transform: rotate(45deg);"><div>
                         </div>
                     </div>
                 `;
@@ -242,6 +234,43 @@ export function handlePointClick(chart: EChartsType) {
             confirmButtonText: '我知道了'
         })
     });
+
+
+    // 当全局的选中的series增加时，将其余的series取消选中
+    // chart.on('selectchanged', {seriesType: 'dvLine'},  function (e) {
+    //     const { selected, fromActionPayload } = e;
+
+    //     if (fromActionPayload.type === 'select' && Array.isArray(selected)) {
+    //         console.log('select', e);
+            
+    //         selected.forEach((item) => {
+    //             const seriesModel = chart.getModel().getSeriesByIndex(item.seriesIndex);
+    //             console.log('isSelected', item.seriesIndex, seriesModel.isSelected(0), seriesModel.option.selectedMap, seriesModel.getSelectedDataIndices());
+                
+    //             if (item.seriesIndex === fromActionPayload.seriesIndex) {
+    //                 return;
+    //             }
+    //             chart.dispatchAction({
+    //                 type: 'unselect',
+    //                 seriesIndex: item.seriesIndex,
+    //                 dataIndex: item.dataIndex[0]
+    //             })
+    //         })
+    //     }
+    // });
+
+    chart.getZr().on('click', (event) => {
+        const seriesIndex = event.target?.seriesIndex || event.target?.parent?.seriesIndex;
+        const dataIndex = event.target?.dataIndex || event.target?.parent?.dataIndex;
+        if (seriesIndex !== undefined && dataIndex !== undefined) {
+            chart.dispatchAction({
+                type: 'showTip',
+                seriesIndex,
+                dataIndex
+            })
+        }
+    })
+
 }
 
 // ----------------------------------------------------- //

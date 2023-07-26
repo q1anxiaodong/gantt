@@ -66,18 +66,6 @@ const initChart = () => {
         fontSize: 10,
         margin: 15
       },
-      // axisPointer: {
-      //   show: true,
-      //   label: {
-      //     backgroundColor: '#3b3b3b',
-      //     padding: 4,
-      //     fontSize: 10,
-      //     margin: 11
-      //   },
-      //   lineStyle: {
-      //     opacity: 0
-      //   }
-      // }
     },
     yAxis: {
       type: 'category',
@@ -133,7 +121,7 @@ const initChart = () => {
       }
     ],
     series: [...props.solvedData.seriesData.keys()].slice().map((key, index) => {
-      return getSeries(key, props.solvedData.seriesData.get(key))
+      return getSeries(key, props.solvedData.seriesData.get(key), exampleChart)
     }),
     animationDurationUpdate: 1000,
     animationEasing: 'linear',
@@ -143,6 +131,7 @@ const initChart = () => {
   console.log('option', option)
 
   exampleChart.setOption(option)
+  console.log('afterOption', exampleChart.getOption())
   handlePointClick(exampleChart)
 }
 
@@ -153,7 +142,7 @@ const initTimeline = () => {
     config: {
       axis: {
         tooltip: {
-          style: { display: 'none' }
+          // style: { display: 'none' }
         }
       },
       dataIndex: props.solvedData.xData.length - 1,
