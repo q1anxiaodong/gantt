@@ -65,7 +65,7 @@ const getYAxis = (): YAXisComponentOption => {
         type: 'value'
     };
 }
-export const getSeries = (name, seriesData) => {
+export const getSeries = (name, seriesData, xData) => {
     let picName = undefined;
     let link = undefined;
     seriesData.forEach(item => {
@@ -106,10 +106,14 @@ export const getSeries = (name, seriesData) => {
             show: true,
             valueAnimation: true,
             formatter: (params) => {
-                // return name + '  排名 ' + params.data.rank + ' 热度 ' + params.data.data;
-                // return name.slice(0, 5)  + (name.length > 5 ? '... ' : ' ') +  ' ' + params.data.rank;
-                const pic = `{margin|}{margin|}{avatar|}{margin|}`;
-                return pic + `{content|${name.slice(0, 3) + (name.length > 3 ? '... ' : ' ') + ' ' + params.data.stockPercent}}`;
+                const name = params.name;
+                const pic = `{margin|}{margin|}{avatar|}`;
+                // console.log('params', params);
+                
+                // if (Number(params.data.rank) > 10 || params.dataIndex < index) {
+                //     return pic;
+                // }
+                return pic + `{content|${name.slice(0, 3) + (name.length > 3 ? '... ' : ' ') + '' + params.data.stockPercent}}`;
             },
             rich: {
                 textAvatar: {
@@ -122,6 +126,8 @@ export const getSeries = (name, seriesData) => {
                     width: 20,
                     height: 20,
                     color: '#fff',
+                    // borderColor: 'rgba(0,0,0,0.1)',
+                    // borderWidth: 1,
                     borderRadius: 10,
                     backgroundColor: {
                         image: rootPath + '/' + picName
@@ -233,34 +239,20 @@ export function handlePointClick(chart: EChartsType) {
         })
     });
 
-
-    // 当全局的选中的series增加时，将其余的series取消选中
-    // chart.on('selectchanged', {seriesType: 'dvLine'},  function (e) {
-    //     const { selected, fromActionPayload } = e;
-
-    //     if (fromActionPayload.type === 'select' && Array.isArray(selected)) {
-    //         console.log('select', e);
-            
-    //         selected.forEach((item) => {
-    //             const seriesModel = chart.getModel().getSeriesByIndex(item.seriesIndex);
-    //             console.log('isSelected', item.seriesIndex, seriesModel.isSelected(0), seriesModel.option.selectedMap, seriesModel.getSelectedDataIndices());
-                
-    //             if (item.seriesIndex === fromActionPayload.seriesIndex) {
-    //                 return;
-    //             }
-    //             chart.dispatchAction({
-    //                 type: 'unselect',
-    //                 seriesIndex: item.seriesIndex,
-    //                 dataIndex: item.dataIndex[0]
-    //             })
-    //         })
-    //     }
-    // });
-
     chart.getZr().on('click', (event) => {
-        const seriesIndex = event.target?.seriesIndex || event.target?.parent?.seriesIndex;
-        const dataIndex = event.target?.dataIndex || event.target?.parent?.dataIndex;
+        let dataIndex, seriesIndex;
+        let tar = event.target;
+        while(tar) {
+            if (tar.seriesIndex !== undefined && tar.dataIndex !== undefined) {
+                dataIndex = tar.dataIndex;
+                seriesIndex = tar.seriesIndex;
+                break;
+            }
+            tar = tar.parent || tar.__hostTarget;
+        }
+        
         if (seriesIndex !== undefined && dataIndex !== undefined) {
+            // console.log('ccc', event, dataIndex, seriesIndex);
             chart.dispatchAction({
                 type: 'showTip',
                 seriesIndex,
@@ -268,8 +260,93 @@ export function handlePointClick(chart: EChartsType) {
             })
         }
     })
-
 }
+
+export const initTimeline = (timelineDOM, exampleChart, range, solvedData) => {
+   const timeline = new ThsDataVTimeline.Timeline(timelineDOM, {
+      theme: 'mobile',
+      data: solvedData.xData,
+      config: {
+        axis: {
+        },
+        dataIndex: solvedData.xData.length - 1,
+        // 动画
+        animation: {
+          intervalTime: 1000
+        }
+      }
+    })
+    timeline.on('change', ({ index, causeBy }) => {
+      let opt = {
+          animation: causeBy === 'play'
+      }
+      if (index <= range) {
+        opt = {
+          dataZoom: [
+            {},
+            {
+              startValue: 0,
+              endValue: range
+            }
+          ],
+          series: [...solvedData.seriesData.keys()].slice().map((item) => {
+            return {
+              clip: 'strict',
+              withTimeline: {
+                range: [0, index],
+                curIndex: index
+              },
+              endLabel: {
+                formatter: (params) => {
+                    const name = params.name;
+                    const pic = `{margin|}{margin|}{avatar|}`;
+                    // console.log('params', params);
+                    
+                    if (Number(params.data.rank) > 10 || params.dataIndex < index) {
+                        return pic;
+                    }
+                    return pic + `{content|${name.slice(0, 3) + (name.length > 3 ? '... ' : ' ') + '' + params.data.stockPercent}}`;
+                },
+              }
+            }
+          })
+        }
+      } else {
+        opt = {
+          dataZoom: [
+            {},
+            {
+              startValue: index - range,
+              endValue: index
+            }
+          ],
+          series: [...solvedData.seriesData.keys()].slice().map((item) => {
+            return {
+              clip: 'strict',
+              withTimeline: {
+                range: [0, range],
+                curIndex: index
+              },
+              endLabel: {
+                formatter: (params) => {
+                    const name = params.name;
+                    const pic = `{margin|}{margin|}{avatar|}`;
+                    // console.log('params', params);
+                    
+                    if (Number(params.data.rank) > 10 || params.dataIndex < index) {
+                        return pic;
+                    }
+                    return pic + `{content|${name.slice(0, 3) + (name.length > 3 ? '... ' : ' ') + '' + params.data.stockPercent}}`;
+                },
+              }
+            }
+          })
+        }
+      }
+      exampleChart.setOption(opt)
+    })
+}
+
 
 // ----------------------------------------------------- //
 

@@ -8,6 +8,7 @@ import {
   getExampleChartOption,
   getSeries,
   handlePointClick,
+  initTimeline,
   myUse
 } from './ExampleViewChart'
 // import rawData from '../../../public/script/resolveData.js'
@@ -35,7 +36,6 @@ console.log('dd', props.solvedData)
 
 // 绘制图表的方法
 const initChart = () => {
-  // const option = getExampleChartOption([2, 5, 1, 7, 3]);
   option = {
     grid: {
       left: 35,
@@ -44,9 +44,6 @@ const initChart = () => {
       bottom: '5%'
     },
     color: colors,
-    axisPointer: {
-      triggerTooltip: false
-    },
     xAxis: {
       position: 'top',
       data: props.solvedData.xData,
@@ -69,7 +66,6 @@ const initChart = () => {
     },
     yAxis: {
       type: 'category',
-
       axisLabel: {
         margin: 15
       },
@@ -82,7 +78,7 @@ const initChart = () => {
         show: false
       },
       splitLine: {
-        show: true,
+        show: false,
         interval: 0,
         lineStyle: {
           opacity: 0.5
@@ -129,96 +125,22 @@ const initChart = () => {
   }
 
   console.log('option', option)
-
   exampleChart.setOption(option)
   console.log('afterOption', exampleChart.getOption())
   handlePointClick(exampleChart)
 }
 
-const initTimeline = () => {
-  timeline = new ThsDataVTimeline.Timeline(timelineDom.value, {
-    theme: 'mobile',
-    data: props.solvedData.xData,
-    config: {
-      axis: {
-        tooltip: {
-          // style: { display: 'none' }
-        }
-      },
-      dataIndex: props.solvedData.xData.length - 1,
-      // dataIndex: 0,
-      // 动画
-      animation: {
-        intervalTime: 1000
-      }
-    }
-  })
-  timeline.on('change', ({ index }) => {
-    // const dataZoomModel = chart.getModel().getComponent('dataZoom', 0);
-    // const startValue = dataZoomModel.get('startValue');
-    // const endValue = dataZoomModel.get('endValue');
-    let opt = {}
-    if (index <= range) {
-      opt = {
-        // xAxis: {
-        //   min: 0,
-        //   max: range
-        // },
-        dataZoom: [
-          {},
-          {
-            startValue: 0,
-            endValue: range
-          }
-        ],
-        series: [...props.solvedData.seriesData.keys()].slice().map((item) => {
-          return {
-            clip: 'strict',
-            withTimeline: {
-              range: [0, index],
-              curIndex: index
-            }
-          }
-        })
-        // animation: true
-      }
-    } else {
-      opt = {
-        // xAxis: {
-        //   min: index - range,
-        //   max: index
-        // },
-        dataZoom: [
-          {},
-          {
-            startValue: index - range,
-            endValue: index
-          }
-        ],
-        series: [...props.solvedData.seriesData.keys()].slice().map((item) => {
-          return {
-            clip: 'strict',
-            withTimeline: {
-              range: [0, range],
-              curIndex: index
-            }
-          }
-        })
-        // animation: true
-      }
-    }
-    exampleChart.setOption(opt)
-  })
-}
+
 
 watch(
   () => props.solvedData,
   () => {
     timeline && timeline.destroy()
     exampleChart && exampleChart.dispose()
-    initTimeline()
     // 初始化图表实例
     exampleChart = markRaw(echarts.init(chartDom.value))
+    // 初始化时间轴实例
+    initTimeline(timelineDom.value, exampleChart, range, props.solvedData)
     // 绘制图表
     initChart()
   },
@@ -230,9 +152,10 @@ watch(
 onMounted(() => {
   // 插入扩展逻辑
   myUse()
-  initTimeline()
   // 初始化图表实例
   exampleChart = markRaw(echarts.init(chartDom.value))
+  // 初始化时间轴实例
+  initTimeline(timelineDom.value, exampleChart, range, props.solvedData)
   // 绘制图表
   initChart()
 })
@@ -253,12 +176,10 @@ onMounted(() => {
   .chart {
     width: 100%;
     height: 80%;
-    // margin: auto;
   }
   .timeline {
     width: 100%;
     padding: 0 10px;
-    // height: 20%;
   }
 }
 </style>

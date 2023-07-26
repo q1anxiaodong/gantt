@@ -439,7 +439,7 @@ function canShowAllSymbolForCategory(
 }
 
 function isPointNull(x: number, y: number) {
-    return isNaN(x) || isNaN(y);
+    return isNaN(x) || isNaN(y) || x === 0 || y === 0;
 }
 
 function getLastIndexNotNull(points: ArrayLike<number>, end?: number) {
@@ -1497,7 +1497,12 @@ class RankLineView extends LineView {
                     return source + diff * percent;
                 }
 
-                // 如果标签在上一状态位于坐标系合法位置，且本状态也在合法位置
+                // if (endLabel.style?.rich?.avatar.backgroundColor.image.indexOf('ths_14') > -1) {
+                //     console.log('fff', '最近非空', lastIndexNotNull, '上次curIndex', lastIndex, '当前curIndex', curIndex, endLabel.style.text,
+                //     isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]), isPointNull(lastPt[0], lastPt[1]), ptOnCurrIndex, lastPt);  
+                // }
+
+                // 如果标签在上一状态位于坐标系合法点，且本状态也在合法点
                 if (!isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && !isPointNull(lastPt[0], lastPt[1])) {
                     const symbolSize = SymbolClz.getSymbolSize(data, data.indexOfRawIndex(curIndex));
 
@@ -1524,17 +1529,18 @@ class RankLineView extends LineView {
                         }
                     })
                 }
-                // 如果标签在上一状态位于合法位置，且本状态位于坐标系外
+                // 如果标签在上一状态位于合法点，且本状态位于非法点
                 else if (isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && !isPointNull(lastPt[0], lastPt[1])) {
-                    
+
                     
                     endLabel.attr({
-                        x: (valueAtPercent(lastPt[0], ptOnLastNotNull[0], percent)) || ptOnLastIndex[0],
-                        y: (valueAtPercent(lastPt[1], ptOnLastNotNull[1], percent) + distanceY) || ptOnLastIndex[1],
-                        ignore: lastIndex > curIndex,
+                        x: (valueAtPercent(lastPt[0], ptOnLastNotNull[0], percent)),
+                        y: (valueAtPercent(lastPt[1], ptOnLastNotNull[1], percent) + distanceY),
+                        // 如果上一次的索引大于本次索引，或者当前最近非空点找不到 则不显示末尾标签
+                        ignore: lastIndex > curIndex || lastIndexNotNull > curIndex || lastIndexNotNull < 0,
+                        // ignore: false,
                         style: {
                             opacity: 1,
-                            text: '{margin|}{margin|}{avatar|}{margin|}'
                         }
                     });
                     endSymbol.attr({
@@ -1546,30 +1552,37 @@ class RankLineView extends LineView {
                         }
                     })
                 }
-                // 如果标签在上一状态位于坐标系外，且本状态位于合法位置
+                // 如果标签在上一状态位于非法点，且本状态位于合法点
                 else if (!isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
+
+                    
                     endLabel.attr({
-                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent)) || ptOnCurrIndex[0],
-                        y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || ptOnCurrIndex[1],
+                        // x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent)) || ptOnCurrIndex[0],
+                        // y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || ptOnCurrIndex[1],
+                        x: ptOnCurrIndex[0] || ptOnCurrIndex[0],
+                        y: ptOnCurrIndex[1] || ptOnCurrIndex[1],
                         ignore: false,
                         style: {
                             opacity: percent
                         }
                     })
                     endSymbol.attr({
-                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
-                        y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent),
+                        // x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
+                        // y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent),
+                        x: ptOnCurrIndex[0] - endSymbol.shape.width / 2 || ptOnCurrIndex[0],
+                        y: ptOnCurrIndex[1] - endSymbol.shape.height / 2 || ptOnCurrIndex[1],
                         ignore: false,
                         style: {
                             opacity: percent
                         }
                     })
                 }
-                // 如果标签在上一状态位于坐标系外，且本状态位于坐标系外
+                // 如果标签在上一状态位于非法点，且本状态位于非法点
                 else if (isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
+
                     endLabel.attr({
-                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX) || ptOnCurrIndex[0],
-                        y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || endLabel.y,
+                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX),
+                        y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY),
                         ignore: true,
                         style: {
                             opacity: 0
