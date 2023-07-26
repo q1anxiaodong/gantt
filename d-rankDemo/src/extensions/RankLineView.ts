@@ -1016,6 +1016,11 @@ class RankLineView extends LineView {
             // Switch polyline / polygon state if element changed its state.
             el && ((el as ECElement).onHoverStateChange = changePolyState);
         });
+        (this._endSymbol as unknown as  ECElement).onHoverStateChange = (...args) => {
+            console.log('xxxx', args);
+            
+            changePolyState(...args);
+        };
 
         (this._polyline as ECElement).onHoverStateChange = changePolyState;
 
@@ -1040,10 +1045,11 @@ class RankLineView extends LineView {
         const curIndex = seriesModel.get(['withTimeline', 'curIndex']);
 
         this._changePolyState('emphasis');
-
+        
         if (!(dataIndex instanceof Array) && dataIndex != null && dataIndex >= 0) {
             const points = data.getLayout('points');
             let symbol = data.getItemGraphicEl(dataIndex) as SymbolClz;
+            // 如果高亮点在当前事件轴之后 则不高亮
             if (!isNaN(curIndex) && dataIndex > curIndex) {
                 return;
             } 
