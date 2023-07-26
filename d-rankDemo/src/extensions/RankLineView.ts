@@ -1153,13 +1153,13 @@ class RankLineView extends LineView {
                 endLabel.ignoreClip = true;
                 polyline.setTextContent(this._endLabel);
                 (polyline as ECElement).disableLabelAnimation = true;
-                const callback = seriesModel.get(['endLabel', 'afterInit']);
-                callback && callback(endLabel, seriesModel, api);
             }
 
             // Find last non-NaN data to display data
             const dataIndex = getLastIndexNotNull(points);
             if (dataIndex >= 0) {
+                const callback = seriesModel.get(['endLabel', 'afterInit']);
+                callback && callback(this._endLabel, seriesModel, api);
                 setLabelStyle(
                     polyline,
                     getLabelStatesModels(seriesModel, 'endLabel'),
@@ -1456,10 +1456,14 @@ class RankLineView extends LineView {
                 }
                 const { range, curIndex, maxRange } = withTimeline;
                 const lastPt = [animationRecord.originalX, animationRecord.originalY] as [number, number];
+                // 上一次curIndex的全局索引
                 const lastIndex = animationRecord.lastFrameIndex;
 
+                // 排名curIndex所在的列对应的数据节点的坐标
                 const ptOnCurrIndex = getPointAtIndex(points, data.indexOfRawIndex(curIndex));
+                // 排名所在的列之前最近的合法节点的索引
                 const lastIndexNotNull = getLastIndexNotNull(points, range[1]);
+                // 上一次排名所在列的对应节点在本次坐标系的坐标
                 const ptOnLastIndex = coordSys.dataToPoint([
                     data.getByRawIndex('x', lastIndex),
                     data.getByRawIndex('y', lastIndex)
@@ -1482,7 +1486,7 @@ class RankLineView extends LineView {
                     const widthInFrame = valueAtPercent(endSymbol.shape.width, symbolSize[0], percent);
                     const heightInFrame = valueAtPercent(endSymbol.shape.height, symbolSize[1], percent);
                     endLabel.attr({
-                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX,
+                        x: valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent),
                         y: valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY,
                         ignore: false,
                         style: {
@@ -1504,8 +1508,10 @@ class RankLineView extends LineView {
                 }
                 // 如果标签在上一状态位于合法位置，且本状态位于坐标系外
                 else if (isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && !isPointNull(lastPt[0], lastPt[1])) {
+                    
+                    
                     endLabel.attr({
-                        x: (valueAtPercent(lastPt[0], ptOnLastNotNull[0], percent) + distanceX) || ptOnLastIndex[0],
+                        x: (valueAtPercent(lastPt[0], ptOnLastNotNull[0], percent)) || ptOnLastIndex[0],
                         y: (valueAtPercent(lastPt[1], ptOnLastNotNull[1], percent) + distanceY) || ptOnLastIndex[1],
                         ignore: lastIndex > curIndex,
                         style: {
@@ -1525,7 +1531,7 @@ class RankLineView extends LineView {
                 // 如果标签在上一状态位于坐标系外，且本状态位于合法位置
                 else if (!isPointNull(ptOnCurrIndex[0], ptOnCurrIndex[1]) && isPointNull(lastPt[0], lastPt[1])) {
                     endLabel.attr({
-                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent) + distanceX) || ptOnCurrIndex[0],
+                        x: (valueAtPercent(lastPt[0], ptOnCurrIndex[0], percent)) || ptOnCurrIndex[0],
                         y: (valueAtPercent(lastPt[1], ptOnCurrIndex[1], percent) + distanceY) || ptOnCurrIndex[1],
                         ignore: false,
                         style: {

@@ -132,13 +132,11 @@ export const getSeries = (name, seriesData) => {
                     padding: 4
                 }
             },
-            afterInit: (endLabel, seriesModel, api) => {
+            afterInit: (endLabel, seriesModel) => {
                 endLabel.traverse(el => {
-                    
+                    // 在endLabel重新实例化后，绑定dataIndex和seriesIndex信息，给点击事件回调用
                     el.dataIndex = seriesModel.get(['withTimeline', 'curIndex']);
                     el.seriesIndex = seriesModel.seriesIndex;
-                    console.log('el',el, el.dataIndex, el.seriesIndex);
-
                 })
             }
         },
