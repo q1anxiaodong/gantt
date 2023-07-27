@@ -62,7 +62,7 @@ const initChart = () => {
       axisLabel: {
         fontSize: 10,
         margin: 15
-      },
+      }
     },
     yAxis: {
       type: 'category',
@@ -95,7 +95,7 @@ const initChart = () => {
         color: 'rgba(255, 255, 255, 0.84)',
         fontSize: 12
       },
-      extraCssText: 'border-color: transparent;' 
+      extraCssText: 'border-color: transparent;'
     },
     dataZoom: [
       {
@@ -130,8 +130,6 @@ const initChart = () => {
   handlePointClick(exampleChart)
 }
 
-
-
 watch(
   () => props.solvedData,
   () => {
@@ -140,7 +138,7 @@ watch(
     // 初始化图表实例
     exampleChart = markRaw(echarts.init(chartDom.value))
     // 初始化时间轴实例
-    initTimeline(timelineDom.value, exampleChart, range, props.solvedData)
+    timeline = initTimeline(timelineDom.value, exampleChart, range, props.solvedData)
     // 绘制图表
     initChart()
   },
@@ -155,7 +153,7 @@ onMounted(() => {
   // 初始化图表实例
   exampleChart = markRaw(echarts.init(chartDom.value))
   // 初始化时间轴实例
-  initTimeline(timelineDom.value, exampleChart, range, props.solvedData)
+  timeline = initTimeline(timelineDom.value, exampleChart, range, props.solvedData)
   // 绘制图表
   initChart()
 })

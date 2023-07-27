@@ -345,6 +345,8 @@ export const initTimeline = (timelineDOM, exampleChart, range, solvedData) => {
       }
       exampleChart.setOption(opt)
     })
+
+    return timeline;
 }
 
 
