@@ -38,6 +38,23 @@ function getDateAfter18991230(nDays) {
     return `${yyyy}/${mm}/${dd}`;
 }
 
+function convertQuarter(str) {
+    const match = str.match(/(\d+)年(一|二|三|四)季度/);
+    if (match) {
+      const year = parseInt(match[1]);
+      const quarterMap = {
+        '一': 1,
+        '二': 2, 
+        '三': 3,
+        '四': 4
+      };
+      const quarter = quarterMap[match[2]];
+      return year + (quarter - 1) / 4;
+    } else {
+      return null;
+    }
+  }
+
 const parse = (sheets) => {
     const dataSheet = sheets[0].slice(SCHEMALEN);
     const keys = Object.keys(dataMap);
@@ -78,9 +95,12 @@ const parse = (sheets) => {
 }
 
 const getXAxisData = (raw) => {
-    let xData = Array.from(new Set(raw.map(item => item['date'])));
-    xData.sort((a, b) => a.date > b.date);
-    return xData;
+    let xData = raw.map(item => { return {
+        key: convertQuarter(item['date']),
+        name: item['date']
+    }});
+    xData.sort((a, b) => a.key > b.key);
+    return Array.from(new Set(xData.map(item => item.name)));
 }
 
 const getYAxisData = (raw) => {
