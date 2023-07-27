@@ -95,12 +95,19 @@ const parse = (sheets) => {
 }
 
 const getXAxisData = (raw) => {
-    let xData = raw.map(item => { return {
-        key: convertQuarter(item['date']),
-        name: item['date']
-    }});
-    xData.sort((a, b) => a.key > b.key);
-    return Array.from(new Set(xData.map(item => item.name)));
+    const uniqueQuaters = raw.reduce((acc, q) => {
+        if (!acc.includes(q['date'])) {
+            acc.push(q['date']);
+        }
+        return acc;
+    }, []);
+    // let xData = uniqueQuaters.map(item => { return {
+    //     key: convertQuarter(item),
+    //     name: item
+    // }});
+    // xData.sort((a, b) => a.key > b.key);
+    // return xData.map(item => item.name);
+    return uniqueQuaters;
 }
 
 const getYAxisData = (raw) => {
