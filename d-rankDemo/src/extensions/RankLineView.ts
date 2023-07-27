@@ -444,7 +444,7 @@ function isPointNull(x: number, y: number) {
 
 function getLastIndexNotNull(points: ArrayLike<number>, end?: number) {
     let len = points.length / 2;
-    let endRange = end || len;
+    let endRange = end + 1 || len;
     for (; endRange > 0; endRange--) {
         if (!isPointNull(points[endRange * 2 - 2], points[endRange * 2 - 1])) {
             break;
@@ -1152,6 +1152,7 @@ class RankLineView extends LineView {
     _initOrUpdateEndLabel(seriesModel, coordSys, inheritColor, api) {
         // LineView.prototype._initOrUpdateEndLabel.apply(this, args);
         const endLabelModel = seriesModel.getModel('endLabel');
+        const withTimeline = seriesModel.get('withTimeline');
 
         if (anyStateShowEndLabel(seriesModel)) {
             const data = seriesModel.getData();
@@ -1173,11 +1174,11 @@ class RankLineView extends LineView {
                 (polyline as ECElement).disableLabelAnimation = true;
             }
 
+            
+            
             // Find last non-NaN data to display data
-            const dataIndex = getLastIndexNotNull(points);
+            const dataIndex = getLastIndexNotNull(points, data.indexOfRawIndex(withTimeline.curIndex));
             if (dataIndex >= 0) {
-                const callback = seriesModel.get(['endLabel', 'afterInit']);
-                callback && callback(this._endLabel, seriesModel, api);
                 setLabelStyle(
                     polyline,
                     getLabelStatesModels(seriesModel, 'endLabel'),
@@ -1194,6 +1195,8 @@ class RankLineView extends LineView {
                     },
                     getEndLabelStateSpecified(endLabelModel, coordSys)
                 );
+                const callback = seriesModel.get(['endLabel', 'afterInit']);
+                callback && callback(this._endLabel, seriesModel, dataIndex, data.indexOfRawIndex(withTimeline.curIndex));
                 polyline.textConfig.position = null;
             }
         }
@@ -1537,7 +1540,8 @@ class RankLineView extends LineView {
                         x: (valueAtPercent(lastPt[0], ptOnLastNotNull[0], percent)),
                         y: (valueAtPercent(lastPt[1], ptOnLastNotNull[1], percent) + distanceY),
                         // 如果上一次的索引大于本次索引，或者当前最近非空点找不到 则不显示末尾标签
-                        ignore: lastIndex > curIndex || lastIndexNotNull > curIndex || lastIndexNotNull < 0,
+                        // ignore: lastIndex > curIndex || lastIndexNotNull > curIndex || lastIndexNotNull < 0,
+                        ignore: lastIndexNotNull > curIndex || lastIndexNotNull < 0,
                         // ignore: false,
                         style: {
                             opacity: 1,

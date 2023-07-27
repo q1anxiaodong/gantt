@@ -76,7 +76,7 @@ export const getSeries = (name, seriesData, xData) => {
         clip: true,
         withTimeline: {
             range: [0, 5],
-            curIndex: 5,
+            curIndex: xData.length - 1,
             maxRange: 5
         },
         name,
@@ -138,7 +138,10 @@ export const getSeries = (name, seriesData, xData) => {
                     padding: 4
                 }
             },
-            afterInit: (endLabel, seriesModel) => {
+            afterInit: (endLabel, seriesModel, dataIndex, curIndex) => {
+                if (dataIndex < curIndex) {
+                    return;
+                }
                 endLabel.traverse(el => {
                     // 在endLabel重新实例化后，绑定dataIndex和seriesIndex信息，给点击事件回调用
                     el.dataIndex = seriesModel.get(['withTimeline', 'curIndex']);
@@ -174,7 +177,6 @@ export const getSeries = (name, seriesData, xData) => {
         animationDuration: 1000,
         tooltip: {
             enterable: true,
-            alwaysShowContent: true,
             triggerOn: 'click',
             width: 163,
             formatter: (params) => {
@@ -186,7 +188,7 @@ export const getSeries = (name, seriesData, xData) => {
                 const container = document.createElement('div');
                 container.innerHTML = `
                     <!-- tooltip包围盒 -->
-                    <div onclick="tooltipClickHandler(window.tooltipParams)" style="padding: 0px 0; width: 180px;display: flex;flex-wrap: wrap; id="dvLineTooltip">
+                    <div onclick="tooltipClickHandler(window.tooltipParams)" style="padding: 0px 0; width: 163px;display: flex;flex-wrap: wrap; id="dvLineTooltip">
                         <!-- tooltip标题-年份 -->
                         <div style="width: 100%;margin-left: 10px;">${params.data.date}</div>
                         <!-- 公司/股东名 和 持股占比 -->

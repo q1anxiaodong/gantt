@@ -110,14 +110,14 @@ const initChart = () => {
       {
         type: 'slider',
         show: false,
-        startValue: 0,
-        endValue: range,
+        startValue: props.solvedData.xData.length - 1 - range,
+        endValue: props.solvedData.xData.length - 1,
         minSpanValue: range,
         maxSpanValue: range
       }
     ],
     series: [...props.solvedData.seriesData.keys()].slice().map((key, index) => {
-      return getSeries(key, props.solvedData.seriesData.get(key), exampleChart)
+      return getSeries(key, props.solvedData.seriesData.get(key), props.solvedData.xData)
     }),
     animationDurationUpdate: 1000,
     animationEasing: 'linear',
