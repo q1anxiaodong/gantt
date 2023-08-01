@@ -1,6 +1,7 @@
 import type { XAXisComponentOption, GridComponentOption, YAXisComponentOption, LineSeriesOption, EChartsOption, } from 'echarts';
 import type ExtensionAPI from 'echarts/types/src/core/ExtensionAPI';
 import type GlobalModel from 'echarts/types/src/model/Global';
+import { install as ExampleInstall } from '../../extensions/install';
 import { use } from 'echarts';
 
 // import type { EChartsExtensionInstallRegisters, EChartsExtensionInstaller } from 'echarts/types/src/extension'
@@ -30,7 +31,7 @@ const getYAxis = (): YAXisComponentOption  => {
 }
 const getSeries = (data: SeriesData): LineSeriesOption => {
     return {
-        type: 'line',
+        type: 'dvExample',
         data: data
     }
 }
@@ -60,6 +61,6 @@ export const myUse = () => {
         })
     }
 
-    use([extensionRegister]);
+    use([extensionRegister, ExampleInstall]);
 }
 
