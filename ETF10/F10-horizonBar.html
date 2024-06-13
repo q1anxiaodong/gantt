@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/1.2.2/bundle.umd.min.js"></script>
+  <title>Document</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #container {
+    width: 963px;
+    height: 72px;
+    /* background-color: #1C1C1C; */
+
+  }
+</style>
+
+<body>
+  <div id="container"></div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
+    const theme = urlParams.get('theme') || 'dark';
+    const container = document.getElementById('container');
+    if (theme === 'light') {
+      container.style.backgroundColor = '#fff'
+    } else {
+      container.style.backgroundColor = '#1c1c1c';
+    }
+  </script>
+  <script>
+    const dom = document.getElementById('container');
+    const chartIns = ThsDataVStandardChart.init(dom);
+    const themeMode = {
+      light: {
+        seriesLabel: '#000',
+        borderColor: '#fff',
+      },
+      dark: {
+        seriesLabel: '#fff',
+        borderColor: '#000',
+      }
+    };
+    const colors = ['#5C8AFF', '#3366FF', '#1A9FFF', '#13CCBE', '#FF9500', '#FF5638', '#FF74C5', '#C853F2', '#7BCE42', '#FED57A']
+
+    let data = Array.from({ length: colors.length }, val => Math.floor(Math.random() * 30 + 300));
+    // 计算总和，作为x轴最大值
+    const max = data.reduce((sum, val) => sum += val, 0)
+    // 原始数据降序排序
+    data.sort((a, b) => b - a);
+
+    const series = data.map((value, index) => {
+      let borderRadius = [0, 0, 0, 0];
+      if (index === 0) {
+        borderRadius = [4, 0, 0, 4];
+      } else if (index === data.length - 1) {
+        borderRadius = [0, 4, 4, 0];
+      }
+
+      return {
+        type: 'bar',
+        stack: 'total',
+        label: {
+          show: true,
+          // color: themeMode[theme].seriesLabel,
+          overflow: 'truncate',
+          ellipsis: ''
+        },
+        itemStyle: {
+          borderRadius,
+        },
+        labelLayout: (params) => {
+          if (!params.rect || params.rect.width < params.labelRect.width) {
+            return {
+              width: 0
+            };
+          }
+        },
+        emphasis: {
+          focus: 'series',
+          itemStyle: {
+            borderWidth: 1,
+            borderColor: themeMode[theme].borderColor
+          }
+        },
+        data: [value]
+      }
+    })
+
+    const option = {
+      tooltip: {},
+      color: colors,
+      grid: {
+        left: 10,
+        right: 10,
+        top: 0,
+        bottom: 0
+      },
+      xAxis: {
+        type: 'value',
+        max: max,
+        min: 0,
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      yAxis: {
+        type: 'category',
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        }
+      },
+      series
+    };
+
+    chartIns.play({
+      option
+    });
+
+  </script>
+</body>
+
+</html>

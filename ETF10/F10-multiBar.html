@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/1.2.2/bundle.umd.min.js"></script>
+  <script src="./test.js"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #container {
+      width: 363px;
+      height: 246px;
+      background-color: #1c1c1c;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
+    const theme = urlParams.get('theme') || 'dark';
+    const container = document.getElementById('container');
+    if (theme === 'light') {
+      container.style.backgroundColor = '#fff'
+    } else {
+      container.style.backgroundColor = '#1c1c1c';
+    }
+  </script>
+  <script>
+    const dom = document.getElementById('container');
+    const chartIns = ThsDataVStandardChart.init(dom, `mobile-app-${theme}`);
+    const data1 = Array.from({ length: 50 }, () => Math.random() * 100 + 20);
+    const data2 = Array.from({ length: 50 }, () => -(Math.random() * 100 + 20));
+    const data3 = Array.from({ length: 50 }, (val, index) => {
+      const value = data1[index] + data2[index];
+      return {
+        value,
+        itemStyle: {
+          color: value > 0 ? '#FF2436' : '#07AB4B',
+          borderColor: value > 0 ? '#FF2436' : '#07AB4B'
+        }
+      }
+    });
+
+    const themeMode = {
+      light: {
+        axisLabel: '#000',
+        splitLine: '#000',
+        xAxisLine: '#858585',
+      },
+      dark: {
+        axisLabel: '#fff',
+        splitLine: '#fff',
+        xAxisLine: '#858585',
+      }
+    }
+
+    const option = {
+      grid: {
+        top: 0,
+        height: 160
+      },
+      xAxis: [
+        {
+          type: 'category',
+          axisLine: {
+            show: true,
+            lineStyle: {
+              type: [5, 4],
+              color: themeMode[theme].xAxisLine,
+              width: 1
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            color: themeMode[theme].axisLabel,
+            dvAlignEdge: false,
+            opacity: 0.6
+          }
+        },
+        {
+          type: 'category',
+          show: false,
+        }
+      ],
+      yAxis: {
+        type: 'value',
+        dvSplitLineNumber: 5,
+        axisLabel: {
+          dvAlignEdge: true,
+          color: themeMode[theme].axisLabel,
+          opacity: 0.6
+        },
+        splitLine: {
+          lineStyle: {
+            color: themeMode[theme].splitLine,
+            opacity: 0.06
+          }
+        }
+      },
+      dataZoom: {type: 'slider', },
+      series: [
+        {
+          data: data1,
+          type: 'bar',
+          itemStyle: {
+            color: '#FF2436',
+            borderRadius: [2, 2, 0, 0]
+          },
+          label: {
+            show: false
+          },
+          emphasis: {
+            focus: 'series'
+          },
+          z: 4
+        },
+        {
+          barGap: '0%',
+          data: data2,
+          type: 'bar',
+          itemStyle: {
+            color: '#07AB4B',
+            borderRadius: [0, 0, 2, 2]
+          },
+          label: {
+            show: false
+          },
+          emphasis: {
+            focus: 'series'
+          },
+          z: 4
+        },
+        {
+          data: data3,
+          type: 'bar',
+          xAxisIndex: 1,
+          barMaxWidth: 50,
+          itemStyle: {
+            opacity: 0.1,
+            borderWidth: 1,
+            borderRadius: 0
+          },
+          label: {
+            show: false
+          },
+          emphasis: {
+            focus: 'series'
+          },
+          z: 3
+        }
+      ]
+    };
+
+    chartIns.play({ option });
+  </script>
+</body>
+
+</html>
