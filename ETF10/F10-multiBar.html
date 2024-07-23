@@ -128,8 +128,9 @@
       },
       dataZoom: {
         type: 'slider',
-        // UI稿中dataZoom位于图表坐标系下方42px处
-        top: 160 + 42 
+        // UI稿中dataZoom位于图表坐标系下方26px处
+        top: 160 + 26,
+        borderRadius: 4 
       },
       series: [
         // 数据一
@@ -165,14 +166,14 @@
           },
           z: 4
         },
-        // 数据一
+        // 数据背景
         {
           data: data3,
           type: 'bar',
           xAxisIndex: 1,
           barMaxWidth: 50,
           itemStyle: {
-            borderWidth: 1,
+            borderWidth: 0.5,
             borderRadius: 0
           },
           label: {
