@@ -1,168 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/1.2.2/bundle.umd.min.js"></script>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/1.2.2/bundle.umd.min.js"></script>
-  <style>
-    * {
-      padding: 0;
-      margin: 0;
-    }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      #container {
+        width: 363px;
+        height: 100%;
+      }
+    </style>
+    <title>Document</title>
+  </head>
 
-    #container {
-      width: 363px;
-      height: 100%;
-    }
-  </style>
-  <title>Document</title>
-</head>
+  <body>
+    <div id="container"></div>
+    <script>
+      const urlParams = new URLSearchParams(window.location.href.split("?")[1]);
+      const type = urlParams.get("type") || "polyline";
+      const theme = urlParams.get("theme") || "light";
+      if (theme === "light") {
+        document.getElementById("container").style.backgroundColor = "#fff";
+      } else {
+        document.getElementById("container").style.backgroundColor = "#1c1c1c";
+      }
+    </script>
+    <script>
+      const dom = document.getElementById("container");
+      const chartIns = ThsDataVStandardChart.init(dom, `mobile-app-${theme}`);
+      const categoryLen = 15;
+      const colors = [
+        "#52BBFF",
+        "#3366FF",
+        "#FF9500",
+        "#CC41D9",
+        "#14CCBD",
+        "#83D537",
+        "#858585",
+      ];
+      const data1 = Array.from(
+        { length: categoryLen },
+        () => Math.random() * 100 + 20
+      );
+      const data2 = Array.from(
+        { length: categoryLen },
+        () => Math.random() * 100 + 20
+      );
+      const data3 = Array.from(
+        { length: categoryLen },
+        () => Math.random() * 100 + 20
+      );
 
-<body>
-  <div id="container"></div>
-  <script>
-    const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
-    const type = urlParams.get('type') || 'polyline';
-    const theme = urlParams.get('theme') || 'light';
-    if (theme === 'light') {
-      document.getElementById('container').style.backgroundColor = '#fff';
-    } else {
-      document.getElementById('container').style.backgroundColor = '#1c1c1c';
-    }
-  </script>
-  <script>
-    const dom = document.getElementById('container');
-    const chartIns = ThsDataVStandardChart.init(dom, `mobile-app-${theme}`);
-    const categoryLen = 15;
-    const colors = ['#52BBFF', '#3366FF', '#FF9500', '#CC41D9', '#14CCBD', '#83D537', '#858585'];
-    const data1 = Array.from({ length: categoryLen }, () => Math.random() * 100 + 20);
-    const data2 = Array.from({ length: categoryLen }, () => Math.random() * 100 + 20);
-    const data3 = Array.from({ length: categoryLen }, () => Math.random() * 100 + 20);
+      const sum1 = data1;
+      const sum2 = data2.map((item, index) => item + data1[index]);
+      const sum3 = data3.map(
+        (item, index) => item + data1[index] + data2[index]
+      );
+      // 格式
+      // [
+      //  [0, bar0, bar1],
+      //  [1, bar1, bar2],
+      //  [2, bar2, bar3]
+      // ]
+      function getCustomData(data, preData) {
+        // console.log('preData', preData);
+        return Array.from({ length: data.length - 1 }, (item, index) => {
+          if (index !== data.length - 1) {
+            return [
+              index,
+              data[index],
+              data[index + 1],
+              preData[index],
+              preData[index + 1],
+            ];
+          }
+          return undefined;
+        });
+      }
 
-    const sum1 = data1;
-    const sum2 = data2.map((item, index) => item + data1[index]);
-    const sum3 = data3.map((item, index) => item + data1[index] + data2[index]);
-    // 格式 
-    // [
-    //  [0, bar0, bar1], 
-    //  [1, bar1, bar2],
-    //  [2, bar2, bar3]
-    // ]
-    function getCustomData(data, preData) {
-      // console.log('preData', preData);
-      return Array.from({ length: data.length - 1 }, (item, index) => {
-        if (index !== data.length - 1) {
-          return [index, data[index], data[index + 1], preData[index], preData[index + 1]]
+      function renderItem(params, api) {
+        const { x, y, width, height } = params.coordSys;
+        const { dataInsideLength } = params;
+        const xValue = api.value(0);
+        const leftCenter = api.coord([xValue, api.value(1)]);
+        const rightCenter = api.coord([xValue + 1, api.value(2)]);
+        const lastLeft = api.coord([xValue, api.value(3)]);
+        const lastRight = api.coord([xValue + 1, api.value(4)]);
+        // const type = 'polygon';
+        const barLayout = api.barLayout({
+          count: 1,
+          barMaxWidth: 16,
+        });
+        const gridRight = x + width;
+        const leftX = leftCenter[0] + barLayout[0].width / 2;
+        const rightX = rightCenter[0] - barLayout[0].width / 2;
+        const leftY = [lastLeft[1], leftCenter[1]];
+        const rightY = [lastRight[1], rightCenter[1]];
+        let points = [];
+        points.push([leftX, leftY[1]]);
+        points.push([rightX, rightY[1]]);
+        if (type === "polygon") {
+          points.push(
+            [rightX, rightY[0]],
+            [leftX, leftY[0]],
+            [leftX, leftY[1]]
+          );
         }
-        return undefined;
+        // 如果连线的终点超出图表范围或者连线的起始柱子和终点柱子相同
+        // 则不绘制连接图形
+        if (
+          rightCenter[0] > gridRight ||
+          leftCenter[0] === rightCenter[0] ||
+          dataInsideLength > 13
+        ) {
+          points = [];
+        }
+        return {
+          type: type,
+          shape: {
+            points,
+          },
+          style: {
+            // stroke: api.style().fill,
+            // lineDash: [5, 2],
+            fill: api.style().fill,
+            opacity: 0.1,
+          },
+        };
+      }
+
+      const bars = [data1, data2, data3].map((data) => {
+        return {
+          type: "bar",
+          stack: "total",
+          itemStyle: {
+            borderRadius: 0,
+          },
+          data,
+        };
       });
-    }
 
-    function renderItem(params, api) {
-      const { x, y, width, height } = params.coordSys;
-      const {dataInsideLength} = params;
-      const xValue = api.value(0);
-      const leftCenter = api.coord([xValue, api.value(1)]);
-      const rightCenter = api.coord([xValue + 1, api.value(2)]);
-      const lastLeft = api.coord([xValue, api.value(3)]);
-      const lastRight = api.coord([xValue + 1, api.value(4)]);
-      // const type = 'polygon';
-      const barLayout = api.barLayout({
-        count: 1,
-        barMaxWidth: 16
+      const customs = [sum1, sum2, sum3].map((data, index, arr) => {
+        return {
+          type: "custom",
+          renderItem,
+          itemStyle: {
+            color: colors[index],
+          },
+          clip: true,
+          data: getCustomData(
+            data,
+            index ? arr[index - 1] : Array(data.length).fill(0)
+          ),
+          z: 100,
+        };
       });
-      const gridRight = x + width;
-      const leftX = leftCenter[0] + barLayout[0].width / 2;
-      const rightX = rightCenter[0] - barLayout[0].width / 2;
-      const leftY = [lastLeft[1], leftCenter[1]];
-      const rightY = [lastRight[1], rightCenter[1]];
-      let points = [];
-      points.push([leftX, leftY[1]]);
-      points.push([rightX, rightY[1]]);
-      if (type === 'polygon') {
-        points.push([rightX, rightY[0]], [leftX, leftY[0]], [leftX, leftY[1]]);
-      }
-      // 如果连线的终点超出图表范围或者连线的起始柱子和终点柱子相同
-      // 则不绘制连接图形
-      if (rightCenter[0] > gridRight || leftCenter[0] === rightCenter[0] || dataInsideLength > 13) {
-        points = []
-      }
-      return {
-        type: type,
-        shape: {
-          points
+
+      const option = {
+        dvWaterMark: {
+          show: true,
+          top: 165,
+          style: {
+            height: 10,
+            width: 36,
+            image: theme,
+          },
         },
-        style: {
-          // stroke: api.style().fill,
-          // lineDash: [5, 2],
-          fill: api.style().fill,
-          opacity: 0.1
-        }
-      }
-    }
-
-    const bars = [data1, data2, data3].map(data => {
-      return {
-        type: 'bar',
-        stack: 'total',
-        itemStyle: {
-          borderRadius: 0
+        grid: { height: 160 },
+        color: colors,
+        xAxis: {
+          type: "category",
+          axisLabel: {
+            dvAlignEdge: false,
+          },
+          // data: ['xxxx', 'yyyyyy', 'zzzz', 'aaaa', 'eeee']
         },
-        data
-      }
-    });
-
-    const customs = [sum1, sum2, sum3].map((data, index, arr) => {
-      return {
-        type: 'custom',
-        renderItem,
-        itemStyle: {
-          color: colors[index],
+        yAxis: {
+          type: "value",
+          axisLabel: {
+            dvZ: 5,
+          },
         },
-        clip: true,
-        data: getCustomData(data, index ? arr[index - 1] : Array(data.length).fill(0)),
-        z: 100
-      }
-    });
+        dataZoom: { type: "slider", bottom: "ph", top: "ph" },
+        series: [...bars, ...customs],
+      };
 
-    const option = {
-      grid: {height: 160},
-      color: colors,
-      xAxis: {
-        type: 'category',
-        axisLabel: {
-          dvAlignEdge: false
-        },
-        // data: ['xxxx', 'yyyyyy', 'zzzz', 'aaaa', 'eeee']
-      },
-      yAxis: {
-        type: 'value',
-        axisLabel: {
-          dvZ: 5
-        }
-      },
-      dataZoom: {type: 'slider', bottom: 'ph', top: 'ph'},
-      series: [
-        ...bars,
-        ...customs
-      ],
-    };
-
-    chartIns.play({ option })
-  </script>
-</body>
-
+      chartIns.play({ option });
+    </script>
+  </body>
 </html>
