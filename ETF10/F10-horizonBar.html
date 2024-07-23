@@ -55,12 +55,12 @@
       },
       dark: {
         seriesLabel: '#fff',
-        borderColor: '#000',
+        borderColor: '#1C1C1C',
       }
     };
     const colors = ['#5C8AFF', '#3366FF', '#1A9FFF', '#13CCBE', '#FF9500', '#FF5638', '#FF74C5', '#C853F2', '#7BCE42', '#FED57A']
 
-    let data = Array.from({ length: colors.length }, val => Math.floor(Math.random() * 30 + 300));
+    let data = Array.from({ length: colors.length }, val => Math.floor(Math.random() * 3000 + 30));
     // 计算总和，作为x轴最大值
     const max = data.reduce((sum, val) => sum += val, 0)
     // 原始数据降序排序
@@ -96,7 +96,8 @@
         emphasis: {
           focus: 'series',
           itemStyle: {
-            borderWidth: 1,
+            color: 'inherit',
+            borderWidth: 2,
             borderColor: themeMode[theme].borderColor
           }
         },
