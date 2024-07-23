@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/1.2.2/bundle.umd.min.js"></script>
+  <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/1.5.0/bundle.umd.min.js"></script>
   <script src="./test.js"></script>
   <style>
     * {
@@ -55,8 +55,8 @@
       return {
         value,
         itemStyle: {
-          color: value > 0 ? '#FF2436' : '#07AB4B',
-          borderColor: value > 0 ? '#FF2436' : '#07AB4B'
+          color: value > 0 ? 'rgba(255, 36, 54, 0.1)' : 'rgba(7, 171, 75, 0.1)',
+          borderColor: value > 0 ? 'rgba(255, 36, 54, 0.4)' : 'rgba(7, 171, 75, 0.4)'
         }
       }
     });
@@ -75,6 +75,10 @@
     }
 
     const option = {
+      dvWaterMark: {
+        show: true,
+        top: 148,
+      },
       grid: {
         top: 0,
         height: 160
@@ -96,7 +100,10 @@
           axisLabel: {
             color: themeMode[theme].axisLabel,
             dvAlignEdge: false,
-            opacity: 0.6
+            dvLayout: 3,
+            dvLayoutTakeEffectGreaterThan: 13,
+            opacity: 0.6,
+            dvZ: 10
           }
         },
         {
@@ -119,8 +126,13 @@
           }
         }
       },
-      dataZoom: {type: 'slider', },
+      dataZoom: {
+        type: 'slider',
+        // UI稿中dataZoom位于图表坐标系下方42px处
+        top: 160 + 42 
+      },
       series: [
+        // 数据一
         {
           data: data1,
           type: 'bar',
@@ -136,6 +148,7 @@
           },
           z: 4
         },
+        // 数据二
         {
           barGap: '0%',
           data: data2,
@@ -152,13 +165,13 @@
           },
           z: 4
         },
+        // 数据一
         {
           data: data3,
           type: 'bar',
           xAxisIndex: 1,
           barMaxWidth: 50,
           itemStyle: {
-            opacity: 0.1,
             borderWidth: 1,
             borderRadius: 0
           },
