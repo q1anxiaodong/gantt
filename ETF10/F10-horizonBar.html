@@ -58,7 +58,7 @@
         borderColor: '#1C1C1C',
       }
     };
-    const colors = ['#5C8AFF', '#3366FF', '#1A9FFF', '#13CCBE', '#FF9500', '#FF5638', '#FF74C5', '#C853F2', '#7BCE42', '#FED57A']
+    const colors = ['#4328e7', '#9654e5', '#ff6283', '#ff8800', '#ffc502', '#007d8e', '#007aff', '#1aa7ee', '#29dae4', '#88e99a']
 
     let data = Array.from({ length: colors.length }, val => Math.floor(Math.random() * 3000 + 30));
     // 计算总和，作为x轴最大值
@@ -97,8 +97,13 @@
           focus: 'series',
           itemStyle: {
             color: 'inherit',
-            borderWidth: 2,
+            borderWidth: 1,
             borderColor: themeMode[theme].borderColor
+          }
+        },
+        blur: {
+          label: {
+            color: 'inherit'
           }
         },
         data: [value]

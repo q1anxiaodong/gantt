@@ -1,291 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>
-    F10基金-散点图
-  </title>
-  <style>
-    /* styles */
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #container {
-      width: 343px;
-      height: 90px;
-      border-radius: 4px;
-      /* background-color: #292929; */
-    }
-  </style>
-</head>
-
-<body>
-  <!-- docs: https://datav.iwencai.com/components/paradigm-chart/ -->
-
-  <!-- libs -->
-  <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/1.2.2/bundle.umd.min.js"></script>
-  <!-- <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/paradigm-timeline/0.3.0/bundle.umd.min.js"></script> -->
-
-  <!-- dom -->
-  <div id="container"></div>
-  <!-- <script type="module" src="./scatterExtension.js"></script> -->
-
-  <script>
-    const urlParams = new URLSearchParams(window.location.href.split('?')[1]);
-    const theme = urlParams.get('theme') || 'dark';
-    const container = document.getElementById('container');
-    if (theme === 'light') {
-      container.style.backgroundColor = '#fff'
-    } else {
-      container.style.backgroundColor = '#1c1c1c';
-    }
-  </script>
-  <script type="module">
-    /* @dataset */
-    // dataset
-    function getDataMedian(data) {
-      const len = data.length;
-      data.sort((a, b) => a - b);
-      return data[Math.floor(len / 2)];
-    }
-    const themeMode = {
-      light: {
-        markLineLabel: '#000',
-        axisLabel: {
-          min: '#07AB4B',
-          zero: '#000',
-          max: '#FF2436'
-        },
-        scatterLabel: '#000',
-        scatterLabelBG: '#fff',
-      },
-      dark: {
-        markLineLabel: '#fff',
-        axisLabel: {
-          min: '#07AB4B',
-          zero: '#fff',
-          max: '#FF2436'
-        },
-        scatterLabel: '#fff',
-        scatterLabelBG: '#000',
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F10基金-散点图</title>
+    <style>
+      /* styles */
+      * {
+        margin: 0;
+        padding: 0;
       }
-    }
 
-    function getMedianDataItem(value) {
-      return {
-        symbol: 'line',
-        symbolRotate: 90,
-        symbolSize: 30,
-        value: value,
-        label: {
-          show: true,
-          distance: 5,
-          position: 'top',
-          color: '#FF9500',
-          backgroundColor: 'transparent',
-          formatter: (params) => {
-            return `${params.value}%`;
-          }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #container {
+        width: 343px;
+        height: 90px;
+        border-radius: 4px;
+        /* background-color: #292929; */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- docs: https://datav.iwencai.com/components/paradigm-chart/ -->
+
+    <!-- libs -->
+    <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/1.2.2/bundle.umd.min.js"></script>
+    <!-- <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/paradigm-timeline/0.3.0/bundle.umd.min.js"></script> -->
+
+    <!-- dom -->
+    <div id="container"></div>
+    <!-- <script type="module" src="./scatterExtension.js"></script> -->
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.href.split("?")[1]);
+      const theme = urlParams.get("theme") || "dark";
+      const container = document.getElementById("container");
+      const symbolPath =
+        "path://M 90 22.726 A 80 80 0 1 0 110 22.726 L 100 10 L 90 22.726 Z";
+      if (theme === "light") {
+        container.style.backgroundColor = "#fff";
+      } else {
+        container.style.backgroundColor = "#1c1c1c";
+      }
+    </script>
+    <script type="module">
+      /* @dataset */
+      // dataset
+      function getDataMedian(data) {
+        const len = data.length;
+        data.sort((a, b) => a - b);
+        return data[Math.floor(len / 2)];
+      }
+      const themeMode = {
+        light: {
+          markLineLabel: "#000",
+          axisLabel: {
+            min: "#07AB4B",
+            zero: "#000",
+            max: "#FF2436",
+          },
+          scatterLabel: "#000",
+          scatterLabelBG: "#fafafa",
         },
-        itemStyle: {
-          color: '#FF9500',
-          borderColor: '#FF9500',
-          borderWidth: 2,
-          opacity: 1
+        dark: {
+          markLineLabel: "#fff",
+          axisLabel: {
+            min: "#07AB4B",
+            zero: "#fff",
+            max: "#FF2436",
+          },
+          scatterLabel: "#fff",
+          scatterLabelBG: "#292929",
         },
-        emphasis: {
-          disable: true
-        },
-        silent: true
       };
-    }
 
-    const dataExtent = [-200, 300];
-    const data = Array.from({ length: 20 }, (value, index) => Math.random() * (dataExtent[1] - dataExtent[0]) + dataExtent[0]);
-    const median = getDataMedian(data);
-    data.push(getMedianDataItem(0));
-
-    /* @javascript */
-    // code
-
-    // initialize
-    const dom = document.getElementById('container');
-    const chartIns = ThsDataVStandardChart.init(dom);
-
-    // events
-    chartIns.on('dv:afterinit', () => {
-      window.addEventListener('resize', () => {
-        chartIns.getECharts().resize();
-      });
-    });
-
-    // config @see https://datav.iwencai.com/components/paradigm-chart/docs/apis/option
-    let option = {
-      tooltip: {
-        position: 'top'
-      },
-      singleAxis: [{
-        type: 'value',
-        boundaryGap: false,
-        min: dataExtent[0],
-        max: dataExtent[1],
-        showMinLabel: true,
-        top: 'center',
-        left: 20,
-        right: 20,
-        height: 40,
-        // width: 300,
-        axisLine: {
-          show: false
-        },
-        axisTick: {
-          show: false
-        },
-        splitLine: {
-          show: false
-        },
-        axisLabel: {
-          show: true,
-          scale: true,
-          dvAlignEdge: true,
-          margin: 0,
-          formatter: (value) => {
-            const symbol = value === 0 ? '' : '%';
-            if (value === dataExtent[0]) {
-              return `{min|${value}${symbol}}`;
-            } else if (value === dataExtent[1]) {
-              return `{max|${value}${symbol}}`;
-            } else if (value === 0) {
-              return `{zero|${value}}`;
-            } else {
-              return '';
-            }
-          },
-          rich: {
-            min: {
-              color: themeMode[theme].axisLabel.min
-            },
-            max: {
-              color: themeMode[theme].axisLabel.max
-            },
-            zero: {
-              color: themeMode[theme].axisLabel.zero
-            }
-          }
-        }
-      }],
-      series: [
-        {
-          singleAxisIndex: 0,
-          coordinateSystem: 'singleAxis',
-          type: 'scatter',
-          data: data,
-          symbolSize: 24,
-          selectedMode: 'single',
-          itemStyle: {
-            color: '#3366FF',
-            opacity: 0.12
-          },
+      function getMedianDataItem(value) {
+        return {
+          symbol: "line",
+          symbolRotate: 90,
+          symbolSize: 30,
+          value: value,
           label: {
-            show: false,
-            color: themeMode[theme].scatterLabel,
-            padding: [0, 4, 0, 4],
-            distance: 8,
-            backgroundColor: themeMode[theme].scatterLabelBG,
-            // backgroundColor: '#fff',
-            fontWeight: 550,
-            opacity: 1
+            show: true,
+            distance: 5,
+            position: "top",
+            color: "#FF9500",
+            backgroundColor: "transparent",
+            formatter: (params) => {
+              return `${params.value}%`;
+            },
           },
-          labelLayout: (params) => {
-            const { labelRect } = params;
-            const { width: domWidth } = dom.getBoundingClientRect();
-            const { width: labelWidth, x: labelX } = labelRect;
-            let align = 'center';
-            if (labelX < 20) {
-              align = 'left'
-            } else if (labelX + labelWidth > domWidth - 20) {
-              align = 'right'
-            }
-            return {
-              align
-            }
+          itemStyle: {
+            color: "#FF9500",
+            borderColor: "#FF9500",
+            borderWidth: 2,
+            opacity: 1,
           },
           emphasis: {
-            scale: false
+            disabled: true,
           },
           select: {
+            disabled: true,
+          },
+          silent: true,
+        };
+      }
+
+      const extent = [-200, 300];
+      const dataExtent = [0, 0];
+      const data = Array.from(
+        { length: 20 },
+        (value, index) => Math.random() * (extent[1] - extent[0]) + extent[0]
+      );
+      dataExtent[0] = Math.min(...data).toFixed(2);
+      dataExtent[1] = Math.max(...data).toFixed(2);
+      const median = getDataMedian(data);
+      data.push(getMedianDataItem(0));
+
+      /* @javascript */
+      // code
+
+      // initialize
+      const dom = document.getElementById("container");
+      const chartIns = ThsDataVStandardChart.init(dom);
+
+      // events
+      chartIns.on("dv:afterinit", () => {
+        window.addEventListener("resize", () => {
+          chartIns.getECharts().resize();
+        });
+      });
+
+      // config @see https://datav.iwencai.com/components/paradigm-chart/docs/apis/option
+      let option = {
+        // tooltip: {
+        //   position: 'top'
+        // },
+        singleAxis: [
+          {
+            type: "value",
+            boundaryGap: false,
+            min: dataExtent[0],
+            max: dataExtent[1],
+            showMinLabel: true,
+            top: "center",
+            left: 20,
+            right: 20,
+            height: 40,
+            // width: 300,
+            axisLine: {
+              show: false,
+            },
+            axisTick: {
+              show: false,
+            },
+            splitLine: {
+              show: false,
+            },
+            axisLabel: {
+              show: true,
+              scale: true,
+              dvAlignEdge: true,
+              showMinLabel: true,
+              showMaxLabel: true,
+              margin: 0,
+              formatter: (value) => {
+                const symbol = value === 0 ? "" : "%";
+                if (value === dataExtent[0]) {
+                  return `{min|${value}${symbol}}`;
+                } else if (value === dataExtent[1]) {
+                  return `{max|${value}${symbol}}`;
+                } else if (value === 0) {
+                  return `{zero|${value}}`;
+                } else {
+                  return "";
+                }
+              },
+              rich: {
+                min: {
+                  color: themeMode[theme].axisLabel.min,
+                },
+                max: {
+                  color: themeMode[theme].axisLabel.max,
+                },
+                zero: {
+                  color: themeMode[theme].axisLabel.zero,
+                },
+              },
+            },
+          },
+        ],
+        series: [
+          {
+            singleAxisIndex: 0,
+            coordinateSystem: "singleAxis",
+            type: "scatter",
+            data: data,
+            // symbol: symbolPath,
+            symbolSize: 24,
+            selectedMode: "single",
             itemStyle: {
-              opacity: 1,
-              color: '#3366FF',
-              borderColor: '#fff',
-              borderWidth: 2
+              color: "#3366FF",
+              opacity: 0.12,
             },
             label: {
-              show: true,
-              position: 'top'
-            }
+              show: false,
+              color: themeMode[theme].scatterLabel,
+              padding: [0, 4, 0, 4],
+              distance: 8,
+              backgroundColor: themeMode[theme].scatterLabelBG,
+              fontWeight: 700,
+              opacity: 1,
+            },
+            labelLayout: (params) => {
+              const { labelRect } = params;
+              const { width: domWidth } = dom.getBoundingClientRect();
+              const { width: labelWidth, x: labelX } = labelRect;
+              const padding = 4; 
+              let dx = 0;
+              if (labelX < padding) {
+                dx = padding - labelX;
+              } else if (labelX + labelWidth > domWidth - padding) {
+                dx = domWidth - padding - labelX - labelWidth;
+              }
+              return {
+                dx,
+              };
+            },
+            emphasis: {
+              scale: false,
+            },
+            select: {
+              itemStyle: {
+                opacity: 1,
+                color: "#3366FF",
+                borderColor: "#fff",
+                borderWidth: 2,
+              },
+              label: {
+                show: true,
+                position: "top",
+              },
+            },
+          },
+        ],
+        dvWaterMark: {
+          right: 20,
+          top: 45,
+          style: {
+            height: 10,
+            width: 36,
+            image: theme,
+          },
+        },
+      };
+
+      // render
+      chartIns.play({
+        option,
+      });
+
+      // 拖动选中
+      chartIns.on("dv:afterinit", () => {
+        const ecIns = chartIns.getECharts();
+        let dragging = false;
+        ecIns.getZr().on("mousedown", () => {
+          dragging = true;
+        });
+        ecIns.getZr().on("mouseup", () => {
+          dragging = false;
+        });
+        ecIns.on("mousemove", { seriesIndex: 0 }, (e) => {
+          if (!dragging) {
+            return;
           }
-        }],
-      dvWaterMark: {
-        right: 20,
-        top: 45,
-        style: {
-          height: 10,
-          width: 36,
-          image: theme
-        }
-      }
-    };
+          const { dataIndex } = e;
+          ecIns.dispatchAction({
+            type: "select",
+            seriesIndex: 0,
+            dataIndex,
+          });
+        });
+      });
 
-
-    // render
-    chartIns.play({
-      option
-    });
-
-    // 拖动选中
-    chartIns.on('dv:afterinit', () => {
-      const ecIns = chartIns.getECharts();
-      let dragging = false;
-      ecIns.getZr().on('mousedown', () => {
-        dragging = true;
-      })
-      ecIns.getZr().on('mouseup', () => {
-        dragging = false;
-      })
-      ecIns.on('mousemove', { seriesIndex: 0 }, e => {
-        if (!dragging) {
-          return;
-        }
-        const { dataIndex } = e;
-        ecIns.dispatchAction({
-          type: 'select',
-          seriesIndex: 0,
-          dataIndex
-        })
-      })
-    })
-
-    window.chartIns = chartIns;
-  </script>
-
-</body>
-
+      window.chartIns = chartIns;
+    </script>
+  </body>
 </html>
