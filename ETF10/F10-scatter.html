@@ -62,7 +62,7 @@
         data.sort((a, b) => a - b);
         return data[Math.floor(len / 2)];
       }
-      const symbolPath = 'path://M 90 22.726 A 80 80 0 0 0 20 100 A 80 80 0 0 0 100 180 A 80 80 0 0 0 180 100 A 80 80 0 0 0 110 22.726 L 100 10 Z';
+      const symbolPath = 'path://M12,0a33.92,33.92,0,0,0,2.36,3.23,12,12,0,1,1-4.65,0A28.31,28.31,0,0,0,12,0Z';
 
       const themeMode = {
         light: {
@@ -125,8 +125,8 @@
         { length: 20 },
         (value, index) => Math.random() * (extent[1] - extent[0]) + extent[0]
       );
-      dataExtent[0] = Math.min(...data).toFixed(2);
-      dataExtent[1] = Math.max(...data).toFixed(2);
+      dataExtent[0] = Math.min(...data);
+      dataExtent[1] = Math.max(...data);
       const median = getDataMedian(data);
       data.push(getMedianDataItem(0));
 
@@ -192,9 +192,11 @@
               rich: {
                 min: {
                   color: themeMode[theme].axisLabel.min,
+                  padding: [0, 0, 0, -12],
                 },
                 max: {
                   color: themeMode[theme].axisLabel.max,
+                  padding: [0, -12, 0, 0],
                 },
                 zero: {
                   color: themeMode[theme].axisLabel.zero,
