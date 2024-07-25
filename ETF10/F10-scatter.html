@@ -49,9 +49,9 @@
       const theme = urlParams.get("theme") || "dark";
       const container = document.getElementById("container");
       if (theme === "light") {
-        container.style.backgroundColor = "#fff";
+        container.style.backgroundColor = "#fafafa";
       } else {
-        container.style.backgroundColor = "#1c1c1c";
+        container.style.backgroundColor = "#292929";
       }
     </script>
     <script type="module">
@@ -62,7 +62,7 @@
         data.sort((a, b) => a - b);
         return data[Math.floor(len / 2)];
       }
-      const symbolPath = 'path://M12,0a33.92,33.92,0,0,0,2.36,3.23,12,12,0,1,1-4.65,0A28.31,28.31,0,0,0,12,0Z';
+      const symbolPath = 'circle';
 
       const themeMode = {
         light: {
@@ -74,6 +74,7 @@
           },
           scatterLabel: "#000",
           scatterLabelBG: "#fafafa",
+          scatterBorderColor: '#fafafa',
         },
         dark: {
           markLineLabel: "#fff",
@@ -84,6 +85,7 @@
           },
           scatterLabel: "#fff",
           scatterLabelBG: "#292929",
+          scatterBorderColor: '#292929'
         },
       };
 
@@ -249,7 +251,7 @@
               itemStyle: {
                 opacity: 1,
                 color: "#3366FF",
-                borderColor: "#fff",
+                borderColor: themeMode[theme].scatterBorderColor,
                 borderWidth: 2,
               },
               label: {
