@@ -1,0 +1,6 @@
+node_modules
+*.svg
+.vscode
+echarts.js
+local-packages
+Roslingifier

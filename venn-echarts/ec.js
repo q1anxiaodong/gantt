@@ -1,0 +1,1 @@
+echarts = ThsDataVStandardChart.echarts;

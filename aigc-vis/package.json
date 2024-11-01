@@ -1,0 +1,13 @@
+{
+  "name": "aigc-vis",
+  "version": "1.0.0",
+  "description": "A simple npm package with aigcVis declaration",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["aigc", "visualization"],
+  "author": "Your Name",
+  "license": "MIT"
+}

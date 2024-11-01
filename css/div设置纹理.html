@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旋转灯箱纹理效果</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #222;
+    }
+
+    .container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .textured-div {
+      width: 600px;
+      height: 100px;
+      border-radius: 50px;
+      background: repeating-linear-gradient(-45deg, #4596FF 0%, #4596FF 1%, #75BAFF 1%, #75BAFF 2%);
+      background-size: 1200px 100px;
+      animation: rotate 5s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% {
+        background-position: -600px 0;
+      }
+      100% {
+        background-position: 0px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="textured-div"></div>
+  </div>
+</body>
+</html>

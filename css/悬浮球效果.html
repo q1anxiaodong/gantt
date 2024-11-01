@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>悬浮球</title>
+        <style type="text/css">
+            .j1{
+                height: 200px;
+                width: 200px;
+                border-radius: 50%;
+                border: 2px solid limegreen;
+                position: absolute;
+                left: 300px;
+                top: 300px;
+                transform: translate(-50%, -50%);
+                z-index: 3;
+            }
+            .z{
+                width: 190px;
+                height: 190px;
+                border-radius: 50%;
+                background: linear-gradient(-180deg, #aaff80 13%, #67c23a 91%);
+                position: relative;
+                left: 197px;
+                top: 197px;
+            }
+            .max{
+                width: 300px;
+                height: 300px;
+                background: white;
+                border-radius: 40%;
+                float: left;
+                position: absolute;
+                top: 200px;
+                left: 300px;
+                transform: translate(-50%, -70%) rotate(0);
+                animation: toRtate 10s linear -5s infinite;
+                z-index: 2;
+            }
+            @keyframes toRtate{
+                50%{
+                    transform: translate(-50%, -70%) rotate(180deg);
+                }
+                100%{
+                    transform: translate(-50%, -70%) rotate(360deg);
+                }
+            }
+            .j1{
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="j1"></div>
+        <div class="z"></div>
+        <div class="max"></div>
+    </body>
+</html>

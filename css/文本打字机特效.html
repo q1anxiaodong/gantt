@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文本打字机特效</title>
+  <style>
+    #text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="text"></div>
+
+  <script>
+    const text = "这是一段演示文本,模拟打字机的效果。";
+    let index = 0;
+
+    function typeWriter() {
+      if (index < text.length) {
+        document.getElementById("text").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100); // 每隔100毫秒打印一个字符
+      }
+    }
+
+    typeWriter();
+  </script>
+</body>
+</html>

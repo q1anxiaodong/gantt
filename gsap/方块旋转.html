@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Rotating Cube - Improved Text Orientation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            perspective: 1000px;
+        }
+        .cube {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            border: 2px solid #333;
+            box-sizing: border-box;
+            /* backface-visibility: hidden; */
+        }
+        .face-content {
+            transform-style: preserve-3d;
+        }
+        .front  { background: rgba(255, 0, 0, 0.7);   transform: translateZ(100px); }
+        .back   { background: rgba(0, 255, 0, 0.7);   transform: rotateY(180deg) translateZ(100px); }
+        .right  { background: rgba(0, 0, 255, 0.7);   transform: rotateY(90deg) translateZ(100px); }
+        .left   { background: rgba(255, 255, 0, 0.7); transform: rotateY(-90deg) translateZ(100px); }
+        .top    { background: rgba(255, 0, 255, 0.7); transform: rotateX(-90deg) translateZ(100px); }
+        .bottom { background: rgba(0, 255, 255, 0.7); transform: rotateX(90deg) translateZ(100px); }
+    </style>
+</head>
+<body>
+    <div class="cube">
+        <div class="face front"><div class="face-content">Front</div></div>
+        <div class="face back"><div class="face-content">Back</div></div>
+        <div class="face right"><div class="face-content">Right</div></div>
+        <div class="face left"><div class="face-content">Left</div></div>
+        <div class="face top"><div class="face-content">Top</div></div>
+        <div class="face bottom"><div class="face-content">Bottom</div></div>
+    </div>
+
+    <script>
+        const cube = document.querySelector('.cube');
+        const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+        let currentRotation = { x: 0, y: 0 };
+
+        cube.addEventListener('click', rotateCube);
+
+        function rotateCube() {
+            const randomFace = faces[Math.floor(Math.random() * faces.length)];
+            const newRotation = getRotationForFace(randomFace);
+            
+            gsap.to(cube, {
+                duration: 1,
+                rotation: newRotation.x,
+                rotationY: newRotation.y,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    updateFaceText(randomFace);
+                    //updateFaceContentRotations();
+                }
+            });
+
+            currentRotation = newRotation;
+        }
+
+        function getRotationForFace(face) {
+            const rotations = {
+                front:  { x: 0, y: 0 },
+                back:   { x: 0, y: 180 },
+                right:  { x: 0, y: 90 },
+                left:   { x: 0, y: -90 },
+                top:    { x: -90, y: 0 },
+                bottom: { x: 90, y: 0 }
+            };
+
+            return {
+                x: rotations[face].x + Math.floor(Math.random() * 4) * 90,
+                y: rotations[face].y + Math.floor(Math.random() * 4) * 90
+            };
+        }
+
+        function updateFaceText(face) {
+            const faceElement = document.querySelector(`.${face} .face-content`);
+            faceElement.textContent = `${face} ${Math.floor(Math.random() * 100)}`;
+            faceElement.style.transform = `rotate(${0}deg)`;
+        }
+
+        function updateFaceContentRotations() {
+            const faceContents = document.querySelectorAll('.face-content');
+            faceContents.forEach(content => {
+                content.style.transform = `rotateX(${-currentRotation.x}deg) rotateY(${-currentRotation.y}deg)`;
+            });
+        }
+    </script>
+</body>
+</html>

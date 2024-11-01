@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      【案例】动态仪表盘
+    </title>
+    <style>/* styles */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#container {
+  margin: 0 auto;
+  width: 360px;
+  height: calc(100% - 100px);
+  /* background-color: #000; */
+}
+
+#timeline {
+  margin: 0 auto;
+  width: 360px;
+}</style>
+  </head>
+  <body>
+    <!-- docs: https://datav.iwencai.com/components/paradigm-chart/ -->
+
+<!-- libs -->
+<script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/0.5.0/bundle.umd.min.js"></script>
+<!-- <script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/paradigm-timeline/0.3.0/bundle.umd.min.js"></script> -->
+<script src="https://s.thsi.cn/cd/iwc-datav-standard-chart/paradigm-timeline/0.4.0/bundle.umd.min.js"></script>
+
+<!-- dom -->
+<div id="container"></div>
+<div id="timeline"></div>
+
+    <script type="module">
+      /* @dataset */
+// dataset
+const theme = 'light';
+const data = [{
+  gauge: 0.25,
+  time: '2021',
+  bar: [1, 2, 3, 4, 5]
+}, {
+  gauge: 0.8,
+  time: '2022',
+  bar: [2, 3, 4, 5, 1]
+}, {
+  gauge: 0.4,
+  time: '2023',
+  bar: [3, 4, 5, 1, 2]
+}, {
+  gauge: 0.05,
+  time: '2024',
+  bar: [4, 5, 1, 2, 3]
+}, {
+  gauge: 0.25,
+  time: '2025',
+  bar: [3, 2, 3, 2, 4]
+}]
+const palette = [
+  '#FF381A',
+  '#FF750D',
+  '#FFAA00',
+  '#63CC49',
+  '#12B287'
+];
+const palette3 = [
+  '#FF381A',
+  '#FFAA00',
+  '#12B287'
+];
+const themeColor = {
+  dark: {
+    axisLabel: 'rgba(255, 255, 255, 0.6)',
+    tick: 'rgba(255, 255, 255, 0.6)',
+    splitLine: '#fff',
+    title: 'rgba(255, 255, 255, 0.4)',
+    gagueTitle: 'rgba(255, 255, 255, 0.6)',
+    axisLine: '#383838',
+    detail: '#FFFFFF',
+    pointer: '#fff',
+    barLabel: '#fff'
+  },
+  light: {
+    axisLabel: '#00000099',
+    tick: 'rgba(0, 0, 0, 0.6)',
+    splitLine: '#000',
+    axisLine: '#eee',
+    gagueTitle: '#0000007F',
+    title: '#0000004C',
+    detail: '#000',
+    pointer: '#000',
+    barLabel: '#000'
+  }
+}
+
+const axisLabels = ['Strong\nSell', 'Sell', 'Neutral', 'Buy', 'Strong\nBuy'];
+const rank = ['Strong Sell', 'Sell', 'Neutral', 'Buy', 'Strong Buy'];
+
+const gaugeOption = {
+  type: 'gauge',
+  startAngle: 180,
+  endAngle: 0,
+  center: ['50%', '50%'],
+  radius: 120,
+  min: 0,
+  max: 1,
+  splitNumber: 4,
+  axisLine: {
+    lineStyle: {
+      width: 5,
+      color: [
+        [1, themeColor[theme].axisLine]
+      ]
+    }
+  },
+  progress: {
+    show: true,
+    width: 5,
+    itemStyle: {
+      color: new ThsDataVStandardChart.echarts.graphic.LinearGradient(
+        0, 0, 1, 0, palette.map((item, index) => ({
+          offset: 0.2 * (index + 1),
+          color: item
+        }))
+      )
+    }
+  },
+  pointer: {
+    icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+    length: 10,
+    width: 10,
+    offsetCenter: [0, -86],
+    itemStyle: {
+      color: themeColor[theme].pointer
+    }
+  },
+  axisTick: {
+    length: 4,
+    lineStyle: {
+      color: themeColor[theme].tick,
+      width: 1
+    }
+  },
+  splitLine: {
+    length: 8,
+    distance: 10,
+    lineStyle: {
+      color: themeColor[theme].splitLine,
+      width: 2
+    }
+  },
+  axisLabel: {
+    color: themeColor[theme].axisLabel,
+    distance: 0,
+    fontSize: 12,
+    formatter: (value) => {
+      const valueArr = [0, 0.25, 0.5, 0.75, 1];
+      const index = valueArr.findIndex(val => val === value);
+      return `{${index}|${axisLabels[index]}}`;
+    },
+    rich: {
+      0: {
+        color: themeColor[theme].axisLabel,
+        padding: [0, 0, 0, -60]
+      },
+      1: {
+        color: themeColor[theme].axisLabel,
+        padding: [-40, 0, 0, -40]
+      },
+      2: {
+        color: themeColor[theme].axisLabel,
+        padding: [-60, 0, 0, 0]
+      },
+      3: {
+        color: themeColor[theme].axisLabel,
+        padding: [-40, -40, 0, 0]
+      },
+      4: {
+        color: themeColor[theme].axisLabel,
+        padding: [0, -60, 0, 0]
+      }
+    }
+  },
+  title: {
+    offsetCenter: [0, '-35%'],
+    fontSize: 12,
+    color: themeColor[theme].gagueTitle
+  },
+  detail: {
+    fontSize: 20,
+    offsetCenter: [0, '-15%'],
+    // valueAnimation: true,
+    formatter: function(value) {
+      return rank.find((item, index) => {
+        const rankValue = index / 4;
+        return value - rankValue >= 0 && value - rankValue < 1 / 4;
+      })
+      return Math.round(value * 100) + '';
+    },
+    color: themeColor[theme].detail
+  },
+  data: [{
+    value: data[0].gauge,
+    name: data[0].time
+  }]
+};
+
+      /* @javascript */
+// code
+
+// initialize
+const chartIns = ThsDataVStandardChart.init(document.getElementById('container'));
+
+// events
+chartIns.on('dv:afterinit', () => {
+  window.addEventListener('resize', () => {
+    chartIns.getECharts().resize();
+  });
+});
+
+
+// config @see https://datav.iwencai.com/components/paradigm-chart/docs/apis/option
+let option = {
+  grid: {
+    top: '53%',
+    left: 0,
+    height: 120,
+    containLabel: true,
+  },
+  title: {
+    text: '43位分析师一致评级',
+    textStyle: {
+      color: themeColor[theme].title,
+      fontWeight: 'regular',
+      fontSize: 12,
+
+    },
+    top: '49%',
+    left: 'center'
+  },
+  xAxis: {
+    type: 'value',
+    splitLine: {
+      show: false
+    },
+    axisLabel: {
+      show: false
+    }
+  },
+  yAxis: {
+    type: 'category',
+    inverse: true,
+    axisTick: {
+      show: false
+    },
+    axisLine: {
+      show: false
+    },
+    data: ['指标1', '指标2', '指标3', '指标4', '指标5']
+  },
+  color: palette,
+  series: [
+    gaugeOption,
+    {
+      type: 'bar',
+      showBackground: true,
+      colorBy: 'data',
+      label: {
+        show: true,
+        verticalAlign: 'middle',
+        color: themeColor[theme].barLabel
+      },
+      barMaxWidth: 6,
+      itemStyle: {
+        borderRadius: 4,
+      },
+      labelLayout: function() {
+        return {
+          x: chartIns.getECharts().getWidth() - 25,
+        };
+      },
+      data: data[0].bar
+    },
+  ],
+};
+
+// render
+chartIns.play({
+  option
+});
+
+
+// 时间轴
+const timelineDom = document.getElementById('timeline');
+const TimeLine = new window.ThsDataVTimeline.Timeline(timelineDom, {
+  theme: 'mobile-simple',
+  data: data.map((item, index) => item.time),
+  config: {
+    axis: {},
+    dataIndex: data.length - 1,
+    // 动画
+    animation: {
+      intervalTime: 1000,
+    },
+  },
+})
+
+TimeLine.on('change', (e) => {
+  const {
+    index
+  } = e
+  chartIns.play({
+    option: {
+      series: [{
+        data: [{
+          value: data[index].gauge,
+          name: data[index].time,
+        }]
+      }, {
+        data: data[index].bar
+      }]
+    }
+  })
+})
+    </script>
+    
+  </body>
+</html>

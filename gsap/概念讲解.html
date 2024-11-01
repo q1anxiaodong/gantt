@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>证券概念讲解 - GSAP 动画</title>
+    
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .section {
+            /* opacity: 0; */
+            margin: 20px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            color: #0275d8;
+        }
+        .section p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>证券概念讲解</h1>
+
+        <div id="section1" class="section">
+            <h2>1. 什么是证券？</h2>
+            <p>证券是代表金融价值的文件或电子记录。它们可以是股票、债券、期权等金融工具。证券可以被买卖，并且通过证券市场来进行交易。</p>
+        </div>
+
+        <div id="section2" class="section">
+            <h2>2. 证券的种类</h2>
+            <p>证券的种类包括：
+                <ul>
+                    <li>股票：代表公司所有权的一部分。</li>
+                    <li>债券：借贷合约，发行人承诺在未来支付利息和本金。</li>
+                    <li>衍生品：如期权和期货，基于其他资产或指数的金融合约。</li>
+                </ul>
+            </p>
+        </div>
+
+        <div id="section3" class="section">
+            <h2>3. 证券市场</h2>
+            <p>证券市场是买卖证券的场所，分为一级市场和二级市场。一级市场是证券首次发行的地方，而二级市场是已经发行的证券之间的买卖。</p>
+        </div>
+
+        <div id="section4" class="section">
+            <h2>4. 证券监管</h2>
+            <p>证券市场通常由政府或监管机构进行监督，确保市场的透明度、公平性和稳定性。常见的监管机构包括美国的证券交易委员会（SEC）等。</p>
+        </div>
+    </div>
+
+    <script>
+        // 使用 GSAP 设置动画
+        gsap.timeline()
+            .from("#section1", { opacity: 0, y: 50, duration: 1 })
+            .from("#section2", { opacity: 0, y: 50, duration: 1 }, "+=0.5")
+            .from("#section3", { opacity: 0, y: 50, duration: 1 }, "+=0.5")
+            .from("#section4", { opacity: 0, y: 50, duration: 1 }, "+=0.5");
+    </script>
+
+</body>
+</html>

@@ -8,6 +8,7 @@ function parseData (rawData, key) {
     const curListLen = curList.length;
     for(let j = 0; j < curListLen; j++) {
       const elKey = curList[j][key];
+      const el = curList[j];
       if (!elKey) {
         continue;
       }
@@ -19,6 +20,7 @@ function parseData (rawData, key) {
     }
   }
 
+  console.log('map', map);
   const mapArr = Array.from(map);
   return Array.from({length: map.size}, (_, idx) => [undefined, undefined, ...mapArr[idx]]);
 }
